@@ -1,5 +1,6 @@
 package com.phManager.controller;
 
+import com.phManager.entity.RegistroVisita;
 import com.phManager.entity.ReservaZonaComun;
 import com.phManager.service.ReservaZonaComunService;
 import org.springframework.http.HttpStatus;
@@ -44,5 +45,9 @@ public class ReservaZonaComunController {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+    @PutMapping("/update")
+    public ResponseEntity<ReservaZonaComun> updateReservaZonaComun(@RequestBody ReservaZonaComun reservaZonaComun) {
+        return new ResponseEntity<>(reservaZonaComunService.updateReservaZonaComun(reservaZonaComun), HttpStatus.CREATED);
     }
 }

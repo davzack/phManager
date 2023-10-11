@@ -1,10 +1,9 @@
 $(document).ready(function() {
-    let tabla = document.querySelector("#table");
+    let tabla = document.querySelector("#table tbody");
     $.ajax({
         url: "http://localhost:8080/api/registrovisita/all",
         dataType: "json",
         success: function (response) {
-            $("#table tbody").remove();
             for (i = 0; i < response.length; i++) {
                 tabla.innerHTML += '<tr><td>' + response[i].idVisita +
                     '</td><td>' + response[i].nombreVisitante +
@@ -14,6 +13,32 @@ $(document).ready(function() {
                     '</td><td>' + "<a href='#' class='eliminar-link' data-bs-toggle='modal' data-bs-target='#deleteModal' onclick='deleteRegistroVisita(" + response[i].idVisita + ")'> <i class='material-icons'>delete</i></a> <a href='#' class='editar-link' data-bs-toggle='modal' data-bs-target='#updateModal' onclick='loadDataRegistroVisita(" + response[i].idVisita + ")'> <i class='material-icons'>edit_note</i></a>" +
                     '</td></tr>';
             }
+            tablaMain =$('#table').DataTable({
+                "language":{
+                        "decimal":        "",
+                        "emptyTable":     "No hay registros en la tabla",
+                        "info":           "Mostrando _START_ a _END_ - de _TOTAL_ registros",
+                        "infoEmpty":      "Mostrando 0 de 0 registros",
+                        "infoFiltered":   "(filtered from _MAX_ total entries)",
+                        "infoPostFix":    "",
+                        "thousands":      ",",
+                        "lengthMenu":     "Mostrar _MENU_ registros",
+                        "loadingRecords": "Cargando...",
+                        "processing":     "",
+                        "search":         "Buscar:",
+                        "zeroRecords":    "No se encontraron registros que coincidan con la busqueda",
+                        "paginate": {
+                            "first":      "Primero",
+                            "last":       "Último",
+                            "next":       "Siguiente",
+                            "previous":   "Anterior"
+                        },
+                        "aria": {
+                            "sortAscending":  ": activar para ordenar la columna de forma ascendente",
+                            "sortDescending": ": activar para ordenar columnas descendentes"
+                        } 
+                }
+            });
         }
     });
 
@@ -55,21 +80,6 @@ $(document).ready(function() {
     }, false);
 })();
 
-(function () {
-    'use strict';
-  
-    var form = document.getElementById('formIdA');
-    var enviarButton = document.getElementById('findIdA');
-  
-    enviarButton.addEventListener('click', function (event) {
-      if (!form.checkValidity()) {
-        event.preventDefault();
-        event.stopPropagation();
-      }
-  
-      form.classList.add('was-validated');
-    }, false);
-})();
   
 (function () { 
     'use strict';
@@ -85,13 +95,37 @@ $(document).ready(function() {
       form.classList.add('was-validated');
     }, false);
 })();
-  
+
+function reloadEvent(){
+    var table = $('#table').DataTable();
+    table.destroy();
+    $("#table tbody").empty(); 
+    let tabla=document.querySelector("#table tbody");  
+    $.ajax({
+        url: "http://localhost:8080/api/registrovisita/all",
+        dataType: "json",
+        success: function (response) {
+            for (i = 0; i < response.length; i++) {
+                tabla.innerHTML += '<tr><td>' + response[i].idVisita +
+                    '</td><td>' + response[i].nombreVisitante +
+                    '</td><td>' + response[i].identificacionVisitante +
+                    '</td><td>' + response[i].fechaVisita +
+                    '</td><td>' + response[i].residente.cedula +
+                    '</td><td>' + "<a href='#' class='eliminar-link' data-bs-toggle='modal' data-bs-target='#deleteModal' onclick='deleteRegistroVisita(" + response[i].idVisita + ")'> <i class='material-icons'>delete</i></a> <a href='#' class='editar-link' data-bs-toggle='modal' data-bs-target='#updateModal' onclick='loadDataRegistroVisita(" + response[i].idVisita + ")'> <i class='material-icons'>edit_note</i></a>" +
+                    '</td></tr>';
+            }
+            tablaMain =$('#table').DataTable({
+                "language":{
+                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json', 
+                }
+            });
+        }
+    });
+}
 function findByIdRegistroVisita() {
     var validFeedback = document.getElementById('formIdA');
     let idRegistroVisitaAConsultar = $("#inputBuscarRegistroVisita").val();
     let tabla = document.querySelector("#table");
-    const toastLiveExample = document.getElementById('liveToastRegistroVisita');
-    const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
     $.ajax({
         url: "http://localhost:8080/api/registrovisita/search/" + idRegistroVisitaAConsultar,
         type: "GET",
@@ -112,28 +146,6 @@ function findByIdRegistroVisita() {
             console.log(xhr.status)
             if (xhr.status === 404) {
                 validFeedback.classList.remove("was-validated");
-                toastBootstrap.show()
-            }
-        }
-    })
-}
-
-function findAllRegistroVisita() {
-    let tabla = document.querySelector("#table");
-    $.ajax({
-        url: "http://localhost:8080/api/registrovisita/all",
-        type: "GET",
-        dataType: "json",
-        success: function (response) {
-            $("#table tbody").remove();
-            for (i = 0; i < response.length; i++) {
-                tabla.innerHTML += '<tr><td>' + response[i].idVisita +
-                    '</td><td>' + response[i].nombreVisitante +
-                    '</td><td>' + response[i].identificacionVisitante +
-                    '</td><td>' + response[i].fechaVisita +
-                    '</td><td>' + response[i].residente.cedula +
-                    '</td><td>' + "<a href='#' class='eliminar-link' data-bs-toggle='modal' data-bs-target='#deleteModal' onclick='deleteRegistroVisita(" + response[i].idVisita + ")'> <i class='material-icons'>delete</i></a> <a href='#' class='editar-link' data-bs-toggle='modal' data-bs-target='#updateModal' onclick='loadDataRegistroVisita(" + response[i].idVisita + ")'> <i class='material-icons'>edit_note</i></a>" +
-                    '</td></tr>';
             }
         }
     })
@@ -166,7 +178,7 @@ function saveRegistroVisita() {
             $("#identificacionVisitante").val('');
             $("#fechaVisita").val('');
             $("#residenteCedula").val('');
-            findAllRegistroVisita();
+            reloadEvent();
         },
         error: function (xhr) {
         }
@@ -205,7 +217,7 @@ function updateRegistroVisita() {
             $("#updateIdentificacionVisitante").val('');
             $("#updateFechaVisita").val('');
             $("#updateResidenteCedula").val('');
-            findAllRegistroVisita();
+            reloadEvent();
         },
         error: function (xhr) {
         }
@@ -239,7 +251,7 @@ function deleteRegistroVisita(idVisita) {
             type: "DELETE",
             success: function () {
                 $("#deleteModal").modal("hide");
-                findAllRegistroVisita();
+                reloadEvent(); 
             }
         })
     })

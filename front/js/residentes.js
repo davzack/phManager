@@ -1,11 +1,10 @@
 $(document).ready(function() {
-    let tabla = document.querySelector("#table");
+    let tabla = document.querySelector("#table tbody");
     $.ajax({
         url: "http://localhost:8080/api/residente/all",
         type: "GET",
         dataType: "json",
         success: function (response) {
-            $("#table tbody").remove();
             for (i = 0; i < response.length; i++) {
                 tabla.innerHTML += '<tr><td>' + response[i].cedula +
                     '</td><td>' + response[i].nombre +
@@ -18,6 +17,11 @@ $(document).ready(function() {
                     '</td><td>' + "<a href='#' class='eliminar-link' data-bs-toggle='modal' data-bs-target='#deleteModal' onclick='deleteResidente(\"" + response[i].cedula + "\")'> <i class='material-icons'>delete</i></a> <a href='#' class='editar-link' data-bs-toggle='modal' data-bs-target='#updateModal' onclick='loadDataResidente(\"" + response[i].cedula + "\")'> <i class='material-icons'>edit_note</i></a>" +
                     '</td></tr>';
             }
+            tablaMain =$('#table').DataTable({
+                "language":{
+                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json', 
+                }
+            });
         }
     })
 
@@ -61,22 +65,6 @@ $(document).ready(function() {
  (function () {
     'use strict';
   
-    var form = document.getElementById('formId');
-    var enviarButton = document.getElementById('findIdA');
-  
-    enviarButton.addEventListener('click', function (event) {
-      if (!form.checkValidity()) {
-        event.preventDefault();
-        event.stopPropagation();
-      }
-  
-      form.classList.add('was-validated');
-    }, false);
- })();
-  
- (function () {
-    'use strict';
-  
     var form = document.getElementById('formUpdate');
     var enviarButton = document.getElementById('actualizar');
   
@@ -92,12 +80,62 @@ $(document).ready(function() {
 ///////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
+
+function reloadEvent(){
+    var table = $('#table').DataTable();
+    table.destroy();
+    $("#table tbody").empty(); 
+    let tabla=document.querySelector("#table tbody");  
+    $.ajax({
+        url: "http://localhost:8080/api/residente/all",
+        type: "GET",
+        dataType: "json", 
+        success: function (response) {
+            for (i = 0; i < response.length; i++) {
+                tabla.innerHTML += '<tr><td>' + response[i].cedula +
+                    '</td><td>' + response[i].nombre +
+                    '</td><td>' + response[i].apellido +
+                    '</td><td>' + response[i].telefono +
+                    '</td><td>' + response[i].correo +
+                    '</td><td>' + response[i].fechaNacimiento +
+                    '</td><td>' + response[i].tipoResidente +
+                    '</td><td>' + response[i].apartamento.idApartamento +
+                    '</td><td>' + "<a href='#' class='eliminar-link' data-bs-toggle='modal' data-bs-target='#deleteModal' onclick='deleteResidente(\"" + response[i].cedula + "\")'> <i class='material-icons'>delete</i></a> <a href='#' class='editar-link' data-bs-toggle='modal' data-bs-target='#updateModal' onclick='loadDataResidente(\"" + response[i].cedula + "\")'> <i class='material-icons'>edit_note</i></a>" +
+                    '</td></tr>';
+            }
+            tablaMain =$('#table').DataTable({
+                "language":{
+                        "decimal":        "",
+                        "emptyTable":     "No hay registros en la tabla",
+                        "info":           "Mostrando _START_ a _END_ - de _TOTAL_ registros",
+                        "infoEmpty":      "Mostrando 0 de 0 registros",
+                        "infoFiltered":   "(filtered from _MAX_ total entries)",
+                        "infoPostFix":    "",
+                        "thousands":      ",",
+                        "lengthMenu":     "Mostrar _MENU_ registros",
+                        "loadingRecords": "Cargando...",
+                        "processing":     "",
+                        "search":         "Buscar:",
+                        "zeroRecords":    "No se encontraron registros que coincidan con la busqueda",
+                        "paginate": {
+                            "first":      "Primero",
+                            "last":       "Último",
+                            "next":       "Siguiente",
+                            "previous":   "Anterior"
+                        },
+                        "aria": {
+                            "sortAscending":  ": activar para ordenar la columna de forma ascendente",
+                            "sortDescending": ": activar para ordenar columnas descendentes"
+                        } 
+                }
+            });
+        }
+    })
+}
 function findByIdResidente() {
     var validFeedback = document.getElementById('formId');
     let cedulaAConsultar = $("#inputBuscarResidente").val();
     let tabla = document.querySelector("#table");
-    const toastLiveExample = document.getElementById('liveToastResidente');
-    const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
     $.ajax({
         url: "http://localhost:8080/api/residente/search/" + cedulaAConsultar,
         type: "GET",
@@ -121,35 +159,11 @@ function findByIdResidente() {
             console.log(xhr.status)
             if (xhr.status === 404) {
                 validFeedback.classList.remove("was-validated");
-                toastBootstrap.show()
             }
         }
     })
 }
 
-function findAllResidentes() {
-    let tabla = document.querySelector("#table");
-    $.ajax({
-        url: "http://localhost:8080/api/residente/all",
-        type: "GET",
-        dataType: "json",
-        success: function (response) {
-            $("#table tbody").remove();
-            for (i = 0; i < response.length; i++) {
-                tabla.innerHTML += '<tr><td>' + response[i].cedula +
-                    '</td><td>' + response[i].nombre +
-                    '</td><td>' + response[i].apellido +
-                    '</td><td>' + response[i].telefono +
-                    '</td><td>' + response[i].correo +
-                    '</td><td>' + response[i].fechaNacimiento +
-                    '</td><td>' + response[i].tipoResidente +
-                    '</td><td>' + response[i].apartamento.idApartamento +
-                    '</td><td>' + "<a href='#' class='eliminar-link' data-bs-toggle='modal' data-bs-target='#deleteModal' onclick='deleteResidente(\"" + response[i].cedula + "\")'> <i class='material-icons'>delete</i></a> <a href='#' class='editar-link' data-bs-toggle='modal' data-bs-target='#updateModal' onclick='loadDataResidente(\"" + response[i].cedula + "\")'> <i class='material-icons'>edit_note</i></a>" +
-                    '</td></tr>';
-            }
-        }
-    })
-}
 
 function saveResidente() {
     let cedula = $("#cedulaResidente").val();
@@ -192,7 +206,7 @@ function saveResidente() {
             $("#fechaNacimientoResidente").val('');
             $("#tipoResidente").val('');
             $("#idApartamentoResidente").val('');
-            findAllResidentes();
+            reloadEvent()
         },
         error: function (xhr) {
         }
@@ -241,7 +255,7 @@ function updateResidente() {
             $("#updateFechaNacimientoResidente").val('');
             $("#updateTipoResidente").val('');
             $("#updateIdApartamentoResidente").val('');
-            findAllResidentes();
+            reloadEvent();
         },
         error: function (xhr) {
         }
@@ -279,8 +293,9 @@ function deleteResidente(cedulaResidente) {
             type: "DELETE",
             success: function () {
                 $("#deleteModal").modal("hide");
-                findAllResidentes();
+                reloadEvent();
             }
         })
     })
 }
+ 

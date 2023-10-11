@@ -1,10 +1,10 @@
 $(document).ready(function() {
-    let tabla = document.querySelector("#table");
+    let tabla = document.querySelector("#table tbody"); 
     $.ajax({
         url: "http://localhost:8080/api/asignacionparqueadero/all",
+        type: "GET", 
         dataType: "json",
         success: function (response) {
-            $("#table tbody").remove();
             for (i = 0; i < response.length; i++) {
                 tabla.innerHTML += '<tr><td>' + response[i].idAsignacion +
                     '</td><td>' + response[i].placaVehiculo +
@@ -17,6 +17,32 @@ $(document).ready(function() {
                     '</td><td>' + "<a href='#' class='eliminar-link' data-bs-toggle='modal' data-bs-target='#deleteModal' onclick='deleteAsignacionParqueadero(" + response[i].idAsignacion + ")'> <i class='material-icons'>delete</i></a> <a href='#' class='editar-link' data-bs-toggle='modal' data-bs-target='#updateModal' onclick='loadDataAsignacionParqueadero(" + response[i].idAsignacion + ")'> <i class='material-icons'>edit_note</i></a>" +
                     '</td></tr>';
             }
+            tablaMain =$('#table').DataTable({
+                "language":{
+                        "decimal":        "",
+                        "emptyTable":     "No hay registros en la tabla",
+                        "info":           "Mostrando _START_ a _END_ - de _TOTAL_ registros",
+                        "infoEmpty":      "Mostrando 0 de 0 registros",
+                        "infoFiltered":   "(filtered from _MAX_ total entries)",
+                        "infoPostFix":    "",
+                        "thousands":      ",",
+                        "lengthMenu":     "Mostrar _MENU_ registros",
+                        "loadingRecords": "Cargando...",
+                        "processing":     "",
+                        "search":         "Buscar:",
+                        "zeroRecords":    "No se encontraron registros que coincidan con la busqueda",
+                        "paginate": {
+                            "first":      "Primero",
+                            "last":       "Último",
+                            "next":       "Siguiente",
+                            "previous":   "Anterior"
+                        },
+                        "aria": {
+                            "sortAscending":  ": activar para ordenar la columna de forma ascendente",
+                            "sortDescending": ": activar para ordenar columnas descendentes"
+                        } 
+                }
+            });
         }
     });
 
@@ -76,21 +102,6 @@ $(document).ready(function() {
     }, false);
 })();
 
-(function () {
-    'use strict';
-  
-    var form = document.getElementById('formIdA');
-    var enviarButton = document.getElementById('findIdA');
-  
-    enviarButton.addEventListener('click', function (event) {
-      if (!form.checkValidity()) {
-        event.preventDefault();
-        event.stopPropagation();
-      }
-  
-      form.classList.add('was-validated');
-    }, false);
-})();
   
 (function () { 
     'use strict';
@@ -106,50 +117,17 @@ $(document).ready(function() {
       form.classList.add('was-validated');
     }, false);
 })();
-  
-function findByIdAsignacionParqueadero() {
-    var validFeedback = document.getElementById('formIdA');
-    let idAsignacionParqueaderoAConsultar = $("#inputBuscarAsignacionParqueadero").val();
-    let tabla = document.querySelector("#table");
-    const toastLiveExample = document.getElementById('liveToastAsignacionParqueadero');
-    const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
-    $.ajax({
-        url: "http://localhost:8080/api/asignacionparqueadero/search/" + idAsignacionParqueaderoAConsultar,
-        type: "GET",
-        dataType: "json",
-        success: function (response) {
-            validFeedback.classList.remove("was-validated");
-            $("#inputBuscarAsignacionParqueadero").val("");
-            $("#table tbody").remove();
-            tabla.innerHTML += '<tr><td>' + response.idAsignacion +
-                '</td><td>' + response.placaVehiculo +
-                '</td><td>' + response.estadoAsignacion +
-                '</td><td>' + response.fechaInicio +
-                '</td><td>' + response.fechaFin +
-                '</td><td>' + response.fechaAsignacion +
-                '</td><td>' + response.residente.cedula +
-                '</td><td>' + response.parqueadero.idParqueadero +
-                '</td><td>' + "<a href='#' class='eliminar-link' data-bs-toggle='modal' data-bs-target='#deleteModal' onclick='deleteAsignacionParqueadero(" + response.idAsignacion + ")'> <i class='material-icons'>delete</i></a> <a href='#' class='editar-link' data-bs-toggle='modal' data-bs-target='#updateModal' onclick='loadDataAsignacionParqueadero(" + response.idAsignacion + ")'> <i class='material-icons'>edit_note</i></a>" +
-                '</td></tr>';
-        },
-        error: function (xhr) {
-            console.log(xhr.status)
-            if (xhr.status === 404) {
-                validFeedback.classList.remove("was-validated");
-                toastBootstrap.show()
-            }
-        }
-    })
-}
 
-function findAllAsignacionParqueadero() {
-    let tabla = document.querySelector("#table");
+function reloadEvent(){
+    var table = $('#table').DataTable();
+    table.destroy();
+    $("#table tbody").empty(); 
+    let tabla=document.querySelector("#table tbody");  
     $.ajax({
         url: "http://localhost:8080/api/asignacionparqueadero/all",
-        type: "GET",
+        type: "GET", 
         dataType: "json",
         success: function (response) {
-            $("#table tbody").remove();
             for (i = 0; i < response.length; i++) {
                 tabla.innerHTML += '<tr><td>' + response[i].idAsignacion +
                     '</td><td>' + response[i].placaVehiculo +
@@ -161,6 +139,40 @@ function findAllAsignacionParqueadero() {
                     '</td><td>' + response[i].parqueadero.idParqueadero +
                     '</td><td>' + "<a href='#' class='eliminar-link' data-bs-toggle='modal' data-bs-target='#deleteModal' onclick='deleteAsignacionParqueadero(" + response[i].idAsignacion + ")'> <i class='material-icons'>delete</i></a> <a href='#' class='editar-link' data-bs-toggle='modal' data-bs-target='#updateModal' onclick='loadDataAsignacionParqueadero(" + response[i].idAsignacion + ")'> <i class='material-icons'>edit_note</i></a>" +
                     '</td></tr>';
+            }
+            tablaMain =$('#table').DataTable({
+                "language":{
+                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json', 
+                } 
+            });
+        }
+    });
+}
+
+function findByIdApartamento(){
+    var validFeedback = document.getElementById('formId');
+    let idAConsultar=$("#inputBuscar").val();
+    let tabla=document.querySelector("#table");
+    $.ajax({
+        url: "http://localhost:8080/api/apartamento/search/"+ idAConsultar,
+        type: "GET",
+        dataType: "json",
+        success: function(response){
+
+            validFeedback.classList.remove("was-validated");
+            $("#inputBuscar").val("");
+            $("#table tbody").remove();
+            tabla.innerHTML += '<tr><td>' + response.idApartamento +
+            '</td><td>' + response.numeroApartamento +
+            '</td><td>' + response.torre +
+            '</td><td>' + "<a href='#' class='eliminar-link' data-bs-toggle='modal' data-bs-target='#deleteModal' onclick='deleteApartamento(\""+response.idApartamento+"\")'> <i class='material-icons'>delete</i></a> <a href='#' class='editar-link' data-bs-toggle='modal' data-bs-target='#updateModal' onclick='loadDataApartamento(\""+response.idApartamento+"\")'> <i class='material-icons'>edit_note</i></a>" +
+            '</td></tr>';
+        },
+        error: function(xhr) {
+            console.log(xhr.status)
+            if(xhr.status===404){
+                validFeedback.classList.remove("was-validated");
+        
             }
         }
     })
@@ -206,7 +218,7 @@ function saveAsignacionParqueadero() {
             $("#fechaAsignacionAsignacionParqueadero").val('');
             $("#residenteCedulaAsignacionParqueadero").val('');
             $("#parqueaderoIdAsignacionParqueadero").val('');
-            findAllAsignacionParqueadero();
+            reloadEvent();
         },
         error: function (xhr) {
         }
@@ -256,7 +268,7 @@ function updateAsignacionParqueadero() {
             $("#updateFechaAsignacionAsignacionParqueadero").val('');
             $("#updateResidenteCedulaAsignacionParqueadero").val('');
             $("#updateParqueaderoIdAsignacionParqueadero").val('');
-            findAllAsignacionParqueadero();
+            reloadEvent();
         },
         error: function (xhr) {
         }
@@ -292,7 +304,7 @@ function deleteAsignacionParqueadero(idAsignacion) {
             type: "DELETE",
             success: function () {
                 $("#deleteModal").modal("hide");
-                findAllAsignacionParqueadero();
+                reloadEvent(); 
             }
         })
     })
