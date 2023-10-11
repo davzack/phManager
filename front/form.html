@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link rel="stylesheet" href="css/menu.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  </head>
+  <body>
+    <nav class="navbar">
+        <div class="container-fluid">
+          <a class="navbar-brand mx-5 " href="#">
+            <img src="css/LIMA-1-removebg-preview.png" alt="" width="90px" height="50px">
+          </a>
+          <a href="index.html">Admin Panel</a>
+        </div>
+    </nav>
+    <div class="row">
+        <div class="col text-center">
+            <h2>Sugerencias</h2>
+            <p>Enviar sugeencias</p>
+        </div>
+    </div>
+    <div class="m-5">
+        <form class="row g-3 needs-validation" id="formCreate" novalidate>
+            <div class="col-md-12">
+                <label for="validationCustom02" class="form-label">Asunto</label>
+                <input type="text" class="form-control" id="asuntoSugerencia" required>
+                <div class="valid-feedback" id="v1">
+                    ¡Se ve bien!
+                </div>
+                <div class="invalid-feedback" id="v2">
+                    Por favor, digite un asunto.
+                </div>
+            </div>
+            <div class="col-md-12">
+                <label for="validationCustom03" class="form-label">Descripcion</label>
+                <input type="text" class="form-control" id="descripcionSugerencia" required>
+                <div class="valid-feedback" id="v1">
+                    ¡Se ve bien!
+                </div>
+                <div class="invalid-feedback" id="v2">
+                    Por favor, digite una descripcion.
+                </div>
+            </div>
+            <div class="col-md-12">
+                <label for="validationCustom07" class="form-label">Estado</label>
+                <select class="form-select" id="estadoSugerencia" required>
+                    <option selected disabled value="">...</option>
+                    <option value="Nuevo">Nuevo</option>
+                    <option value="En revision">En revision</option>
+                    <option value="Aprobada">Aprobada</option>
+                    <option value="Cerrada">Cerrada</option>
+                </select>
+                <div class="valid-feedback" id="v1">
+                    ¡Se ve bien!
+                </div>
+                <div class="invalid-feedback" id="v2">
+                    Por favor, seleccione un estado.
+                </div>
+            </div>
+
+            <button class="btn btn-success" id="enviar">Enviar sugerencia</button> 
+        </form>
+    </div>
+    <script src="js/form.js"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  </body>
+</html>

@@ -28,3 +28,5 @@ window.addEventListener("resize", () => {
       elemento.classList.remove("collapsed");
     }
   }); 
+
+  
