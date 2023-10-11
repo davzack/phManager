@@ -1,0 +1,47 @@
+.navbar{
+    background-color: #10163A; 
+}
+
+.home {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+
+}
+.card {
+    width: 25% !important;
+    height: 28vh !important;
+    padding: 2%;
+    margin: 1%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    background-color: #CCCCCC  !important;
+    color: black;
+    font-weight: 600;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif  !important;
+    font-size: 0.9em; 
+    box-shadow: 0 0 15px #CCCCCC;
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.7);
+} 
+.card:hover{
+    background-color: #10163A !important;
+    fill: #ffff;
+    color: white; 
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.9);
+}
+img {
+    vertical-align: middle;
+    border-style: none;
+}
+
+@media (max-width: 768px) { 
+    .card {
+        width: 90% !important;
+        height: 28vh !important;
+    }
+}
