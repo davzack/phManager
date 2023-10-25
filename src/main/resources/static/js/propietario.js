@@ -1,9 +1,16 @@
+const itemLocalStorage="jwtLlave"
+const api="http://localhost:8080/api"
+const path="propietario"
+
 $(document).ready(function() {
     let tabla = document.querySelector("#table tbody");
-    $.ajax({
-        url: "http://localhost:8080/api/propietario/all",
+    $.ajax({ 
+        url: `${api}/${path}/all`,
         type: "GET",
         dataType: "json",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function (response) {
             for (i = 0; i < response.length; i++) {
                 tabla.innerHTML += '<tr><td>' + response[i].cedula +
@@ -18,28 +25,7 @@ $(document).ready(function() {
             }
             tablaMain =$('#table').DataTable({
                 "language":{
-                        "decimal":        "",
-                        "emptyTable":     "No hay registros en la tabla",
-                        "info":           "Mostrando _START_ a _END_ - de _TOTAL_ registros",
-                        "infoEmpty":      "Mostrando 0 de 0 registros",
-                        "infoFiltered":   "(filtered from _MAX_ total entries)",
-                        "infoPostFix":    "",
-                        "thousands":      ",",
-                        "lengthMenu":     "Mostrar _MENU_ registros",
-                        "loadingRecords": "Cargando...",
-                        "processing":     "",
-                        "search":         "Buscar:",
-                        "zeroRecords":    "No se encontraron registros que coincidan con la busqueda",
-                        "paginate": {
-                            "first":      "Primero",
-                            "last":       "Último",
-                            "next":       "Siguiente",
-                            "previous":   "Anterior"
-                        },
-                        "aria": {
-                            "sortAscending":  ": activar para ordenar la columna de forma ascendente",
-                            "sortDescending": ": activar para ordenar columnas descendentes"
-                        } 
+                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json', 
                 }
             });
         }
@@ -48,9 +34,12 @@ $(document).ready(function() {
     let listIdApartamento = document.querySelector("#idApartamentoPropietario");
     let listIdApartamentoAC= document.querySelector("#updateIdApartamentoPropietario");
     $.ajax({
-        url: "http://localhost:8080/api/apartamento/all",
+        url: `${api}/apartamento/all`,
         type: "GET",
         dataType: "json",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function(response) {
             for(i=0;i<response.length;i++){
                 listIdApartamento.innerHTML += '<option value="' +response[i].idApartamento +'">'
@@ -68,10 +57,8 @@ $(document).ready(function() {
 );
 (function () {
     'use strict';
-  
     var form = document.getElementById('formCreate');
     var enviarButton = document.getElementById('enviar');
-  
     enviarButton.addEventListener('click', function (event) {
       if (!form.checkValidity()) {
         event.preventDefault();
@@ -108,9 +95,12 @@ function reloadEvent(){
     $("#table tbody").empty(); 
     let tabla=document.querySelector("#table tbody");  
     $.ajax({
-        url: "http://localhost:8080/api/propietario/all",
+        url: `${api}/${path}/all`,
         type: "GET",
         dataType: "json",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function (response) {
             for (i = 0; i < response.length; i++) {
                 tabla.innerHTML += '<tr><td>' + response[i].cedula +
@@ -136,9 +126,12 @@ function findByIdPropietario() {
     let cedulaAConsultar = $("#inputBuscarPropietario").val();
     let tabla = document.querySelector("#table");
     $.ajax({
-        url: "http://localhost:8080/api/propietario/search/" + cedulaAConsultar,
+        url: `${api}/${path}/search/${cedulaAConsultar}`,
         type: "GET",
         dataType: "json",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function (response) {
 
             validFeedback.classList.remove("was-validated");
@@ -187,10 +180,13 @@ function savePropietario() {
         }
     }
     $.ajax({
-        url: "http://localhost:8080/api/propietario/save",
+        url: `${api}/${path}/save`,
         type: "POST",
         data: JSON.stringify(data),
         contentType: "application/json",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function () {
             validFeedback.classList.remove("was-validated");
             $("#createModal").modal("hide");
@@ -233,10 +229,13 @@ function updatePropietario() {
         }
     }
     $.ajax({
-        url: "http://localhost:8080/api/propietario/update",
+        url: `${api}/${path}/update`,
         type: "PUT",
         data: JSON.stringify(data),
         contentType: "application/json",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function () {
             validFeedback.classList.remove("was-validated");
             $("#updateModal").modal("hide");
@@ -257,9 +256,12 @@ function updatePropietario() {
 
 function loadDataPropietario(cedulaPropietario) {
     $.ajax({
-        url: "http://localhost:8080/api/propietario/search/" + cedulaPropietario,
+        url: `${api}/${path}/search/${cedulaPropietario}`,
         type: "GET",
         dataType: "json",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function (respuesta) {
             $("#updateCedulaPropietario").val(respuesta.cedula);
             $("#updateNombrePropietario").val(respuesta.nombre)
@@ -277,12 +279,15 @@ function searchPropietario(cedulaPropietario) {
     $("#inputBuscarPropietario").val(cedulaPropietario);
     findByIdPropietario()
 }
-
+ Mi
 function deletePropietario(cedulaPropietario) {
     $("#deleteConfirmPropietario").off("click").on("click", function () {
         $.ajax({
-            url: "http://localhost:8080/api/propietario/delete/" + cedulaPropietario,
+            url: `${api}/${path}/delete/${cedulaPropietario}`,
             type: "DELETE",
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+            },
             success: function () {
                 $("#deleteModal").modal("hide");
                 reloadEvent(); 

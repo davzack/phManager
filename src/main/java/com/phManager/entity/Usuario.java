@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "user")
+@Table(name = "userdb")
 public class Usuario {
     @Id
     @Column(nullable = false, length = 15)
@@ -14,9 +14,9 @@ public class Usuario {
     private String password;
     @Column(nullable = false, length = 50, unique = true)
     private String email;
-    @Column(nullable = false, columnDefinition = "TINYINT")
+    @Column(nullable = false, columnDefinition = "SMALLINT")
     private Boolean locked;
-    @Column(nullable = false, columnDefinition = "TINYINT")
+    @Column(nullable = false, columnDefinition = "SMALLINT")
     private Boolean disabled;
     @OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
     private List<UsuarioRol> roles;

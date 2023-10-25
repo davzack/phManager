@@ -1,13 +1,18 @@
 ///////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
-
+const itemLocalStorage="jwtLlave"
+const api="http://localhost:8080/api"
+const path="apartamento"
 $(document).ready(function() {
     let tabla=document.querySelector("#table tbody");
     $.ajax({
-        url: "http://localhost:8080/api/apartamento/all",
+        url: `${api}/${path}/all`,
         type: "GET",
         dataType: "json",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function(response){
             for(i=0;i<response.length;i++){
                 tabla.innerHTML += '<tr><td>' + response[i].idApartamento +
@@ -65,9 +70,12 @@ function reloadEvent(){
     $("#table tbody").empty(); 
     let tabla=document.querySelector("#table tbody"); 
     $.ajax({
-        url: "http://localhost:8080/api/apartamento/all",
+        url: `${api}/${path}/all`,
         type: "GET",
         dataType: "json",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function(response){
             for(i=0;i<response.length;i++){
                 tabla.innerHTML += '<tr><td>' + response[i].idApartamento +
@@ -110,9 +118,12 @@ function findByIdApartamento(){
     let idAConsultar=$("#inputBuscar").val();
     let tabla=document.querySelector("#table");
     $.ajax({
-        url: "http://localhost:8080/api/apartamento/search/"+ idAConsultar,
+        url: `${api}/${path}/search/${idAConsultar}`,
         type: "GET",
         dataType: "json",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function(response){
 
             validFeedback.classList.remove("was-validated");
@@ -146,10 +157,13 @@ function saveApartamento(){
         torre: torre,
     }
     $.ajax({
-        url:"http://localhost:8080/api/apartamento/save",
+        url: `${api}/${path}/save`,
         type:"POST",
         data: JSON.stringify(data),
         contentType:"application/json", 
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function(){
             validFeedback.classList.remove("was-validated");
             $("#createModal").modal("hide");
@@ -177,10 +191,13 @@ function updateApartamento(){
         torre: torre
     }
     $.ajax({
-        url:"http://localhost:8080/api/apartamento/update",
+        url: `${api}/${path}/update`,
         type:"PUT",
         data: JSON.stringify(data),
         contentType:"application/json",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function(){
             validFeedback.classList.remove("was-validated");
             $("#updateModal").modal("hide");
@@ -196,9 +213,12 @@ function updateApartamento(){
 
 function loadDataApartamento(idApartamento){
     $.ajax({
-        url: "http://localhost:8080/api/apartamento/search/"+ idApartamento,
+        url: `${api}/${path}/search/${idApartamento}`,
         type: "GET",
         dataType: "json",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function(respuesta){
             $("#updateIdApartamento").val(respuesta.idApartamento);
             $("#updateNumberApartamento").val(respuesta.numeroApartamento)
@@ -210,8 +230,11 @@ function loadDataApartamento(idApartamento){
 function deleteApartamento(idApartamento){
     $("#deleteConfirm").off("click").on("click", function(){
         $.ajax({
-            url: "http://localhost:8080/api/apartamento/delete/"+idApartamento,
+            url: `${api}/${path}/delete/${idApartamento}`,
             type: "DELETE",
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+            },
             success: function(){
                 $("#deleteModal").modal("hide");
                 reloadEvent();  

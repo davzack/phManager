@@ -1,8 +1,15 @@
+const itemLocalStorage="jwtLlave"
+const api="http://localhost:8080/api"
+const path="registrovisita"
 $(document).ready(function() {
     let tabla = document.querySelector("#table tbody");
     $.ajax({
-        url: "http://localhost:8080/api/registrovisita/all",
+        url: `${api}/${path}/all`,
         dataType: "json",
+        type: "GET",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function (response) {
             for (i = 0; i < response.length; i++) {
                 tabla.innerHTML += '<tr><td>' + response[i].idVisita +
@@ -15,28 +22,7 @@ $(document).ready(function() {
             }
             tablaMain =$('#table').DataTable({
                 "language":{
-                        "decimal":        "",
-                        "emptyTable":     "No hay registros en la tabla",
-                        "info":           "Mostrando _START_ a _END_ - de _TOTAL_ registros",
-                        "infoEmpty":      "Mostrando 0 de 0 registros",
-                        "infoFiltered":   "(filtered from _MAX_ total entries)",
-                        "infoPostFix":    "",
-                        "thousands":      ",",
-                        "lengthMenu":     "Mostrar _MENU_ registros",
-                        "loadingRecords": "Cargando...",
-                        "processing":     "",
-                        "search":         "Buscar:",
-                        "zeroRecords":    "No se encontraron registros que coincidan con la busqueda",
-                        "paginate": {
-                            "first":      "Primero",
-                            "last":       "Último",
-                            "next":       "Siguiente",
-                            "previous":   "Anterior"
-                        },
-                        "aria": {
-                            "sortAscending":  ": activar para ordenar la columna de forma ascendente",
-                            "sortDescending": ": activar para ordenar columnas descendentes"
-                        } 
+                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json', 
                 }
             });
         }
@@ -45,9 +31,12 @@ $(document).ready(function() {
     let listIdResidente = document.querySelector("#residenteCedula");
     let listIdResidenteAC= document.querySelector("#updateResidenteCedula");
     $.ajax({
-        url: "http://localhost:8080/api/residente/all",
+        url: `${api}/residente/all`,
         type: "GET",
         dataType: "json",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function(response) {
             for(i=0;i<response.length;i++){
                 listIdResidente.innerHTML += '<option value="' +response[i].cedula +'">'
@@ -102,8 +91,12 @@ function reloadEvent(){
     $("#table tbody").empty(); 
     let tabla=document.querySelector("#table tbody");  
     $.ajax({
-        url: "http://localhost:8080/api/registrovisita/all",
+        url: `${api}/${path}/all`,
         dataType: "json",
+        type: "GET",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function (response) {
             for (i = 0; i < response.length; i++) {
                 tabla.innerHTML += '<tr><td>' + response[i].idVisita +
@@ -127,9 +120,12 @@ function findByIdRegistroVisita() {
     let idRegistroVisitaAConsultar = $("#inputBuscarRegistroVisita").val();
     let tabla = document.querySelector("#table");
     $.ajax({
-        url: "http://localhost:8080/api/registrovisita/search/" + idRegistroVisitaAConsultar,
+        url: `${api}/${path}/search/${idRegistroVisitaAConsultar}`,
         type: "GET",
         dataType: "json",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function (response) {
             validFeedback.classList.remove("was-validated");
             $("#inputBuscarRegistroVisita").val("");
@@ -167,10 +163,13 @@ function saveRegistroVisita() {
         }
     }
     $.ajax({
-        url: "http://localhost:8080/api/registrovisita/save",
+        url: `${api}/${path}/save`,
         type: "POST",
         data: JSON.stringify(data),
         contentType: "application/json",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function () {
             validFeedback.classList.remove("was-validated");
             $("#createModal").modal("hide");
@@ -205,10 +204,13 @@ function updateRegistroVisita() {
         }
     }
     $.ajax({
-        url: "http://localhost:8080/api/registrovisita/update",
+        url: `${api}/${path}/update`,
         type: "PUT",
         data: JSON.stringify(data),
         contentType: "application/json",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function () {
             validFeedback.classList.remove("was-validated");
             $("#updateModal").modal("hide");
@@ -226,9 +228,12 @@ function updateRegistroVisita() {
 
 function loadDataRegistroVisita(idVisita) {
     $.ajax({
-        url: "http://localhost:8080/api/registrovisita/search/" + idVisita,
+        url: `${api}/${path}/search/${idVisita}`,
         type: "GET",
         dataType: "json",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function (respuesta) {
             $("#updateIdVisita").val(respuesta.idVisita);
             $("#updateNombreVisitante").val(respuesta.nombreVisitante)
@@ -239,16 +244,14 @@ function loadDataRegistroVisita(idVisita) {
     })
 }
 
-function searchRegistroVisita(idVisita) {
-    $("#inputBuscarRegistroVisita").val(idVisita);
-    findByIdRegistroVisita();
-}
-
 function deleteRegistroVisita(idVisita) {
     $("#deleteConfirmRegistroVisita").off("click").on("click", function () {
         $.ajax({
-            url: "http://localhost:8080/api/registrovisita/delete/" + idVisita,
+            url: `${api}/${path}/delete/${idVisita}`,
             type: "DELETE",
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+            },
             success: function () {
                 $("#deleteModal").modal("hide");
                 reloadEvent(); 

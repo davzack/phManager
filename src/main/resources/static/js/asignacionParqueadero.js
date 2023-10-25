@@ -1,9 +1,17 @@
+const itemLocalStorage="jwtLlave"
+const api="http://localhost:8080/api"
+const path="asignacionparqueadero"
+
+
 $(document).ready(function() {
     let tabla = document.querySelector("#table tbody"); 
     $.ajax({
-        url: "http://localhost:8080/api/asignacionparqueadero/all",
+        url: `${api}/${path}/all`,
         type: "GET", 
         dataType: "json",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function (response) {
             for (i = 0; i < response.length; i++) {
                 tabla.innerHTML += '<tr><td>' + response[i].idAsignacion +
@@ -19,28 +27,7 @@ $(document).ready(function() {
             }
             tablaMain =$('#table').DataTable({
                 "language":{
-                        "decimal":        "",
-                        "emptyTable":     "No hay registros en la tabla",
-                        "info":           "Mostrando _START_ a _END_ - de _TOTAL_ registros",
-                        "infoEmpty":      "Mostrando 0 de 0 registros",
-                        "infoFiltered":   "(filtered from _MAX_ total entries)",
-                        "infoPostFix":    "",
-                        "thousands":      ",",
-                        "lengthMenu":     "Mostrar _MENU_ registros",
-                        "loadingRecords": "Cargando...",
-                        "processing":     "",
-                        "search":         "Buscar:",
-                        "zeroRecords":    "No se encontraron registros que coincidan con la busqueda",
-                        "paginate": {
-                            "first":      "Primero",
-                            "last":       "Último",
-                            "next":       "Siguiente",
-                            "previous":   "Anterior"
-                        },
-                        "aria": {
-                            "sortAscending":  ": activar para ordenar la columna de forma ascendente",
-                            "sortDescending": ": activar para ordenar columnas descendentes"
-                        } 
+                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json', 
                 }
             });
         }
@@ -49,9 +36,12 @@ $(document).ready(function() {
     let listIdResidente = document.querySelector("#residenteCedulaAsignacionParqueadero");
     let listIdResidenteAC= document.querySelector("#updateResidenteCedulaAsignacionParqueadero");
     $.ajax({
-        url: "http://localhost:8080/api/residente/all",
+        url: `${api}/residente/all`,
         type: "GET",
         dataType: "json",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function(response) {
             for(i=0;i<response.length;i++){
                 listIdResidente.innerHTML += '<option value="' +response[i].cedula +'">'
@@ -69,9 +59,12 @@ $(document).ready(function() {
     let listIdParqueadero= document.querySelector("#parqueaderoIdAsignacionParqueadero");
     let listIdParqueaderoAC= document.querySelector("#updateParqueaderoIdAsignacionParqueadero");
     $.ajax({
-        url: "http://localhost:8080/api/parqueadero/all",
+        url: `${api}/parqueadero/all`,
         type: "GET",
         dataType: "json",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function(response) {
             for(i=0;i<response.length;i++){
                 listIdParqueadero.innerHTML += '<option value="' +response[i].idParqueadero +'">'
@@ -124,9 +117,12 @@ function reloadEvent(){
     $("#table tbody").empty(); 
     let tabla=document.querySelector("#table tbody");  
     $.ajax({
-        url: "http://localhost:8080/api/asignacionparqueadero/all",
+        url: `${api}/${path}/all`,
         type: "GET", 
         dataType: "json",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function (response) {
             for (i = 0; i < response.length; i++) {
                 tabla.innerHTML += '<tr><td>' + response[i].idAsignacion +
@@ -154,9 +150,12 @@ function findByIdApartamento(){
     let idAConsultar=$("#inputBuscar").val();
     let tabla=document.querySelector("#table");
     $.ajax({
-        url: "http://localhost:8080/api/apartamento/search/"+ idAConsultar,
+        url: `${api}/${path}/search/${idAConsultar}`,
         type: "GET",
         dataType: "json",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function(response){
 
             validFeedback.classList.remove("was-validated");
@@ -204,10 +203,13 @@ function saveAsignacionParqueadero() {
         }
     }
     $.ajax({
-        url: "http://localhost:8080/api/asignacionparqueadero/save",
+        url: `${api}/${path}/save`,
         type: "POST",
         data: JSON.stringify(data),
         contentType: "application/json",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function () {
             validFeedback.classList.remove("was-validated");
             $("#createModal").modal("hide");
@@ -253,10 +255,13 @@ function updateAsignacionParqueadero() {
         }
     }
     $.ajax({
-        url: "http://localhost:8080/api/asignacionparqueadero/update",
+        url: `${api}/${path}/update`,
         type: "PUT",
         data: JSON.stringify(data),
         contentType: "application/json",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function () {
             validFeedback.classList.remove("was-validated");
             $("#updateModal").modal("hide");
@@ -277,9 +282,12 @@ function updateAsignacionParqueadero() {
 
 function loadDataAsignacionParqueadero(idAsignacion) {
     $.ajax({
-        url: "http://localhost:8080/api/asignacionparqueadero/search/" + idAsignacion,
+        url: `${api}/${path}/search/${idAsignacion}`,
         type: "GET",
         dataType: "json",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function (respuesta) {
             $("#updateIdAsignacionAsignacionParqueadero").val(respuesta.idAsignacion);
             $("#updatePlacaVehiculoAsignacionParqueadero").val(respuesta.placaVehiculo)
@@ -300,8 +308,11 @@ function searchAsignacionParqueadero(idAsignacion) {
 function deleteAsignacionParqueadero(idAsignacion) {
     $("#deleteConfirmAsignacionParqueadero").off("click").on("click", function () {
         $.ajax({
-            url: "http://localhost:8080/api/asignacionparqueadero/delete/" + idAsignacion,
+            url: `${api}/${path}/delete/${idAsignacion}`,
             type: "DELETE",
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+            },
             success: function () {
                 $("#deleteModal").modal("hide");
                 reloadEvent(); 

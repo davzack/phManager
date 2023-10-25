@@ -1,9 +1,16 @@
+const itemLocalStorage="jwtLlave"
+const api="http://localhost:8080/api"
+const path="residente"
+
 $(document).ready(function() {
     let tabla = document.querySelector("#table tbody");
     $.ajax({
-        url: "http://localhost:8080/api/residente/all",
+        url: `${api}/${path}/all`,
         type: "GET",
         dataType: "json",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function (response) {
             for (i = 0; i < response.length; i++) {
                 tabla.innerHTML += '<tr><td>' + response[i].cedula +
@@ -28,9 +35,12 @@ $(document).ready(function() {
     let listIdApartamento = document.querySelector("#idApartamentoResidente");
     let listIdApartamentoAC= document.querySelector("#updateIdApartamentoResidente");
     $.ajax({
-        url: "http://localhost:8080/api/apartamento/all",
+        url: `${api}/apartamento/all`,
         type: "GET",
         dataType: "json",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function(response) {
             for(i=0;i<response.length;i++){
                 listIdApartamento.innerHTML += '<option value="' +response[i].idApartamento +'">'
@@ -87,9 +97,12 @@ function reloadEvent(){
     $("#table tbody").empty(); 
     let tabla=document.querySelector("#table tbody");  
     $.ajax({
-        url: "http://localhost:8080/api/residente/all",
+        url: `${api}/${path}/all`,
         type: "GET",
-        dataType: "json", 
+        dataType: "json",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function (response) {
             for (i = 0; i < response.length; i++) {
                 tabla.innerHTML += '<tr><td>' + response[i].cedula +
@@ -105,28 +118,7 @@ function reloadEvent(){
             }
             tablaMain =$('#table').DataTable({
                 "language":{
-                        "decimal":        "",
-                        "emptyTable":     "No hay registros en la tabla",
-                        "info":           "Mostrando _START_ a _END_ - de _TOTAL_ registros",
-                        "infoEmpty":      "Mostrando 0 de 0 registros",
-                        "infoFiltered":   "(filtered from _MAX_ total entries)",
-                        "infoPostFix":    "",
-                        "thousands":      ",",
-                        "lengthMenu":     "Mostrar _MENU_ registros",
-                        "loadingRecords": "Cargando...",
-                        "processing":     "",
-                        "search":         "Buscar:",
-                        "zeroRecords":    "No se encontraron registros que coincidan con la busqueda",
-                        "paginate": {
-                            "first":      "Primero",
-                            "last":       "Último",
-                            "next":       "Siguiente",
-                            "previous":   "Anterior"
-                        },
-                        "aria": {
-                            "sortAscending":  ": activar para ordenar la columna de forma ascendente",
-                            "sortDescending": ": activar para ordenar columnas descendentes"
-                        } 
+                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json', 
                 }
             });
         }
@@ -137,9 +129,12 @@ function findByIdResidente() {
     let cedulaAConsultar = $("#inputBuscarResidente").val();
     let tabla = document.querySelector("#table");
     $.ajax({
-        url: "http://localhost:8080/api/residente/search/" + cedulaAConsultar,
+        url: `${api}/${path}/search/${cedulaAConsultar}`,
         type: "GET",
         dataType: "json",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function (response) {
             validFeedback.classList.remove("was-validated");
             $("#inputBuscarResidente").val("");

@@ -17,6 +17,15 @@
 
 </head>
 <body>
+    <script>
+    // Llama a la función para verificar la autenticación
+    const isAuthenticated = await verifyAuthentication();
+
+    // Si el usuario no está autenticado, redirige a la página de inicio de sesión
+    if (!isAuthenticated) {
+      window.location.href = "inicio.html";  
+    }
+    </script>
     <div class="wrapper">
         <!-- Sidebar -->
         <aside id="sidebar">

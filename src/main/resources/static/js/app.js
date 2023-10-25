@@ -30,3 +30,24 @@ window.addEventListener("resize", () => {
   }); 
 
   
+
+const verifyAuthentication = async () => {
+    // Obtiene el token JWT del encabezado Authorization
+    const token = localStorage.getItem("jwtToken");
+  
+    // Decodifica el token JWT
+    const jwt = await jwt.decode(token);
+  
+    // Obtiene el rol del usuario
+    const role = jwt.claims.roles.toString();
+  
+    // Verifica si el usuario tiene el rol necesario
+    if (!role.equals("ADMIN")) {
+      // El usuario no tiene el rol necesario
+      return false;
+    }
+  
+    // El usuario tiene el rol necesario
+    return true;
+};
+  

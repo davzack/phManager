@@ -1,8 +1,15 @@
+const itemLocalStorage="jwtLlave"
+const api="http://localhost:8080/api"
+const path="reservazonacomun"
 $(document).ready(function() {
     let tabla = document.querySelector("#table tbody");
     $.ajax({
-        url: "http://localhost:8080/api/reservazonacomun/all",
+        url: `${api}/${path}/all`,
         dataType: "json",
+        type: "GET",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function (response) {
             for (i = 0; i < response.length; i++) {
                 tabla.innerHTML += '<tr><td>' + response[i].idReserva +
@@ -26,9 +33,12 @@ $(document).ready(function() {
     let listIdResidente = document.querySelector("#residenteCedulaReservaZonaComun");
     let listIdResidenteAC= document.querySelector("#updateResidenteCedulaReservaZonaComun");
     $.ajax({
-        url: "http://localhost:8080/api/residente/all",
+        url: `${api}/residente/all`,
         type: "GET",
         dataType: "json",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function(response) {
             for(i=0;i<response.length;i++){
                 listIdResidente.innerHTML += '<option value="' +response[i].cedula +'">'
@@ -46,9 +56,12 @@ $(document).ready(function() {
     let listIdZonaComun= document.querySelector("#zonaComunIdReservaZonaComun");
     let listIdZonaComunAC= document.querySelector("#updateZonaComunIdReservaZonaComun");
     $.ajax({
-        url: "http://localhost:8080/api/zonacomun/all",
+        url: `${api}/zonacomun/all`,
         type: "GET",
         dataType: "json",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function(response) {
             for(i=0;i<response.length;i++){
                 listIdZonaComun.innerHTML += '<option value="' +response[i].idZonaComun +'">'
@@ -60,12 +73,10 @@ $(document).ready(function() {
             }
         }
     })
-
 });
 
 (function () {
     'use strict';
-  
     var form = document.getElementById('formCreate');
     var enviarButton = document.getElementById('enviar');
   
@@ -100,8 +111,12 @@ function reloadEvent(){
     $("#table tbody").empty(); 
     let tabla=document.querySelector("#table tbody");  
     $.ajax({
-        url: "http://localhost:8080/api/reservazonacomun/all",
+        url: `${api}/${path}/all`,
         dataType: "json",
+        type: "GET",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function (response) {
             for (i = 0; i < response.length; i++) {
                 tabla.innerHTML += '<tr><td>' + response[i].idReserva +
@@ -116,28 +131,7 @@ function reloadEvent(){
             }
             tablaMain =$('#table').DataTable({
                 "language":{
-                        "decimal":        "",
-                        "emptyTable":     "No hay registros en la tabla",
-                        "info":           "Mostrando _START_ a _END_ - de _TOTAL_ registros",
-                        "infoEmpty":      "Mostrando 0 de 0 registros",
-                        "infoFiltered":   "(filtered from _MAX_ total entries)",
-                        "infoPostFix":    "",
-                        "thousands":      ",",
-                        "lengthMenu":     "Mostrar _MENU_ registros",
-                        "loadingRecords": "Cargando...",
-                        "processing":     "",
-                        "search":         "Buscar:",
-                        "zeroRecords":    "No se encontraron registros que coincidan con la busqueda",
-                        "paginate": {
-                            "first":      "Primero",
-                            "last":       "Último",
-                            "next":       "Siguiente",
-                            "previous":   "Anterior"
-                        },
-                        "aria": {
-                            "sortAscending":  ": activar para ordenar la columna de forma ascendente",
-                            "sortDescending": ": activar para ordenar columnas descendentes"
-                        } 
+                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json', 
                 }
             });
         }
@@ -148,9 +142,12 @@ function findByIdReservaZonaComun() {
     let idReservaZonaComunAConsultar = $("#inputBuscarReservaZonaComun").val();
     let tabla = document.querySelector("#table");
     $.ajax({
-        url: "http://localhost:8080/api/reservazonacomun/search/" + idReservaZonaComunAConsultar,
+        url: `${api}/${path}/search/${idReservaZonaComunAConsultar}`,
         type: "GET",
         dataType: "json",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function (response) {
             validFeedback.classList.remove("was-validated");
             $("#inputBuscarReservaZonaComun").val("");
@@ -199,10 +196,13 @@ function saveReservaZonaComun() {
         }
     }
     $.ajax({
-        url: "http://localhost:8080/api/reservazonacomun/save",
+        url: `${api}/${path}/save`,
         type: "POST",
         data: JSON.stringify(data),
         contentType: "application/json",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function () {
             validFeedback.classList.remove("was-validated");
             $("#createModal").modal("hide");
@@ -245,10 +245,13 @@ function updateReservaZonaComun() {
         }
     }
     $.ajax({
-        url: "http://localhost:8080/api/reservazonacomun/update",
+        url: `${api}/${path}/update`,
         type: "PUT",
         data: JSON.stringify(data),
         contentType: "application/json",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function () {
             validFeedback.classList.remove("was-validated");
             $("#updateModal").modal("hide");
@@ -268,9 +271,12 @@ function updateReservaZonaComun() {
 
 function loadDataReservaZonaComun(idReserva) {
     $.ajax({
-        url: "http://localhost:8080/api/reservazonacomun/search/" + idReserva,
+        url: `${api}/${path}/search/${idReserva}`,
         type: "GET",
         dataType: "json",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function (respuesta) {
             $("#updateIdReservaReservaZonaComun").val(respuesta.idReserva);
             $("#updateFechaInicioReservaZonaComun").val(respuesta.fechaInicio)
@@ -291,8 +297,11 @@ function searchReservaZonaComun(idReserva) {
 function deleteReservaZonaComun(idReserva) {
     $("#deleteConfirmReservaZonaComun").off("click").on("click", function () {
         $.ajax({
-            url: "http://localhost:8080/api/reservazonacomun/delete/" + idReserva,
+            url: `${api}/${path}/delete/${idReserva}`,
             type: "DELETE",
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+            },
             success: function () {
                 $("#deleteModal").modal("hide");
                 reloadEvent();

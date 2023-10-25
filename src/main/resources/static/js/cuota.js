@@ -1,8 +1,15 @@
+const itemLocalStorage="jwtLlave"
+const api="http://localhost:8080/api"
+const path="cuota"
+
 $(document).ready(function() {
     let tabla = document.querySelector("#table tbody");
     $.ajax({
-        url: "http://localhost:8080/api/cuota/all",
+        url: `${api}/${path}/all`,
         dataType: "json",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function (response) {
             for (i = 0; i < response.length; i++) {
                 tabla.innerHTML += '<tr><td>' + response[i].idCuota +
@@ -15,28 +22,7 @@ $(document).ready(function() {
             }
             tablaMain =$('#table').DataTable({
                 "language":{
-                        "decimal":        "",
-                        "emptyTable":     "No hay registros en la tabla",
-                        "info":           "Mostrando _START_ a _END_ - de _TOTAL_ registros",
-                        "infoEmpty":      "Mostrando 0 de 0 registros",
-                        "infoFiltered":   "(filtered from _MAX_ total entries)",
-                        "infoPostFix":    "",
-                        "thousands":      ",",
-                        "lengthMenu":     "Mostrar _MENU_ registros",
-                        "loadingRecords": "Cargando...",
-                        "processing":     "",
-                        "search":         "Buscar:",
-                        "zeroRecords":    "No se encontraron registros que coincidan con la busqueda",
-                        "paginate": {
-                            "first":      "Primero",
-                            "last":       "Último",
-                            "next":       "Siguiente",
-                            "previous":   "Anterior"
-                        },
-                        "aria": {
-                            "sortAscending":  ": activar para ordenar la columna de forma ascendente",
-                            "sortDescending": ": activar para ordenar columnas descendentes"
-                        } 
+                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json', 
                 }
             });
         }
@@ -45,9 +31,12 @@ $(document).ready(function() {
     let listIdApartamento = document.querySelector("#apartamentoIdCuota");
     let listIdApartamentoAC= document.querySelector("#updateApartamentoIdCuota");
     $.ajax({
-        url: "http://localhost:8080/api/apartamento/all",
+        url: `${api}/apartamento/all`,
         type: "GET",
         dataType: "json",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function(response) {
             for(i=0;i<response.length;i++){
                 listIdApartamento.innerHTML += '<option value="' +response[i].idApartamento +'">'
@@ -102,8 +91,11 @@ function reloadEvent(){
     $("#table tbody").empty(); 
     let tabla=document.querySelector("#table tbody");  
     $.ajax({
-        url: "http://localhost:8080/api/cuota/all",
+        url: `${api}/${path}/all`,
         dataType: "json",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function (response) {
             for (i = 0; i < response.length; i++) {
                 tabla.innerHTML += '<tr><td>' + response[i].idCuota +
@@ -128,7 +120,7 @@ function findByIdCuota() {
     let idCuotaAConsultar = $("#inputBuscarCuota").val();
     let tabla = document.querySelector("#table");
     $.ajax({
-        url: "http://localhost:8080/api/cuota/search/" + idCuotaAConsultar,
+        url: `${api}/${path}/search/${idCuotaAConsultar}`,
         type: "GET",
         dataType: "json",
         success: function (response) {
@@ -171,10 +163,13 @@ function saveCuota() {
         }
     }
     $.ajax({
-        url: "http://localhost:8080/api/cuota/save",
+        url: `${api}/${path}/save`,
         type: "POST",
         data: JSON.stringify(data),
         contentType: "application/json",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function () {
             validFeedback.classList.remove("was-validated");
             $("#createModal").modal("hide");
@@ -209,10 +204,13 @@ function updateCuota() {
         }
     }
     $.ajax({
-        url: "http://localhost:8080/api/cuota/update",
+        url: `${api}/${path}/update`,
         type: "PUT",
         data: JSON.stringify(data),
         contentType: "application/json",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function () {
             validFeedback.classList.remove("was-validated");
             $("#updateModal").modal("hide");
@@ -230,9 +228,12 @@ function updateCuota() {
 
 function loadDataCuota(idCuota) {
     $.ajax({
-        url: "http://localhost:8080/api/cuota/search/" + idCuota,
+        url: `${api}/${path}/search/${idCuota}`,
         type: "GET",
         dataType: "json",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function (respuesta) {
             $("#updateIdCuota").val(respuesta.idCuota);
             $("#updateMontoCuota").val(respuesta.monto)
@@ -251,8 +252,11 @@ function searchCuota(idCuota) {
 function deleteCuota(idCuota) {
     $("#deleteConfirmCuota").off("click").on("click", function () {
         $.ajax({
-            url: "http://localhost:8080/api/cuota/delete/" + idCuota,
+            url: `${api}/${path}/delete/${idCuota}`,
             type: "DELETE",
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+            },
             success: function () {
                 $("#deleteModal").modal("hide");
                 reloadEvent();
