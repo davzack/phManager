@@ -1,7 +1,7 @@
 
-const itemLocalStorage="jwtLlave"
-const api="http://localhost:8080/api"
-const path="parqueadero"
+var itemLocalStorage="jwtLlave"
+var api="http://localhost:8080/api"
+var path="parqueadero"
 $(document).ready(function() {
     let tabla = document.querySelector("#table tbody");
     $.ajax({

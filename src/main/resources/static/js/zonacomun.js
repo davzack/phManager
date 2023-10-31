@@ -1,15 +1,23 @@
+
+var itemLocalStorage="jwtLlave"
+var api="http://localhost:8080/api"
+var path="zonacomun"
 $(document).ready(function() {
     let tabla = document.querySelector("#table tbody");
     $.ajax({
-        url: "http://localhost:8080/api/zonacomun/all",
+        url: `${api}/${path}/all`,
         dataType: "json",
+        type: "GET",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function (response) {
             for (i = 0; i < response.length; i++) {
                 tabla.innerHTML += '<tr><td>' + response[i].idZonaComun +
                     '</td><td>' + response[i].nombre +
                     '</td><td>' + response[i].capacidad +
                     '</td><td>' + response[i].descripcion +
-                    '</td><td>' + response[i].tarifaPorHora +
+                    '</td><td>' + response[i].tarifaPorHora + 
                     '</td><td>' + "<a href='#' class='eliminar-link' data-bs-toggle='modal' data-bs-target='#deleteModal' onclick='deleteZonaComun(" + response[i].idZonaComun + ")'> <i class='material-icons'>delete</i></a> <a href='#' class='editar-link' data-bs-toggle='modal' data-bs-target='#updateModal' onclick='loadDataZonaComun(" + response[i].idZonaComun + ")'> <i class='material-icons'>edit_note</i></a>" +
                     '</td></tr>';
             }
@@ -60,8 +68,11 @@ function reloadEvent(){
     $("#table tbody").empty(); 
     let tabla=document.querySelector("#table tbody");  
     $.ajax({
-        url: "http://localhost:8080/api/zonacomun/all",
+        url: `${api}/${path}/all`,
         dataType: "json",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function (response) {
             for (i = 0; i < response.length; i++) {
                 tabla.innerHTML += '<tr><td>' + response[i].idZonaComun +
@@ -74,29 +85,8 @@ function reloadEvent(){
             }
             tablaMain =$('#table').DataTable({
                 "language":{
-                        "decimal":        "",
-                        "emptyTable":     "No hay registros en la tabla",
-                        "info":           "Mostrando _START_ a _END_ - de _TOTAL_ registros",
-                        "infoEmpty":      "Mostrando 0 de 0 registros",
-                        "infoFiltered":   "(filtered from _MAX_ total entries)",
-                        "infoPostFix":    "",
-                        "thousands":      ",",
-                        "lengthMenu":     "Mostrar _MENU_ registros",
-                        "loadingRecords": "Cargando...",
-                        "processing":     "",
-                        "search":         "Buscar:",
-                        "zeroRecords":    "No se encontraron registros que coincidan con la busqueda",
-                        "paginate": {
-                            "first":      "Primero",
-                            "last":       "Último",
-                            "next":       "Siguiente",
-                            "previous":   "Anterior"
-                        },
-                        "aria": {
-                            "sortAscending":  ": activar para ordenar la columna de forma ascendente",
-                            "sortDescending": ": activar para ordenar columnas descendentes"
-                        } 
-                }
+                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json', 
+                } 
             });
         }
     });
@@ -107,9 +97,12 @@ function findByIdZonaComun() {
     let idZonaComunAConsultar = $("#inputBuscarZonaComun").val();
     let tabla = document.querySelector("#table");
     $.ajax({
-        url: "http://localhost:8080/api/zonacomun/search/" + idZonaComunAConsultar,
+        url: `${api}/${path}/search/${idZonaComunAConsultar}`,
         type: "GET",
         dataType: "json",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function (response) {
             validFeedback.classList.remove("was-validated");
             $("#inputBuscarZonaComun").val("");
@@ -147,10 +140,13 @@ function saveZonaComun() {
         tarifaPorHora: tarifaPorHora
     }
     $.ajax({
-        url: "http://localhost:8080/api/zonacomun/save",
+        url: `${api}/${path}/save`,
         type: "POST",
         data: JSON.stringify(data),
         contentType: "application/json",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function () {
             validFeedback.classList.remove("was-validated");
             $("#createModal").modal("hide");
@@ -183,10 +179,13 @@ function updateZonaComun() {
         tarifaPorHora: tarifaPorHora
     }
     $.ajax({
-        url: "http://localhost:8080/api/zonacomun/update",
+        url: `${api}/${path}/update`,
         type: "PUT",
         data: JSON.stringify(data),
         contentType: "application/json",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function () {
             validFeedback.classList.remove("was-validated");
             $("#updateModal").modal("hide");
@@ -204,9 +203,12 @@ function updateZonaComun() {
 
 function loadDataZonaComun(idZonaComun) {
     $.ajax({
-        url: "http://localhost:8080/api/zonacomun/search/" + idZonaComun,
+        url: `${api}/${path}/search/${idZonaComun}`,
         type: "GET",
         dataType: "json",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function (respuesta) {
             $("#updateIdZonaComunZonaComun").val(respuesta.idZonaComun);
             $("#updateNombreZonaComun").val(respuesta.nombre)
@@ -225,8 +227,11 @@ function searchZonaComun(idZonaComun) {
 function deleteZonaComun(idZonaComun) {
     $("#deleteConfirmZonaComun").off("click").on("click", function () {
         $.ajax({
-            url: "http://localhost:8080/api/zonacomun/delete/" + idZonaComun,
+            url: `${api}/${path}/delete/${idZonaComun}`,
             type: "DELETE",
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+            },
             success: function () {
                 $("#deleteModal").modal("hide");
                 reloadEvent();

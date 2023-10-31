@@ -1,6 +1,6 @@
-const itemLocalStorage="jwtLlave"
-const api="http://localhost:8080/api"
-const path="asignacionparqueadero"
+var itemLocalStorage="jwtLlave"
+var api="http://localhost:8080/api"
+var path="asignacionparqueadero"
 
 
 $(document).ready(function() {

@@ -1,6 +1,6 @@
-const itemLocalStorage="jwtLlave"
-const api="http://localhost:8080/api"
-const path="registrovisita"
+var itemLocalStorage="jwtLlave"
+var api="http://localhost:8080/api"
+var path="registrovisita"
 $(document).ready(function() {
     let tabla = document.querySelector("#table tbody");
     $.ajax({

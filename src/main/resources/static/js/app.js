@@ -31,23 +31,23 @@ window.addEventListener("resize", () => {
 
   
 
-const verifyAuthentication = async () => {
-    // Obtiene el token JWT del encabezado Authorization
-    const token = localStorage.getItem("jwtToken");
-  
-    // Decodifica el token JWT
-    const jwt = await jwt.decode(token);
-  
-    // Obtiene el rol del usuario
-    const role = jwt.claims.roles.toString();
-  
-    // Verifica si el usuario tiene el rol necesario
-    if (!role.equals("ADMIN")) {
-      // El usuario no tiene el rol necesario
-      return false;
-    }
-  
-    // El usuario tiene el rol necesario
-    return true;
-};
-  
+function openPageWithHeaders(path, id) {
+    const api = "http://localhost:8080";
+    $.ajax({
+      url: `${api}/${path}`,
+      type: "GET",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwtLlave")}`, 
+      },
+      success: function(response) {
+        $('#content').html('');
+        $('.sidebar-item .nav-link').removeClass("active")
+        $("#"+id).addClass("active");
+        $('#content').html(response);
+      },
+      error: function(error) {
+        // Hubo un error al abrir la página
+        console.error(error);
+      },
+    });
+  }

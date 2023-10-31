@@ -1,11 +1,11 @@
-const itemLocalStorage="jwtLlave"
-const api="http://localhost:8080/api"
-const path="residente"
+var itemLocalStorage="jwtLlave"
+var api="http://localhost:8080/api"
+var path="residente"
 
 $(document).ready(function() {
     let tabla = document.querySelector("#table tbody");
     $.ajax({
-        url: `${api}/${path}/all`,
+        url: `${api}/${path}/all`, 
         type: "GET",
         dataType: "json",
         headers: {
@@ -186,10 +186,13 @@ function saveResidente() {
         }
     }
     $.ajax({
-        url: "http://localhost:8080/api/residente/save",
+        url: `${api}/${path}/save`,
         type: "POST",
         data: JSON.stringify(data),
         contentType: "application/json",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function () {
             validFeedback.classList.remove("was-validated");
             $("#createModal").modal("hide");
@@ -235,10 +238,13 @@ function updateResidente() {
         }
     }
     $.ajax({
-        url: "http://localhost:8080/api/residente/update",
+        url: `${api}/${path}/update`,
         type: "PUT",
         data: JSON.stringify(data),
         contentType: "application/json",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function () {
             validFeedback.classList.remove("was-validated");
             $("#updateModal").modal("hide");
@@ -260,9 +266,12 @@ function updateResidente() {
 
 function loadDataResidente(cedulaResidente) {
     $.ajax({
-        url: "http://localhost:8080/api/residente/search/" + cedulaResidente,
+        url: `${api}/${path}/search/${cedulaResidente}`,
         type: "GET",
         dataType: "json",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function (respuesta) {
             $("#updateCedulaResidente").val(respuesta.cedula);
             $("#updateNombreResidente").val(respuesta.nombre)
@@ -284,8 +293,11 @@ function searchResidente(cedulaResidente) {
 function deleteResidente(cedulaResidente) {
     $("#deleteConfirmPropietario").off("click").on("click", function () {
         $.ajax({
-            url: "http://localhost:8080/api/residente/delete/" + cedulaResidente,
+            url: `${api}/${path}/delete/${cedulaResidente}`,
             type: "DELETE",
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+            },
             success: function () {
                 $("#deleteModal").modal("hide");
                 reloadEvent();

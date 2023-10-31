@@ -1,6 +1,6 @@
-const itemLocalStorage="jwtLlave"
-const api="http://localhost:8080/api"
-const path="propietario"
+var itemLocalStorage="jwtLlave"
+var api="http://localhost:8080/api"
+var path="propietario"
 
 $(document).ready(function() {
     let tabla = document.querySelector("#table tbody");
@@ -279,7 +279,6 @@ function searchPropietario(cedulaPropietario) {
     $("#inputBuscarPropietario").val(cedulaPropietario);
     findByIdPropietario()
 }
- Mi
 function deletePropietario(cedulaPropietario) {
     $("#deleteConfirmPropietario").off("click").on("click", function () {
         $.ajax({

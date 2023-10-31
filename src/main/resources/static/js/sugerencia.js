@@ -1,8 +1,16 @@
+var itemLocalStorage="jwtLlave"
+var api="http://localhost:8080/api"
+var path="sugerencia"
+
 $(document).ready(function() {
     let tabla = document.querySelector("#table tbody");
     $.ajax({
-        url: "http://localhost:8080/api/sugerencia/all",
+        url: `${api}/${path}/all`,
         dataType: "json",
+        type: "GET",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function (response) {
             for (i = 0; i < response.length; i++) {
                 tabla.innerHTML += '<tr><td>' + response[i].idSugerencia +
@@ -26,9 +34,12 @@ $(document).ready(function() {
     let listIdResidente = document.querySelector("#residenteCedulaSugerencia");
     let listIdResidenteAC= document.querySelector("#updateResidenteCedulaSugerencia");
     $.ajax({
-        url: "http://localhost:8080/api/residente/all",
+        url: `${api}/residente/all`,
         type: "GET",
         dataType: "json",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function(response) {
             for(i=0;i<response.length;i++){
                 listIdResidente.innerHTML += '<option value="' +response[i].cedula +'">'
@@ -83,8 +94,11 @@ function reloadEvent(){
     $("#table tbody").empty(); 
     let tabla=document.querySelector("#table tbody");  
     $.ajax({ 
-        url: "http://localhost:8080/api/sugerencia/all",
+        url: `${api}/${path}/all`,
         dataType: "json",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function (response) {
             for (i = 0; i < response.length; i++) {
                 tabla.innerHTML += '<tr><td>' + response[i].idSugerencia +
@@ -99,28 +113,7 @@ function reloadEvent(){
             }
             tablaMain =$('#table').DataTable({ 
                 "language":{
-                        "decimal":        "",
-                        "emptyTable":     "No hay registros en la tabla",
-                        "info":           "Mostrando _START_ a _END_ - de _TOTAL_ registros",
-                        "infoEmpty":      "Mostrando 0 de 0 registros",
-                        "infoFiltered":   "(filtered from _MAX_ total entries)",
-                        "infoPostFix":    "",
-                        "thousands":      ",",
-                        "lengthMenu":     "Mostrar _MENU_ registros",
-                        "loadingRecords": "Cargando...",
-                        "processing":     "",
-                        "search":         "Buscar:",
-                        "zeroRecords":    "No se encontraron registros que coincidan con la busqueda",
-                        "paginate": {
-                            "first":      "Primero",
-                            "last":       "Último",
-                            "next":       "Siguiente",
-                            "previous":   "Anterior"
-                        },
-                        "aria": {
-                            "sortAscending":  ": activar para ordenar la columna de forma ascendente",
-                            "sortDescending": ": activar para ordenar columnas descendentes"
-                        } 
+                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json', 
                 }
             });
         }
@@ -131,9 +124,12 @@ function findByIdSugerencia() {
     let fechaSugerenciaAConsultar = $("#inputBuscarSugerencia").val();
     let tabla = document.querySelector("#table");
     $.ajax({
-        url: "http://localhost:8080/api/sugerencia/search/" + fechaSugerenciaAConsultar,
+        url: `${api}/${path}/search/${fechaSugerenciaAConsultar}`,
         type: "GET",
         dataType: "json",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function (response) {
             validFeedback.classList.remove("was-validated");
             $("#inputBuscarSugerencia").val("");
@@ -175,10 +171,13 @@ function saveSugerencia() {
         }
     }
     $.ajax({
-        url: "http://localhost:8080/api/sugerencia/save",
+        url: `${api}/${path}/save`,
         type: "POST",
         data: JSON.stringify(data),
         contentType: "application/json",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function () {
             validFeedback.classList.remove("was-validated");
             $("#createModal").modal("hide");
@@ -219,10 +218,13 @@ function updateSugerencia() {
         }
     }
     $.ajax({
-        url: "http://localhost:8080/api/sugerencia/update",
+        url: `${api}/${path}/update`,
         type: "PUT",
         data: JSON.stringify(data),
         contentType: "application/json",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function () {
             validFeedback.classList.remove("was-validated");
             $("#updateModal").modal("hide");
@@ -241,9 +243,12 @@ function updateSugerencia() {
 
 function loadDataSugerencia(idSugerencia) {
     $.ajax({
-        url: "http://localhost:8080/api/sugerencia/search/" + idSugerencia,
+        url: `${api}/${path}/search/${idSugerencia}`,
         type: "GET",
         dataType: "json",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
+        },
         success: function (respuesta) {
             $("#updateIdSugerencia").val(respuesta.idSugerencia);
             $("#updateFechaSugerencia").val(respuesta.fecha);
@@ -264,7 +269,7 @@ function searchSugerencia(fechaSugerencia) {
 function deleteSugerencia(fechaSugerencia) {
     $("#deleteConfirmSugerencia").off("click").on("click", function () {
         $.ajax({
-            url: "http://localhost:8080/api/sugerencia/delete/" + fechaSugerencia,
+            url: `${api}/${path}/delete/${fechaSugerencia}`,
             type: "DELETE",
             success: function () {
                 $("#deleteModal").modal("hide");

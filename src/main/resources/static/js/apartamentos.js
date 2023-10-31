@@ -1,11 +1,11 @@
 ///////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
-const itemLocalStorage="jwtLlave"
-const api="http://localhost:8080/api"
-const path="apartamento"
+var itemLocalStorage="jwtLlave"
+var api="http://localhost:8080/api"
+var path="apartamento"
 $(document).ready(function() {
-    let tabla=document.querySelector("#table tbody");
+    let tabla=document.querySelector("#tableAptos tbody");
     $.ajax({
         url: `${api}/${path}/all`,
         type: "GET",
@@ -21,7 +21,7 @@ $(document).ready(function() {
                 '</td><td>' + "<a href='#' class='eliminar-link' data-bs-toggle='modal' data-bs-target='#deleteModal' onclick='deleteApartamento(\""+response[i].idApartamento+"\")'> <i class='material-icons'>delete</i></a> <a href='#' class='editar-link' data-bs-toggle='modal' data-bs-target='#updateModal' onclick='loadDataApartamento(\""+response[i].idApartamento+"\")'> <i class='material-icons'>edit_note</i></a>" +
                 '</td></tr>';
             }
-            tablaMain =$('#table').DataTable({
+            tablaMain =$('#tableAptos').DataTable({
                 "language":{
                     url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json', 
                 }
@@ -65,10 +65,10 @@ $(document).ready(function() {
 ///////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
 function reloadEvent(){
-    var table = $('#table').DataTable();
+    var table = $('#tableAptos').DataTable();
     table.destroy();
-    $("#table tbody").empty(); 
-    let tabla=document.querySelector("#table tbody"); 
+    $("#tableAptos tbody").empty(); 
+    let tabla=document.querySelector("#tableAptos tbody"); 
     $.ajax({
         url: `${api}/${path}/all`,
         type: "GET",
@@ -84,7 +84,7 @@ function reloadEvent(){
                 '</td><td>' + "<a href='#' class='eliminar-link' data-bs-toggle='modal' data-bs-target='#deleteModal' onclick='deleteApartamento(\""+response[i].idApartamento+"\")'> <i class='material-icons'>delete</i></a> <a href='#' class='editar-link' data-bs-toggle='modal' data-bs-target='#updateModal' onclick='loadDataApartamento(\""+response[i].idApartamento+"\")'> <i class='material-icons'>edit_note</i></a>" +
                 '</td></tr>';
             }
-            tablaMain =$('#table').DataTable({
+            tablaMain =$('#tableAptos').DataTable({
                 "language":{
                         "decimal":        "",
                         "emptyTable":     "No hay registros en la tabla",
@@ -128,7 +128,7 @@ function findByIdApartamento(){
 
             validFeedback.classList.remove("was-validated");
             $("#inputBuscar").val("");
-            $("#table tbody").remove();
+            $("#tableAptos tbody").remove();
             tabla.innerHTML += '<tr><td>' + response.idApartamento +
             '</td><td>' + response.numeroApartamento +
             '</td><td>' + response.torre +
