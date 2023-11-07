@@ -1,4 +1,3 @@
-var itemLocalStorage="jwtLlave"
 var api="http://localhost:8080/api"
 var path="sugerencia"
 
@@ -8,9 +7,6 @@ $(document).ready(function() {
         url: `${api}/${path}/all`,
         dataType: "json",
         type: "GET",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function (response) {
             for (i = 0; i < response.length; i++) {
                 tabla.innerHTML += '<tr><td>' + response[i].idSugerencia +
@@ -37,9 +33,6 @@ $(document).ready(function() {
         url: `${api}/residente/all`,
         type: "GET",
         dataType: "json",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function(response) {
             for(i=0;i<response.length;i++){
                 listIdResidente.innerHTML += '<option value="' +response[i].cedula +'">'
@@ -96,9 +89,6 @@ function reloadEvent(){
     $.ajax({ 
         url: `${api}/${path}/all`,
         dataType: "json",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function (response) {
             for (i = 0; i < response.length; i++) {
                 tabla.innerHTML += '<tr><td>' + response[i].idSugerencia +
@@ -127,9 +117,6 @@ function findByIdSugerencia() {
         url: `${api}/${path}/search/${fechaSugerenciaAConsultar}`,
         type: "GET",
         dataType: "json",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function (response) {
             validFeedback.classList.remove("was-validated");
             $("#inputBuscarSugerencia").val("");
@@ -175,9 +162,6 @@ function saveSugerencia() {
         type: "POST",
         data: JSON.stringify(data),
         contentType: "application/json",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function () {
             validFeedback.classList.remove("was-validated");
             $("#createModal").modal("hide");
@@ -222,9 +206,6 @@ function updateSugerencia() {
         type: "PUT",
         data: JSON.stringify(data),
         contentType: "application/json",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function () {
             validFeedback.classList.remove("was-validated");
             $("#updateModal").modal("hide");
@@ -246,9 +227,6 @@ function loadDataSugerencia(idSugerencia) {
         url: `${api}/${path}/search/${idSugerencia}`,
         type: "GET",
         dataType: "json",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function (respuesta) {
             $("#updateIdSugerencia").val(respuesta.idSugerencia);
             $("#updateFechaSugerencia").val(respuesta.fecha);

@@ -1,4 +1,4 @@
-var itemLocalStorage="jwtLlave"
+
 var api="http://localhost:8080/api"
 var path="asignacionparqueadero"
 
@@ -9,9 +9,6 @@ $(document).ready(function() {
         url: `${api}/${path}/all`,
         type: "GET", 
         dataType: "json",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function (response) {
             for (i = 0; i < response.length; i++) {
                 tabla.innerHTML += '<tr><td>' + response[i].idAsignacion +
@@ -39,9 +36,6 @@ $(document).ready(function() {
         url: `${api}/residente/all`,
         type: "GET",
         dataType: "json",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function(response) {
             for(i=0;i<response.length;i++){
                 listIdResidente.innerHTML += '<option value="' +response[i].cedula +'">'
@@ -62,9 +56,6 @@ $(document).ready(function() {
         url: `${api}/parqueadero/all`,
         type: "GET",
         dataType: "json",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function(response) {
             for(i=0;i<response.length;i++){
                 listIdParqueadero.innerHTML += '<option value="' +response[i].idParqueadero +'">'
@@ -120,9 +111,6 @@ function reloadEvent(){
         url: `${api}/${path}/all`,
         type: "GET", 
         dataType: "json",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function (response) {
             for (i = 0; i < response.length; i++) {
                 tabla.innerHTML += '<tr><td>' + response[i].idAsignacion +
@@ -153,9 +141,6 @@ function findByIdApartamento(){
         url: `${api}/${path}/search/${idAConsultar}`,
         type: "GET",
         dataType: "json",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function(response){
 
             validFeedback.classList.remove("was-validated");
@@ -207,9 +192,6 @@ function saveAsignacionParqueadero() {
         type: "POST",
         data: JSON.stringify(data),
         contentType: "application/json",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function () {
             validFeedback.classList.remove("was-validated");
             $("#createModal").modal("hide");
@@ -259,9 +241,6 @@ function updateAsignacionParqueadero() {
         type: "PUT",
         data: JSON.stringify(data),
         contentType: "application/json",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function () {
             validFeedback.classList.remove("was-validated");
             $("#updateModal").modal("hide");
@@ -285,9 +264,6 @@ function loadDataAsignacionParqueadero(idAsignacion) {
         url: `${api}/${path}/search/${idAsignacion}`,
         type: "GET",
         dataType: "json",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function (respuesta) {
             $("#updateIdAsignacionAsignacionParqueadero").val(respuesta.idAsignacion);
             $("#updatePlacaVehiculoAsignacionParqueadero").val(respuesta.placaVehiculo)
@@ -310,9 +286,6 @@ function deleteAsignacionParqueadero(idAsignacion) {
         $.ajax({
             url: `${api}/${path}/delete/${idAsignacion}`,
             type: "DELETE",
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-            },
             success: function () {
                 $("#deleteModal").modal("hide");
                 reloadEvent(); 

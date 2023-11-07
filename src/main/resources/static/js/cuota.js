@@ -1,4 +1,3 @@
-var itemLocalStorage="jwtLlave"
 var api="http://localhost:8080/api"
 var path="cuota"
 
@@ -7,9 +6,6 @@ $(document).ready(function() {
     $.ajax({
         url: `${api}/${path}/all`,
         dataType: "json",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function (response) {
             for (i = 0; i < response.length; i++) {
                 tabla.innerHTML += '<tr><td>' + response[i].idCuota +
@@ -34,9 +30,6 @@ $(document).ready(function() {
         url: `${api}/apartamento/all`,
         type: "GET",
         dataType: "json",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function(response) {
             for(i=0;i<response.length;i++){
                 listIdApartamento.innerHTML += '<option value="' +response[i].idApartamento +'">'
@@ -93,9 +86,6 @@ function reloadEvent(){
     $.ajax({
         url: `${api}/${path}/all`,
         dataType: "json",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function (response) {
             for (i = 0; i < response.length; i++) {
                 tabla.innerHTML += '<tr><td>' + response[i].idCuota +
@@ -167,9 +157,6 @@ function saveCuota() {
         type: "POST",
         data: JSON.stringify(data),
         contentType: "application/json",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function () {
             validFeedback.classList.remove("was-validated");
             $("#createModal").modal("hide");
@@ -208,9 +195,6 @@ function updateCuota() {
         type: "PUT",
         data: JSON.stringify(data),
         contentType: "application/json",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function () {
             validFeedback.classList.remove("was-validated");
             $("#updateModal").modal("hide");
@@ -231,9 +215,6 @@ function loadDataCuota(idCuota) {
         url: `${api}/${path}/search/${idCuota}`,
         type: "GET",
         dataType: "json",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function (respuesta) {
             $("#updateIdCuota").val(respuesta.idCuota);
             $("#updateMontoCuota").val(respuesta.monto)
@@ -254,9 +235,6 @@ function deleteCuota(idCuota) {
         $.ajax({
             url: `${api}/${path}/delete/${idCuota}`,
             type: "DELETE",
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-            },
             success: function () {
                 $("#deleteModal").modal("hide");
                 reloadEvent();

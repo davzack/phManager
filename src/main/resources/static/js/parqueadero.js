@@ -1,5 +1,3 @@
-
-var itemLocalStorage="jwtLlave"
 var api="http://localhost:8080/api"
 var path="parqueadero"
 $(document).ready(function() {
@@ -8,9 +6,6 @@ $(document).ready(function() {
         url: `${api}/${path}/all`,
         dataType: "json",
         type: "GET",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function (response) {
             for (i = 0; i < response.length; i++) {
                 tabla.innerHTML += '<tr><td>' + response[i].idParqueadero +
@@ -69,9 +64,6 @@ function reloadEvent(){
         url: `${api}/${path}/all`,
         dataType: "json",
         type: "GET",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function (response) {
             for (i = 0; i < response.length; i++) {
                 tabla.innerHTML += '<tr><td>' + response[i].idParqueadero +
@@ -97,9 +89,6 @@ function findByIdParqueadero() {
         url: `${api}/${path}/search/${idParqueaderoAConsultar}`,
         type: "GET",
         dataType: "json",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function (response) {
             validFeedback.classList.remove("was-validated");
             $("#inputBuscarParqueadero").val("");
@@ -136,9 +125,6 @@ function saveParqueadero() {
         type: "POST",
         data: JSON.stringify(data),
         contentType: "application/json",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function () {
             validFeedback.classList.remove("was-validated");
             $("#createModal").modal("hide");
@@ -169,9 +155,6 @@ function updateParqueadero() {
         type: "PUT",
         data: JSON.stringify(data),
         contentType: "application/json",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function () {
             validFeedback.classList.remove("was-validated");
             $("#updateModal").modal("hide");
@@ -190,9 +173,6 @@ function loadDataParqueadero(idParqueadero) {
         url: `${api}/${path}/search/${idParqueadero}`,
         type: "GET",
         dataType: "json",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function (respuesta) {
             $("#updateIdParqueadero").val(respuesta.idParqueadero);
             $("#updateNumeroParqueadero").val(respuesta.numeroParqueadero);
@@ -211,9 +191,6 @@ function deleteParqueadero(idParqueadero) {
         $.ajax({
             url: `${api}/${path}/delete/${idParqueadero}`,
             type: "DELETE",
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-            },
             success: function () {
                 $("#deleteModal").modal("hide");
                 reloadEvent();

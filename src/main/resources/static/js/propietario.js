@@ -1,4 +1,3 @@
-var itemLocalStorage="jwtLlave"
 var api="http://localhost:8080/api"
 var path="propietario"
 
@@ -8,9 +7,6 @@ $(document).ready(function() {
         url: `${api}/${path}/all`,
         type: "GET",
         dataType: "json",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function (response) {
             for (i = 0; i < response.length; i++) {
                 tabla.innerHTML += '<tr><td>' + response[i].cedula +
@@ -37,9 +33,6 @@ $(document).ready(function() {
         url: `${api}/apartamento/all`,
         type: "GET",
         dataType: "json",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function(response) {
             for(i=0;i<response.length;i++){
                 listIdApartamento.innerHTML += '<option value="' +response[i].idApartamento +'">'
@@ -98,9 +91,6 @@ function reloadEvent(){
         url: `${api}/${path}/all`,
         type: "GET",
         dataType: "json",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function (response) {
             for (i = 0; i < response.length; i++) {
                 tabla.innerHTML += '<tr><td>' + response[i].cedula +
@@ -129,9 +119,6 @@ function findByIdPropietario() {
         url: `${api}/${path}/search/${cedulaAConsultar}`,
         type: "GET",
         dataType: "json",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function (response) {
 
             validFeedback.classList.remove("was-validated");
@@ -184,9 +171,6 @@ function savePropietario() {
         type: "POST",
         data: JSON.stringify(data),
         contentType: "application/json",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function () {
             validFeedback.classList.remove("was-validated");
             $("#createModal").modal("hide");
@@ -233,9 +217,6 @@ function updatePropietario() {
         type: "PUT",
         data: JSON.stringify(data),
         contentType: "application/json",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function () {
             validFeedback.classList.remove("was-validated");
             $("#updateModal").modal("hide");
@@ -259,9 +240,6 @@ function loadDataPropietario(cedulaPropietario) {
         url: `${api}/${path}/search/${cedulaPropietario}`,
         type: "GET",
         dataType: "json",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function (respuesta) {
             $("#updateCedulaPropietario").val(respuesta.cedula);
             $("#updateNombrePropietario").val(respuesta.nombre)
@@ -284,9 +262,6 @@ function deletePropietario(cedulaPropietario) {
         $.ajax({
             url: `${api}/${path}/delete/${cedulaPropietario}`,
             type: "DELETE",
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-            },
             success: function () {
                 $("#deleteModal").modal("hide");
                 reloadEvent(); 

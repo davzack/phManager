@@ -1,5 +1,4 @@
 
-var itemLocalStorage="jwtLlave"
 var api="http://localhost:8080/api"
 var path="zonacomun"
 $(document).ready(function() {
@@ -8,9 +7,6 @@ $(document).ready(function() {
         url: `${api}/${path}/all`,
         dataType: "json",
         type: "GET",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function (response) {
             for (i = 0; i < response.length; i++) {
                 tabla.innerHTML += '<tr><td>' + response[i].idZonaComun +
@@ -70,9 +66,6 @@ function reloadEvent(){
     $.ajax({
         url: `${api}/${path}/all`,
         dataType: "json",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function (response) {
             for (i = 0; i < response.length; i++) {
                 tabla.innerHTML += '<tr><td>' + response[i].idZonaComun +
@@ -100,9 +93,6 @@ function findByIdZonaComun() {
         url: `${api}/${path}/search/${idZonaComunAConsultar}`,
         type: "GET",
         dataType: "json",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function (response) {
             validFeedback.classList.remove("was-validated");
             $("#inputBuscarZonaComun").val("");
@@ -144,9 +134,6 @@ function saveZonaComun() {
         type: "POST",
         data: JSON.stringify(data),
         contentType: "application/json",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function () {
             validFeedback.classList.remove("was-validated");
             $("#createModal").modal("hide");
@@ -183,9 +170,6 @@ function updateZonaComun() {
         type: "PUT",
         data: JSON.stringify(data),
         contentType: "application/json",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function () {
             validFeedback.classList.remove("was-validated");
             $("#updateModal").modal("hide");
@@ -206,9 +190,6 @@ function loadDataZonaComun(idZonaComun) {
         url: `${api}/${path}/search/${idZonaComun}`,
         type: "GET",
         dataType: "json",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function (respuesta) {
             $("#updateIdZonaComunZonaComun").val(respuesta.idZonaComun);
             $("#updateNombreZonaComun").val(respuesta.nombre)
@@ -229,9 +210,6 @@ function deleteZonaComun(idZonaComun) {
         $.ajax({
             url: `${api}/${path}/delete/${idZonaComun}`,
             type: "DELETE",
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-            },
             success: function () {
                 $("#deleteModal").modal("hide");
                 reloadEvent();

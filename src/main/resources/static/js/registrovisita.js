@@ -1,4 +1,4 @@
-var itemLocalStorage="jwtLlave"
+
 var api="http://localhost:8080/api"
 var path="registrovisita"
 $(document).ready(function() {
@@ -7,9 +7,6 @@ $(document).ready(function() {
         url: `${api}/${path}/all`,
         dataType: "json",
         type: "GET",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function (response) {
             for (i = 0; i < response.length; i++) {
                 tabla.innerHTML += '<tr><td>' + response[i].idVisita +
@@ -34,9 +31,6 @@ $(document).ready(function() {
         url: `${api}/residente/all`,
         type: "GET",
         dataType: "json",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function(response) {
             for(i=0;i<response.length;i++){
                 listIdResidente.innerHTML += '<option value="' +response[i].cedula +'">'
@@ -94,9 +88,6 @@ function reloadEvent(){
         url: `${api}/${path}/all`,
         dataType: "json",
         type: "GET",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function (response) {
             for (i = 0; i < response.length; i++) {
                 tabla.innerHTML += '<tr><td>' + response[i].idVisita +
@@ -123,9 +114,6 @@ function findByIdRegistroVisita() {
         url: `${api}/${path}/search/${idRegistroVisitaAConsultar}`,
         type: "GET",
         dataType: "json",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function (response) {
             validFeedback.classList.remove("was-validated");
             $("#inputBuscarRegistroVisita").val("");
@@ -167,9 +155,6 @@ function saveRegistroVisita() {
         type: "POST",
         data: JSON.stringify(data),
         contentType: "application/json",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function () {
             validFeedback.classList.remove("was-validated");
             $("#createModal").modal("hide");
@@ -208,9 +193,6 @@ function updateRegistroVisita() {
         type: "PUT",
         data: JSON.stringify(data),
         contentType: "application/json",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function () {
             validFeedback.classList.remove("was-validated");
             $("#updateModal").modal("hide");
@@ -231,9 +213,6 @@ function loadDataRegistroVisita(idVisita) {
         url: `${api}/${path}/search/${idVisita}`,
         type: "GET",
         dataType: "json",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function (respuesta) {
             $("#updateIdVisita").val(respuesta.idVisita);
             $("#updateNombreVisitante").val(respuesta.nombreVisitante)
@@ -249,9 +228,6 @@ function deleteRegistroVisita(idVisita) {
         $.ajax({
             url: `${api}/${path}/delete/${idVisita}`,
             type: "DELETE",
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-            },
             success: function () {
                 $("#deleteModal").modal("hide");
                 reloadEvent(); 

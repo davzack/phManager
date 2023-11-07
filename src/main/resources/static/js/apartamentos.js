@@ -1,7 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
-var itemLocalStorage="jwtLlave"
 var api="http://localhost:8080/api"
 var path="apartamento"
 $(document).ready(function() {
@@ -10,9 +9,6 @@ $(document).ready(function() {
         url: `${api}/${path}/all`,
         type: "GET",
         dataType: "json",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function(response){
             for(i=0;i<response.length;i++){
                 tabla.innerHTML += '<tr><td>' + response[i].idApartamento +
@@ -73,9 +69,6 @@ function reloadEvent(){
         url: `${api}/${path}/all`,
         type: "GET",
         dataType: "json",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function(response){
             for(i=0;i<response.length;i++){
                 tabla.innerHTML += '<tr><td>' + response[i].idApartamento +
@@ -121,9 +114,6 @@ function findByIdApartamento(){
         url: `${api}/${path}/search/${idAConsultar}`,
         type: "GET",
         dataType: "json",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function(response){
 
             validFeedback.classList.remove("was-validated");
@@ -161,9 +151,6 @@ function saveApartamento(){
         type:"POST",
         data: JSON.stringify(data),
         contentType:"application/json", 
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function(){
             validFeedback.classList.remove("was-validated");
             $("#createModal").modal("hide");
@@ -195,9 +182,6 @@ function updateApartamento(){
         type:"PUT",
         data: JSON.stringify(data),
         contentType:"application/json",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function(){
             validFeedback.classList.remove("was-validated");
             $("#updateModal").modal("hide");
@@ -216,9 +200,6 @@ function loadDataApartamento(idApartamento){
         url: `${api}/${path}/search/${idApartamento}`,
         type: "GET",
         dataType: "json",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function(respuesta){
             $("#updateIdApartamento").val(respuesta.idApartamento);
             $("#updateNumberApartamento").val(respuesta.numeroApartamento)
@@ -232,9 +213,6 @@ function deleteApartamento(idApartamento){
         $.ajax({
             url: `${api}/${path}/delete/${idApartamento}`,
             type: "DELETE",
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-            },
             success: function(){
                 $("#deleteModal").modal("hide");
                 reloadEvent();  

@@ -36,9 +36,6 @@ function openPageWithHeaders(path, id) {
     $.ajax({
       url: `${api}/${path}`,
       type: "GET",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("jwtLlave")}`, 
-      },
       success: function(response) {
         $('#content').html('');
         $('.sidebar-item .nav-link').removeClass("active")

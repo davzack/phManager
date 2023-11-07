@@ -1,4 +1,3 @@
-var itemLocalStorage="jwtLlave"
 var api="http://localhost:8080/api"
 var path="reservazonacomun"
 $(document).ready(function() {
@@ -7,9 +6,6 @@ $(document).ready(function() {
         url: `${api}/${path}/all`,
         dataType: "json",
         type: "GET",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function (response) {
             for (i = 0; i < response.length; i++) {
                 tabla.innerHTML += '<tr><td>' + response[i].idReserva +
@@ -36,9 +32,6 @@ $(document).ready(function() {
         url: `${api}/residente/all`,
         type: "GET",
         dataType: "json",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function(response) {
             for(i=0;i<response.length;i++){
                 listIdResidente.innerHTML += '<option value="' +response[i].cedula +'">'
@@ -59,9 +52,6 @@ $(document).ready(function() {
         url: `${api}/zonacomun/all`,
         type: "GET",
         dataType: "json",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function(response) {
             for(i=0;i<response.length;i++){
                 listIdZonaComun.innerHTML += '<option value="' +response[i].idZonaComun +'">'
@@ -114,9 +104,6 @@ function reloadEvent(){
         url: `${api}/${path}/all`,
         dataType: "json",
         type: "GET",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function (response) {
             for (i = 0; i < response.length; i++) {
                 tabla.innerHTML += '<tr><td>' + response[i].idReserva +
@@ -145,9 +132,6 @@ function findByIdReservaZonaComun() {
         url: `${api}/${path}/search/${idReservaZonaComunAConsultar}`,
         type: "GET",
         dataType: "json",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function (response) {
             validFeedback.classList.remove("was-validated");
             $("#inputBuscarReservaZonaComun").val("");
@@ -200,9 +184,6 @@ function saveReservaZonaComun() {
         type: "POST",
         data: JSON.stringify(data),
         contentType: "application/json",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function () {
             validFeedback.classList.remove("was-validated");
             $("#createModal").modal("hide");
@@ -249,9 +230,6 @@ function updateReservaZonaComun() {
         type: "PUT",
         data: JSON.stringify(data),
         contentType: "application/json",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function () {
             validFeedback.classList.remove("was-validated");
             $("#updateModal").modal("hide");
@@ -274,9 +252,6 @@ function loadDataReservaZonaComun(idReserva) {
         url: `${api}/${path}/search/${idReserva}`,
         type: "GET",
         dataType: "json",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-        },
         success: function (respuesta) {
             $("#updateIdReservaReservaZonaComun").val(respuesta.idReserva);
             $("#updateFechaInicioReservaZonaComun").val(respuesta.fechaInicio)
@@ -299,9 +274,6 @@ function deleteReservaZonaComun(idReserva) {
         $.ajax({
             url: `${api}/${path}/delete/${idReserva}`,
             type: "DELETE",
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem(itemLocalStorage)}`,
-            },
             success: function () {
                 $("#deleteModal").modal("hide");
                 reloadEvent();

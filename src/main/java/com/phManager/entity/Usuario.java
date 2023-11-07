@@ -1,61 +1,40 @@
 package com.phManager.entity;
 
-import jakarta.persistence.*;
 
-import java.util.List;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "userdb")
+@Table(name="usuarios")
 public class Usuario {
     @Id
-    @Column(nullable = false, length = 15)
-    private String username;
-    @Column(nullable = false, length = 200)
-    private String password;
-    @Column(nullable = false, length = 50, unique = true)
     private String email;
-    @Column(nullable = false, columnDefinition = "SMALLINT")
-    private Boolean locked;
-    @Column(nullable = false, columnDefinition = "SMALLINT")
-    private Boolean disabled;
-    @OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
-    private List<UsuarioRol> roles;
 
-    public Usuario(String username, String password, String email, Boolean locked, Boolean disabled, List<UsuarioRol> roles) {
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.locked = locked;
-        this.disabled = disabled;
-        this.roles = roles;
-    }
+    @Column(name="nick", unique = true)
+    private String nick;
 
-    public List<UsuarioRol> getRoles() {
-        return roles;
-    }
+    @Column(name="img")
+    private String img;
 
-    public void setRoles(List<UsuarioRol> roles) {
-        this.roles = roles;
-    }
+    @Column(name="auth_id", unique = true)
+    private String auth_id;
+
+    @Column(name="rol")
+    private String rol;
 
     public Usuario() {
     }
 
-    public String getUsername() {
-        return username;
+    public Usuario(String email, String nick, String img, String auth_id, String rol) {
+        this.email = email;
+        this.nick = nick;
+        this.img = img;
+        this.auth_id = auth_id;
+        this.rol=rol;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public String getEmail() {
         return email;
@@ -65,19 +44,35 @@ public class Usuario {
         this.email = email;
     }
 
-    public Boolean getLocked() {
-        return locked;
+    public String getImg() {
+        return img;
     }
 
-    public void setLocked(Boolean locked) {
-        this.locked = locked;
+    public void setImg(String img) {
+        this.img = img;
     }
 
-    public Boolean getDisabled() {
-        return disabled;
+    public String getAuth_id() {
+        return auth_id;
     }
 
-    public void setDisabled(Boolean disabled) {
-        this.disabled = disabled;
+    public void setAuth_id(String auth_id) {
+        this.auth_id = auth_id;
+    }
+
+    public String getNick() {
+        return nick;
+    }
+
+    public void setNick(String nick) {
+        this.nick = nick;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
     }
 }
