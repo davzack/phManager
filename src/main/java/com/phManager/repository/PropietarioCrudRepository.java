@@ -6,4 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 public interface PropietarioCrudRepository extends CrudRepository<Propietario, String> {
 
     Propietario findByCorreo(String correo);
+    Boolean existsByCorreo(String email);
 }

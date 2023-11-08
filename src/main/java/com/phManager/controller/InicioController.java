@@ -6,6 +6,7 @@ import com.phManager.web.config.SecurityConfig;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserRequest;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,17 +31,14 @@ public class InicioController {
 
     @GetMapping("/") //Ruta Raiz
     public String index(Model model, @AuthenticationPrincipal OidcUser principal) {
+
         if (principal != null) {
             System.out.println(principal.getClaims());
             //Usuario user = this.userServicio.getCrearUsuario(principal.getClaims().get("email")); //trae el correo de auth0
             Usuario user = this.usuarioService.getCrearUsuario(principal.getClaims());
             if(user!=null){
                 model.addAttribute("user",user);
-                if(user.getRol().equals("Estudiante")){ //Consultar que rol es y redirige a la interfaz de ese usuario
-                    return "redirect:/GestionLibros.html";
-                }else{
-                    return "redirect:/admin";
-                }
+                return "redirect:/admin";
             }else{
                return "redirect:/logout";
             }

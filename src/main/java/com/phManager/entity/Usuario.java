@@ -12,14 +12,14 @@ public class Usuario {
     @Id
     private String email;
 
-    @Column(name="nick", unique = true)
-    private String nick;
-
-    @Column(name="img")
-    private String img;
-
     @Column(name="auth_id", unique = true)
     private String auth_id;
+    @Column(name="identificacion", unique = true)
+    private String identificacion;
+    @Column(name="nombres")
+    private String nombre;
+    @Column(name="apellido")
+    private String apellido;
 
     @Column(name="rol")
     private String rol;
@@ -27,14 +27,14 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(String email, String nick, String img, String auth_id, String rol) {
+    public Usuario(String email, String auth_id, String identificacion, String nombre, String apellido, String rol) {
         this.email = email;
-        this.nick = nick;
-        this.img = img;
         this.auth_id = auth_id;
-        this.rol=rol;
+        this.identificacion = identificacion;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.rol = rol;
     }
-
 
     public String getEmail() {
         return email;
@@ -42,14 +42,6 @@ public class Usuario {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getImg() {
-        return img;
-    }
-
-    public void setImg(String img) {
-        this.img = img;
     }
 
     public String getAuth_id() {
@@ -60,12 +52,28 @@ public class Usuario {
         this.auth_id = auth_id;
     }
 
-    public String getNick() {
-        return nick;
+    public String getIdentificacion() {
+        return identificacion;
     }
 
-    public void setNick(String nick) {
-        this.nick = nick;
+    public void setIdentificacion(String identificacion) {
+        this.identificacion = identificacion;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
     }
 
     public String getRol() {
