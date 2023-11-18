@@ -1,0 +1,115 @@
+    body{
+      margin: 0 !important;
+    }
+    #welcome{
+      color: white;
+      font-weight: bold;
+    }
+    .dropdown-menu-left{
+      right: 0 !important;
+      left: auto !important;
+    }
+    .carousel-inner{
+        height: 70vh;
+    } 
+    .carousel-item img{
+        height: 70vh;
+    }
+    .navbar{
+      background-color: #10163A  !important;
+    }
+    .navbar .nav-link{
+      color: white !important;
+      font-size: 15px;
+      font-weight: bold;
+    }
+    #headerinfo{
+      background: linear-gradient(118deg, #7367F0, rgba(115, 103, 240, 0.7));
+      height: 3vh;
+    }
+    #headerinfo span{
+      margin-left: 10px;
+      color: white;
+      font-weight: bold;
+      font-size: 13px;
+    }
+    .imagenhome img{
+      height: 55vh;
+      object-fit: cover;
+      opacity: 0.7;
+    }
+    #centro{
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: white;
+    }
+    .container{
+      position: absolute;
+      top: 65%; left: 50%;
+      transform: translate(-50%, -10%);
+      text-align: center;
+    }
+    #centro h1{
+      font-size: 10vh;
+    }
+    #centro p{
+      font-size: 20px ;
+      color: white;
+      font-weight: bold ;
+      background: linear-gradient(118deg, #7367F0, rgba(115, 103, 240, 0.7));
+      border-radius: 15px;
+    }
+    #fluid{
+      background-color: #10163A;
+    }
+    .card-body .card-title{
+      color: white;
+      font-weight: bold;
+
+    }
+    .card-body .card-text{
+      color: white;
+    }
+    #tituloCards{
+      color: white;
+      font-weight: bold;
+      font-size: 4vh;
+      border-color: rgba(115, 103, 240, 0.7) !important;
+      border-bottom: 10px solid;
+    }
+    #cards{
+      margin-top: 3vh  ;
+    }
+
+    .text-center svg:hover{
+      fill: #7367F0;
+    }
+    footer{
+      background-color: #CCCCCC;
+    }
+    #qsLoginBtn{
+      color: white;
+      font-weight: bold;
+      background-color: rgba(115, 103, 240, 0.7);
+      border-radius: 10px;
+      border: white 1px solid;
+    }
+    #piepagina{
+      background: linear-gradient(118deg, #7367F0, rgba(115, 103, 240, 0.7));
+      color: black;
+      font-weight: bold;
+    }
+    @media (max-width: 768px) {
+       #centro h1 {
+        font-size: 4vh !important;
+      }
+      #centro p{
+      font-size: 10px ;
+      color: white;
+      font-weight: bold ;
+      background: linear-gradient(118deg, #7367F0, rgba(115, 103, 240, 0.7));
+      border-radius: 15px;
+      }
+    }

@@ -29,25 +29,37 @@ public class InicioController {
         this.securityConfig = securityConfig;
     }
 
-    @GetMapping("/") //Ruta Raiz
-    public String index(Model model, @AuthenticationPrincipal OidcUser principal) {
-
+    @GetMapping("/")
+    public String home(Model model, @AuthenticationPrincipal OidcUser principal) {
         if (principal != null) {
-            System.out.println(principal.getClaims());
-            //Usuario user = this.userServicio.getCrearUsuario(principal.getClaims().get("email")); //trae el correo de auth0
             Usuario user = this.usuarioService.getCrearUsuario(principal.getClaims());
             if(user!=null){
                 model.addAttribute("user",user);
-                return "redirect:/admin";
             }else{
-               return "redirect:/logout";
+                return "redirect:/logout";
             }
+            model.addAttribute("profile", principal.getClaims());
         }
-        else{
-            return "index";
+        return "index";
+    }
+    @GetMapping("/tramites")
+    public String tramites(Model model, @AuthenticationPrincipal OidcUser principal) {
+        if (principal != null) {
+            Usuario user = this.usuarioService.getCrearUsuario(principal.getClaims());
+            if(user!=null){
+                if(user.getRol().equals("ADMIN")){
+                    return "redirect:/admin";
+                } else if (user.getRol().equals("RESIDENTE")) {
+                    return "redirect:/residente";
+                } else if (user.getRol().equals("PROPIETARIO")) {
+                    return "redirect:/logout";
+                }
+            }else{
+                return "redirect:/logout";
+            }
+            model.addAttribute("profile", principal.getClaims());
         }
-        //System.out.println(principal.getClaims());//Trae informacion del usuario de inicio de sesio
-
+        return "redirect:/";
     }
 
 

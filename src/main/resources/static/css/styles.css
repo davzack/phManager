@@ -1,8 +1,10 @@
-
-
+.dropdown-menu-left{
+    right: 0 !important;
+    left: auto !important;
+}
 #formId input{
     border: 3px solid black !important;
-   
+
 }
 .navbar{
     background-color: #ffff;
