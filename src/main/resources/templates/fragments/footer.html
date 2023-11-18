@@ -3,11 +3,39 @@
 <head>
     <title>Footer</title>
 </head>
-<footer th:fragment="footer" class="bg-light p-3 text-center">
-    <div class="logo"></div>
-    <p>
-        Sample project provided by
-        <a href="https://auth0.com">Auth0</a>
-    </p>
+<footer class="pt-5" th:fragment="footer">
+    <div class="row">
+        <div class="col-lg-3 col-md-6 col-sm-6 text-center">
+            <h5>Section</h5>
+            <ul class="nav flex-column">
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
+            </ul>
+        </div>
+
+        <div class="col-lg-3 col-md-6 col-sm-6 text-center">
+            <h5>Contacto administracion</h5>
+            <h6>Telefonos:</h6>
+            <p>+57 3001231234</p>
+            <p>+57 3001231235</p>
+            <h6>Correo Electrónico: </h6>
+            <p>administracion@conjuntolima.com</p>
+        </div>
+
+        <div class="col-lg-6 col-md-12 text-center">
+            <h5>Horarios:</h5>
+            <p>Lunes, miércoles, jueves, viernes  9:00-18:00</p>
+            <p>Sábado: 8:00-13:00 pm</p>
+            <h5>Direccion:</h5>
+            <p>Calle 12 #34-56 Funza, Cundinamarca</p>
+        </div>
+    </div>
+
+    <div class="py-2 mt-3 text-center" id="piepagina">
+        <p>&copy; 2023 Conjunto Lima, Inc. Todos los derechos reservados.</p>
+    </div>
 </footer>
 </html>

@@ -2,13 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" class="h-100">
 <head th:replace="~{fragments/header :: head}"></head>
 <body class="h-100">
-<div class="h-100 d-flex flex-column">
-    <div th:replace="~{fragments/navbar :: navbar}"></div>
-    <div  class="flex-grow-1">
-        <div layout:fragment="content"></div>
+    <div class="container-fluid text-center" id="headerinfo">
+        <span>+57 3001231234</span>  
+        <span>administracion@conjuntolima.com</span>
     </div>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+    <div layout:fragment="content"></div>
     <div th:replace="~{fragments/footer :: footer}"></div>
     <div th:replace="~{fragments/scripts :: scripts}"></div>
-</div>
 </body>
 </html>

@@ -40,11 +40,11 @@ public class UsuarioService extends OidcUserService {
     public Usuario getCrearUsuario(Map<String, Object> dataUser){
         String email= (String) dataUser.get("email");
         Usuario user=buscarEmail(email);
-        String rol="";
-        String identificacion="";
-        String nombre="";
-        String apellido="";
         if(user==null) {
+            String rol="";
+            String identificacion="";
+            String nombre="";
+            String apellido="";
             String auth_id = (String) dataUser.get("sub");
             if(propietarioCrudRepository.existsByCorreo(email)){
                 Propietario propietario= propietarioCrudRepository.findByCorreo(email);
