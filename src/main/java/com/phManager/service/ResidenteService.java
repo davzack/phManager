@@ -38,4 +38,8 @@ public class ResidenteService {
         return residenteCrudRepository.existsById(cedula);
     }
 
+    public Residente residenteByCorreo(String correo){
+        return residenteCrudRepository.findByCorreo(correo);
+    }
+
 }

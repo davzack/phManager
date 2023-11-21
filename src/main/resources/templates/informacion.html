@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/default}">
+
+<div id="page" layout:fragment="content">
+  <div class="row p-3 mb-5">
+    <div class="col-12 text-center mb-5">
+      <h2>Informacion Personal Residente</h2>
+    </div>
+    <div class="col-lg-6 col-md-12 text-center">
+      <img  th:src="${profile.get('picture')}" alt="Profile picture" class="d-inline-bloc rounded-circle mt-5" width="250"/>
+      <p class="mt-5" id="nombreImagen" th:text="${user.nombre}+' '+${user.apellido}"></p>
+      <p>Residente</p>
+    </div>
+    <div class="col-lg-6 col-md-12">
+      <div class="text-center mb-4" id="tituloInformacion">
+        Datos del residente
+      </div>
+      <input id="residenteCedula" th:value="${user.cedula}" type="hidden" disabled>
+      <p id="textInformacion">Numero de documento: &nbsp;&nbsp;&nbsp;<span th:text="${user.cedula}"></span></p>
+      <p id="textInformacion">Nombre(s): &nbsp;&nbsp;&nbsp;<span th:text="${user.nombre}"></span></p>
+      <p id="textInformacion">Apellido(s): &nbsp;&nbsp;&nbsp; <span th:text="${user.apellido}"></span></p>
+      <p id="textInformacion">Fecha de nacimiento: &nbsp;&nbsp;&nbsp;<span th:text="${user.fechaNacimiento}"></span></p>
+      <P id="textInformacion">Tipo de residente: &nbsp;&nbsp;&nbsp;<span th:text="${user.tipoResidente}"></span></p>
+      <p id="textInformacion">Apartamento (ID): &nbsp;&nbsp;&nbsp;<span th:text="${user.apartamento.idApartamento}"></span></p>
+      <div class="text-center mb-4" id="tituloInformacion">
+        Datos de contacto
+      </div>
+      <form class="row g-3 needs-validation " id="formCreate" novalidate>
+        <div class="col-md-6">
+          <label for="validationCustom04" class="form-label">Teléfono</label>
+          <input placeholder="Digite un telefono..." type="text" class="form-control" id="telefonoResidente" th:value="${user.telefono}" required minlength="10" maxlength="10" size="10">
+          <div class="valid-feedback" id="v1">
+            ¡Se ve bien!
+          </div>
+          <div class="invalid-feedback" id="v2">
+            Por favor, digite un teléfono.
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label for="validationCustom04" class="form-label">Correo Electrónico: </label>
+          <input type="text" class="form-control" id="correoResidente"  th:value="${user.correo}" disabled>
+        </div>
+        <div class="col-md-12 text-center">
+          <button class="btn btn-success mt-4" type="submit" id="enviar" onclick="actualizarDatosDeContacto()">Actualizar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+</html>
+

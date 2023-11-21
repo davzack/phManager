@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/default}">
+
+<div id="page" layout:fragment="content">
+  <div class="row p-5 mb-5">
+    <div class="col-lg-7">
+      <form class="row  needs-validation" id="formCreate" novalidate>
+        <h5 class="col-12 text-center">Solicitud parqueadero</h5>
+        <input id="residenteCedulaAsignacionParqueadero" th:value="${user.cedula}" type="hidden" disabled>
+        <div class="col-md-12">
+          <label for="validationCustom02" class="form-label">Placa vehiculo: </label>
+          <input type="text" class="form-control" id="placaVehiculoAsignacionParqueadero" required>
+          <div class="valid-feedback" id="v1">
+            ¡Se ve bien!
+          </div>
+          <div class="invalid-feedback" id="v2">
+            Por favor, digite una placa.
+          </div>
+        </div>
+        <div class="col-md-12">
+          <label for="validationCustom03" class="form-label">Fecha inicio: </label>
+          <input type="date" class="form-control" id="fechaInicioAsignacionParqueadero" required>
+          <div class="valid-feedback" id="v1">
+            ¡Se ve bien!
+          </div>
+          <div class="invalid-feedback" id="v2">
+            Por favor, digite una fecha de inicio.
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <label for="validationCustom03" class="form-label">Fecha fin: </label>
+          <input type="date" class="form-control " id="fechaFinAsignacionParqueadero" required>
+          <div class="valid-feedback" id="v1">
+            ¡Se ve bien!
+          </div>
+          <div class="invalid-feedback" id="v2">
+            Por favor, digite una fecha fin.
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <label for="validationCustom03" class="form-label">Parqueadero: </label>
+          <select class="form-select" id="parqueaderoIdAsignacionParqueadero" required>
+            <option selected disabled value="">...</option>
+          </select>
+          <div class="valid-feedback" id="v1">
+            ¡Se ve bien!
+          </div>
+          <div class="invalid-feedback" id="v2">
+            Por favor, seleccione el parqueadero a asignar.
+          </div>
+        </div>
+        <button class="btn btn-success mt-5" id="enviar" onclick="saveAsignacionParqueadero()">Enviar solicitud</button>
+      </form>
+    </div>
+    <div id="textoParqueadero" class="col-lg-3 text-center mt-5 offset-lg-1" >
+      <h2 id="textParqueaderoTitulo">¡Atencion!</h2>
+      <p>El usuario del estacionamiento debe cumplir estrictamente con las normas y reglamentos, manteniendo una conducta ejemplar y relaciones positivas. El incumplimiento resultará en la pérdida del privilegio del estacionamiento comunal.        </p>
+    </div>
+  </div>
+  </div>
+
+
+</html>
+

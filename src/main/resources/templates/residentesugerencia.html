@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/default}">
+
+  <div id="page" layout:fragment="content">
+    <div class="row">
+      <div class="col text-center">
+        <h2>Sugerencias</h2>
+      </div>
+    </div>
+
+    <div class="row m-5">
+      <div id="disclaimerSugerencia" class="col-lg-4 col-md-12 mb-5">
+        <p>Siempre hay oportunidades para mejorar la calidad de nuestros servicios y fortalecer nuestras relaciones con los copropietarios, brindándoles la excelencia que merecen.</p>
+        <p>A través de esta opción, usted puede registrar sus solicitudes, quejas o reclamos relacionados con los servicios de la copropiedad. Hemos diseñado el siguiente formato para facilitar el proceso. Estimado copropietario, por favor complete este formulario únicamente para PQR relacionadas con los servicios de la copropiedad.</p>
+        <p>¿Esta esperando respuesta de su sugerencia? revise el registro aqui.</p>
+        <p></p>
+        <div class="text-center">
+          <button class="btn btn-success" id="consulta">Consultar</button>
+        </div>
+      </div>
+
+      <div class="col-lg-7 col-md-12 mb-5 offset-lg-1 ">
+        <div class="col-12 text-center">
+          <h4>Enviar sugerencia</h4>
+        </div>
+        <form class="row needs-validation" id="formCreate" novalidate>
+          <input id="cedulaSugerencia" th:value="${user.cedula}" type="hidden" disabled>
+          <div class="col-md-12">
+            <label for="validationCustom02" class="form-label">Asunto: </label>
+            <input type="text" class="form-control" id="asuntoSugerencia" required>
+            <div class="valid-feedback" id="v1">
+              ¡Se ve bien!
+            </div>
+            <div class="invalid-feedback" id="v2">
+              Por favor, digite un asunto.
+            </div>
+          </div>
+          <div class="col-md-12 mb-5">
+            <label for="validationCustom03" class="form-label">Descripcion: </label>
+            <input type="text" class="form-control h-100" id="descripcionSugerencia" required>
+            <div class="valid-feedback" id="v1">
+              ¡Se ve bien!
+            </div>
+            <div class="invalid-feedback" id="v2">
+              Por favor, digite una descripcion.
+            </div>
+          </div>
+          <button class="btn btn-success mt-5" type="button" id="enviar" onclick="enviarSugerenciaResidente()">Actualizar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</html>
+

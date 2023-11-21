@@ -27,6 +27,7 @@ public class ReservaZonaComunService {
         return reservaZonaComunCrudRepository.findById(idReservaZonaComun).get();
     }
     public ReservaZonaComun saveReservaZonaComun(ReservaZonaComun reservaZonaComun){
+        reservaZonaComun.setEstadoReserva("En revision");
         reservaZonaComun.setResidente(residenteCrudRepository.findById(reservaZonaComun.getResidente().getCedula()).get());
         reservaZonaComun.setZonaComun(zonaComunCrudRepository.findById(reservaZonaComun.getZonaComun().getIdZonaComun()).get());
         return reservaZonaComunCrudRepository.save(reservaZonaComun);

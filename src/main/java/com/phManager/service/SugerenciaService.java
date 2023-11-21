@@ -25,6 +25,7 @@ public class SugerenciaService {
         return sugerenciaCrudRepository.findById(idSugerencia).get();
     }
     public Sugerencia saveSugerencia(Sugerencia sugerencia){
+        sugerencia.setEstado("Nuevo");
         sugerencia.setFecha(LocalDate.now());
         sugerencia.setResidente(residenteCrudRepository.findById(sugerencia.getResidente().getCedula()).get());
         return sugerenciaCrudRepository.save(sugerencia);

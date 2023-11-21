@@ -5,10 +5,13 @@ package com.phManager.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.phManager.entity.Residente;
 import com.phManager.entity.Usuario;
+import com.phManager.service.ResidenteService;
 import com.phManager.service.UsuarioService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Controller;
@@ -24,13 +27,16 @@ import java.util.Map;
 @Controller
 public class ProfileController {
     private final UsuarioService usuarioService;
+    private final ResidenteService residenteService;
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
     private final static ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
-
-    public ProfileController(UsuarioService usuarioService) {
+    @Autowired
+    public ProfileController(UsuarioService usuarioService, ResidenteService residenteService) {
         this.usuarioService = usuarioService;
+        this.residenteService = residenteService;
     }
+
 
     @GetMapping("/profile")
     public String profile(Model model, @AuthenticationPrincipal OidcUser oidcUser) {
@@ -44,6 +50,43 @@ public class ProfileController {
         model.addAttribute("profile", oidcUser.getClaims());
         model.addAttribute("profileJson", claimsToJson(oidcUser.getClaims()));
         return "admin";
+    }
+    @GetMapping("/residente/informacion")
+    public String informacion(Model model, @AuthenticationPrincipal OidcUser oidcUser) {
+        model.addAttribute("profile", oidcUser.getClaims());
+        Residente residente=residenteService.residenteByCorreo((String) oidcUser.getClaims().get("email"));
+        model.addAttribute("user",residente);
+        return "informacion";
+    }
+    @GetMapping("/residente/sugerencia")
+    public String sugerencia(Model model, @AuthenticationPrincipal OidcUser oidcUser) {
+        model.addAttribute("profile", oidcUser.getClaims());
+        Residente residente=residenteService.residenteByCorreo((String) oidcUser.getClaims().get("email"));
+        model.addAttribute("user",residente);
+        return "residentesugerencia";
+    }
+
+    @GetMapping("/residente/cuotas")
+    public String cuotas(Model model, @AuthenticationPrincipal OidcUser oidcUser) {
+        model.addAttribute("profile", oidcUser.getClaims());
+        Residente residente=residenteService.residenteByCorreo((String) oidcUser.getClaims().get("email"));
+        model.addAttribute("user",residente);
+        return "cuotasadministracion";
+    }
+    @GetMapping("/residente/parqueadero")
+    public String parqueadero(Model model, @AuthenticationPrincipal OidcUser oidcUser) {
+        model.addAttribute("profile", oidcUser.getClaims());
+        Residente residente=residenteService.residenteByCorreo((String) oidcUser.getClaims().get("email"));
+        model.addAttribute("user",residente);
+        return "parqueadero";
+    }
+
+    @GetMapping("/residente/reserva")
+    public String reserva(Model model, @AuthenticationPrincipal OidcUser oidcUser) {
+        model.addAttribute("profile", oidcUser.getClaims());
+        Residente residente=residenteService.residenteByCorreo((String) oidcUser.getClaims().get("email"));
+        model.addAttribute("user",residente);
+        return "reserva";
     }
 
     @GetMapping("/residente")

@@ -28,6 +28,7 @@ public class AsignacionParqueaderoService {
         return asignacionParqueaderoCrudRepository.findById(idAsignacion).get();
     }
     public AsignacionParqueadero saveAsignacionParqueadero(AsignacionParqueadero asignacionParqueadero){
+        asignacionParqueadero.setEstadoAsignacion("En revision");
         asignacionParqueadero.setFechaAsignacion(LocalDate.now());
         asignacionParqueadero.setParqueadero(parqueaderoCrudRepository.findById(asignacionParqueadero.getParqueadero().getIdParqueadero()).get());
         asignacionParqueadero.setResidente(residenteCrudRepository.findById(asignacionParqueadero.getResidente().getCedula()).get());
