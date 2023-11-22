@@ -17,6 +17,9 @@ public class CuotaService {
         this.cuotaCrudRepository = cuotaCrudRepository;
         this.apartamentoCrudRepository = apartamentoCrudRepository;
     }
+    public List<Cuota> allCuotasById(Long apartamentoId){
+        return (List<Cuota>) cuotaCrudRepository.findByApartamentoId(apartamentoId);
+    }
     public List<Cuota> allCuotas(){
         return (List<Cuota>) cuotaCrudRepository.findAll();
     }

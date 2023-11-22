@@ -5,10 +5,10 @@
   <div class="container-fluid mb-5">
     <div class="row">
       <div class="col-lg-12  text-center mb-5">
+        <input th:value="${user.apartamento.idApartamento}" id="apartamentoIDCuota" type="hidden" disabled>
         <h2>Cuotas de administracion</h2>
         <h6 class="text-center" th:text="'Torre: '+ ${user.apartamento.torre}"></h6>
         <h6 class="text-center" th:text="'Numero: '+ ${user.apartamento.numeroApartamento}">
-          <input th:value="${user.apartamento.idApartamento}" type="hidden" disabled>
       </div>
       <div class="col-lg-8 col-md-12 mt-5">
         <h4 class="text-center">Registro cuotas del apartamento</h4>
@@ -29,6 +29,7 @@
       </div>
     </div>
   </div>
+  <script src="../js/menus/residente/cuotaResidente.js"></script>
   </div>
 </html>
 

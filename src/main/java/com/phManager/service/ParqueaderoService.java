@@ -13,6 +13,9 @@ public class ParqueaderoService {
     public ParqueaderoService(ParqueaderoCrudRepository parqueaderoCrudRepository) {
         this.parqueaderoCrudRepository = parqueaderoCrudRepository;
     }
+    public List<Parqueadero> allParqueaderosSinAsignar(){
+        return  parqueaderoCrudRepository.encontrarParqueaderosNoAsignados();
+    }
     public List<Parqueadero> allParqueaderos(){
         return (List<Parqueadero>) parqueaderoCrudRepository.findAll();
     }

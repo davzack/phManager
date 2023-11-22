@@ -49,4 +49,9 @@ public class ResidenteController {
     public ResponseEntity<Residente> updateResidente(@RequestBody Residente residente) {
         return new ResponseEntity<>(residenteService.updateResidente(residente), HttpStatus.OK);
     }
+    @PutMapping("/update/cellphone")
+    public ResponseEntity<Void> updateCelular(@RequestBody Residente residente) {
+        residenteService.actualizarTelefono(residente.getCedula(), residente.getTelefono());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

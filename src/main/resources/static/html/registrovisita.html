@@ -2,23 +2,24 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-12  text-center"> 
-                            <p id="title">Cuotas
+                            <p id="title">Registro Visitas
                         </div>
                         <div class="col-lg-3 col-md-12">
                             <a href="#" id="addObject" class="btn " data-style="zoom-in" data-bs-toggle="modal" data-bs-target="#createModal">
-                                <span><i class="la la-plus"></i> Agregar Cuota</span>
+                                <span><i class="la la-plus"></i> Agregar registro de visita</span>
                             </a>
-                        </div>              
+                        </div>
                
+            
                         <div class="col-12 mt-4">
                             <table id="table" class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th scope="col">ID Cuota</th>
-                                        <th scope="col">monto</th>
-                                        <th scope="col">tipoDeCuota</th>
-                                        <th scope="col">Estado</th>
-                                        <th scope="col">idApartamento</th>
+                                        <th scope="col">ID Visita</th>
+                                        <th scope="col">Nombre Visitante</th>
+                                        <th scope="col">N° identificacion</th>
+                                        <th scope="col">Fecha visita</th>
+                                        <th scope="col">Residente Cedula</th>
                                         <th scope="col">Acciones</th>
                                     </tr>
                                 </thead>
@@ -32,68 +33,47 @@
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5 text-center mx-auto" id="exampleModalLabel">Nueva Cuota</h1>
+                            <h1 class="modal-title fs-5 text-center mx-auto" id="exampleModalLabel">Nuevo registro de visita</h1>
                         </div>
                         <div class="modal-body">
                             <form class="row g-3 needs-validation" id="formCreate" novalidate>
                                 <div class="col-md-6">
-                                    <label for="validationCustom02" class="form-label">Monto</label>
-                                    <input type="number" class="form-control" id="montoCuota" required>
+                                    <label for="validationCustom02" class="form-label">Nombre Visitante</label>
+                                    <input type="text" class="form-control" id="nombreVisitante" required>
                                     <div class="valid-feedback" id="v1">
                                         ¡Se ve bien!
                                     </div>
                                     <div class="invalid-feedback" id="v2">
-                                        Por favor, digite un monto.
+                                        Por favor, digite un nombre de visitante.
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="validationCustom07" class="form-label">Tipo</label>
-                                    <select class="form-select" id="tipoDeCuota" required>
-                                        <option selected disabled value="">...</option>
-                                        <option value="Cuota mensual">Cuota mensual</option>
-                                        <option value="Cuotas extraordinarias">Cuotas extraordinarias</option>
-                                        <option value="Otros">Otros</option>
-                                    </select>
+                                    <label for="validationCustom03" class="form-label">Numero de identificacion</label>
+                                    <input type="number" class="form-control" id="identificacionVisitante" required>
                                     <div class="valid-feedback" id="v1">
                                         ¡Se ve bien!
                                     </div>
                                     <div class="invalid-feedback" id="v2">
-                                        Por favor, seleccione un tipo.
+                                        Por favor, digite un numero de identificacion.
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <label for="validationCustom07" class="form-label">Estado</label>
-                                    <select class="form-select" id="estadoCuota" required>
-                                        <option selected disabled value="">...</option>
-                                        <option value="Pendiente">Pendiente</option>
-                                        <option value="Pagado">Pagado</option>
-                                        <option value="Cancelado">Cancelado</option>
-                                        <option value="Cerrada">Cerrada</option>
-                                    </select>
-                                    <div class="valid-feedback" id="v1">
-                                        ¡Se ve bien!
-                                    </div>
-                                    <div class="invalid-feedback" id="v2">
-                                        Por favor, seleccione un estado.
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="validationCustom07" class="form-label">Apartamento</label>
-                                    <select class="form-select" id="apartamentoIdCuota" required>
+                                <div class="col-md-12">
+                                    <label for="validationCustom07" class="form-label">Residente</label>
+                                    <select class="form-select" id="residenteCedula" required>
                                         <option selected disabled value="">...</option>
                                     </select>
                                     <div class="valid-feedback" id="v1">
                                         ¡Se ve bien!
                                     </div>
                                     <div class="invalid-feedback" id="v2">
-                                        Por favor, seleccione un apartamento.
+                                        Por favor, seleccione un residente.
                                     </div>
                                 </div>
                             </form>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                            <button class="btn btn-success" type="submit" id="enviar" onclick="saveCuota()">Registrar</button>
+                            <button class="btn btn-success" type="submit" id="enviar" onclick="saveRegistroVisita()">Registrar</button>
                         </div>
                     </div>
                 </div>
@@ -105,72 +85,61 @@
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5 text-center mx-auto" id="exampleModalLabel">Actualizar Cuota</h1>
+                            <h1 class="modal-title fs-5 text-center mx-auto" id="exampleModalLabel">Actualizar Registro visita</h1>
                         </div>
                         <div class="modal-body">
                             <form class="row g-3 needs-validation" id="formUpdate" novalidate>
                                 <div class="col-md-6">
                                     <label class="form-label">ID</label>
-                                    <input type="text" class="form-control" id="updateIdCuota" disabled>
+                                    <input type="text" class="form-control" id="updateIdVisita" disabled>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="validationCustom02" class="form-label">Monto</label>
-                                    <input type="number" class="form-control" id="updateMontoCuota" required>
+                                    <label for="validationCustom02" class="form-label">Nombre Visitante</label>
+                                    <input type="text" class="form-control" id="updateNombreVisitante" required>
                                     <div class="valid-feedback" id="v1">
                                         ¡Se ve bien!
                                     </div>
                                     <div class="invalid-feedback" id="v2">
-                                        Por favor, digite un monto.
+                                        Por favor, digite un nombdre de visitante.
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="validationCustom07" class="form-label">Tipo</label>
-                                    <select class="form-select" id="updateTipoDeCuota" required>
-                                        <option selected disabled value="">...</option>
-                                        <option value="Cuota mensual">Cuota mensual</option>
-                                        <option value="Cuotas extraordinarias">Cuotas extraordinarias</option>
-                                        <option value="Otros">Otros</option>
-                                    </select>
+                                    <label for="validationCustom03" class="form-label">Numero de identificacion</label>
+                                    <input type="number" class="form-control" id="updateIdentificacionVisitante" required>
                                     <div class="valid-feedback" id="v1">
                                         ¡Se ve bien!
                                     </div>
                                     <div class="invalid-feedback" id="v2">
-                                        Por favor, seleccione un tipo.
+                                        Por favor, digite un numero de identificacion.
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="validationCustom07" class="form-label">Estado</label>
-                                    <select class="form-select" id="updateEstadoCuota" required>
-                                        <option selected disabled value="">...</option>
-                                        <option value="Pendiente">Pendiente</option>
-                                        <option value="Pagado">Pagado</option>
-                                        <option value="Cancelado">Cancelado</option>
-                                        <option value="Cerrada">Cerrada</option>
-                                    </select>
+                                    <label for="validationCustom03" class="form-label">Fecha visita </label>
+                                    <input type="datetime-local" class="form-control" id="updateFechaVisita" required>
                                     <div class="valid-feedback" id="v1">
                                         ¡Se ve bien!
                                     </div>
                                     <div class="invalid-feedback" id="v2">
-                                        Por favor, seleccione un estado.
+                                        Por favor, digite una fecha.
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <label for="validationCustom07" class="form-label">Apartamento</label>
-                                    <select class="form-select" id="updateApartamentoIdCuota" required>
+                                <div class="col-md-12">
+                                    <label for="validationCustom07" class="form-label">Residente</label>
+                                    <select class="form-select" id="updateResidenteCedula" required>
                                         <option selected disabled value="">...</option>
                                     </select>
                                     <div class="valid-feedback" id="v1">
                                         ¡Se ve bien!
                                     </div>
                                     <div class="invalid-feedback" id="v2">
-                                        Por favor, seleccione un apartamento.
+                                        Por favor, seleccione un residente.
                                     </div>
                                 </div>
                             </form>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                            <button class="btn btn-success" type="submit" id="actualizar" onclick="updateCuota()">Actualizar</button>
+                            <button class="btn btn-success" type="submit" id="actualizar" onclick="updateRegistroVisita()">Actualizar</button>
                         </div>
                     </div>
                 </div>
@@ -181,14 +150,16 @@
                 <div class="modal-dialog modal-dialog-centered modal-sm">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-3 text-center mx-auto" id="exampleModalLabel">¿Está seguro de eliminar la Cuota?</h1>
+                            <h1 class="modal-title fs-3 text-center mx-auto" id="exampleModalLabel">¿Está seguro de eliminar el registro de visita?</h1>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                            <button type="button" class="btn btn-danger" id="deleteConfirmCuota">Eliminar</button>
+                            <button type="button" class="btn btn-danger" id="deleteConfirmRegistroVisita">Eliminar</button>
                         </div>
                     </div>
                 </div> 
-            </div>              
-        <script src="js/cuota.js"></script>
+            </div>
+                
+                
+        <script src="js/menus/administrador/registrovisita.js"></script>
 </html>

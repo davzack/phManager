@@ -16,6 +16,10 @@ public class CuotaController {
         this.cuotaService = cuotaService;
     }
 
+    @GetMapping("/search/all/{apartamentoId}")
+    public ResponseEntity<List<Cuota>> allCuotasById(@PathVariable Long apartamentoId) {
+        return new ResponseEntity<>(cuotaService.allCuotasById(apartamentoId), HttpStatus.OK);
+    }
     @GetMapping("/all")
     public ResponseEntity<List<Cuota>> allCuotas() {
         return new ResponseEntity<>(cuotaService.allCuotas(), HttpStatus.OK);

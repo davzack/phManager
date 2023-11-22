@@ -20,6 +20,10 @@ public class ParqueaderoController {
     public ResponseEntity<List<Parqueadero>> allParqueaderos() {
         return new ResponseEntity<>(parqueaderoService.allParqueaderos(), HttpStatus.OK);
     }
+    @GetMapping("/allout")
+    public ResponseEntity<List<Parqueadero>> allParqueaderosSinAsignar() {
+        return new ResponseEntity<>(parqueaderoService.allParqueaderosSinAsignar(), HttpStatus.OK);
+    }
 
     @GetMapping("/search/{idParqueadero}")
     public ResponseEntity<Parqueadero> parqueaderoById(@PathVariable Long idParqueadero) {

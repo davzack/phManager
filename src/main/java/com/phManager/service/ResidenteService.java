@@ -3,7 +3,9 @@ package com.phManager.service;
 import com.phManager.entity.Residente;
 import com.phManager.repository.ApartamentoCrudRepository;
 import com.phManager.repository.ResidenteCrudRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -40,6 +42,11 @@ public class ResidenteService {
 
     public Residente residenteByCorreo(String correo){
         return residenteCrudRepository.findByCorreo(correo);
+    }
+    @Modifying
+    @Transactional
+    public void actualizarTelefono(String cedula, String nuevoTelefono) {
+        residenteCrudRepository.actualizarTelefono(cedula, nuevoTelefono);
     }
 
 }

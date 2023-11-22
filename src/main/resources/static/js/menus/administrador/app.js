@@ -32,7 +32,7 @@ window.addEventListener("resize", () => {
   
 
 function openPageWithHeaders(path, id) {
-    const api = "http://localhost:8080";
+    const api = "http://localhost:8080/html";
     $.ajax({
       url: `${api}/${path}`,
       type: "GET",
