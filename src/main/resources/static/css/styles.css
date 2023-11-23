@@ -59,8 +59,9 @@
     background-color: #dcdcdc;
 }
   
-.table {
+#table {
     border-color: black !important;
+    width: 100%  !important;
 }
 #title{
     color: black;

@@ -18,9 +18,14 @@ $(document).ready(function() {
                     '</td></tr>';
             }
             tablaMain =$('#table').DataTable({
+                responsive: true,
                 "language":{
-                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json', 
-                }
+                    url: '/js/datatables/language/esDataTables.json',
+                },
+                columnDefs: [
+                     { responsivePriority: 1, targets: 0 },
+                     { responsivePriority: 2, targets: -1 }
+                ]
             });
         }
     });
@@ -99,9 +104,14 @@ function reloadEvent(){
                     '</td></tr>';
             }
             tablaMain =$('#table').DataTable({
+                responsive: true,
                 "language":{
-                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json', 
-                }
+                    url: '/js/datatables/language/esDataTables.json',
+                },
+                columnDefs: [
+                     { responsivePriority: 1, targets: 0 },
+                     { responsivePriority: 2, targets: -1 }
+                ]
             });
         }
     });

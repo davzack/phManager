@@ -4,7 +4,7 @@
 var api="http://localhost:8080/api"
 var path="apartamento"
 $(document).ready(function() {
-    let tabla=document.querySelector("#tableAptos tbody");
+    let tabla=document.querySelector("#table tbody");
     $.ajax({
         url: `${api}/${path}/all`,
         type: "GET",
@@ -17,10 +17,15 @@ $(document).ready(function() {
                 '</td><td>' + "<a href='#' class='eliminar-link' data-bs-toggle='modal' data-bs-target='#deleteModal' onclick='deleteApartamento(\""+response[i].idApartamento+"\")'> <i class='material-icons'>delete</i></a> <a href='#' class='editar-link' data-bs-toggle='modal' data-bs-target='#updateModal' onclick='loadDataApartamento(\""+response[i].idApartamento+"\")'> <i class='material-icons'>edit_note</i></a>" +
                 '</td></tr>';
             }
-            tablaMain =$('#tableAptos').DataTable({
+            tablaMain =$('#table').DataTable({
+                responsive: true,
                 "language":{
-                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json', 
-                }
+                    url: '/js/datatables/language/esDataTables.json',
+                },
+                columnDefs: [
+                     { responsivePriority: 1, targets: 0 },
+                     { responsivePriority: 2, targets: -1 }
+                ]
             });
         }
     }) 
@@ -61,10 +66,10 @@ $(document).ready(function() {
 ///////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
 function reloadEvent(){
-    var table = $('#tableAptos').DataTable();
+    var table = $('#table').DataTable();
     table.destroy();
-    $("#tableAptos tbody").empty(); 
-    let tabla=document.querySelector("#tableAptos tbody"); 
+    $("#table tbody").empty(); 
+    let tabla=document.querySelector("#table tbody"); 
     $.ajax({
         url: `${api}/${path}/all`,
         type: "GET",
@@ -77,31 +82,15 @@ function reloadEvent(){
                 '</td><td>' + "<a href='#' class='eliminar-link' data-bs-toggle='modal' data-bs-target='#deleteModal' onclick='deleteApartamento(\""+response[i].idApartamento+"\")'> <i class='material-icons'>delete</i></a> <a href='#' class='editar-link' data-bs-toggle='modal' data-bs-target='#updateModal' onclick='loadDataApartamento(\""+response[i].idApartamento+"\")'> <i class='material-icons'>edit_note</i></a>" +
                 '</td></tr>';
             }
-            tablaMain =$('#tableAptos').DataTable({
+            tablaMain =$('#table').DataTable({
+                responsive: true,
                 "language":{
-                        "decimal":        "",
-                        "emptyTable":     "No hay registros en la tabla",
-                        "info":           "Mostrando _START_ a _END_ - de _TOTAL_ registros",
-                        "infoEmpty":      "Mostrando 0 de 0 registros",
-                        "infoFiltered":   "(filtered from _MAX_ total entries)",
-                        "infoPostFix":    "",
-                        "thousands":      ",",
-                        "lengthMenu":     "Mostrar _MENU_ registros",
-                        "loadingRecords": "Cargando...",
-                        "processing":     "",
-                        "search":         "Buscar:",
-                        "zeroRecords":    "No se encontraron registros que coincidan con la busqueda",
-                        "paginate": {
-                            "first":      "Primero",
-                            "last":       "Último",
-                            "next":       "Siguiente",
-                            "previous":   "Anterior"
-                        },
-                        "aria": {
-                            "sortAscending":  ": activar para ordenar la columna de forma ascendente",
-                            "sortDescending": ": activar para ordenar columnas descendentes"
-                        } 
-                }
+                    url: '/js/datatables/language/esDataTables.json',
+                },
+                columnDefs: [
+                     { responsivePriority: 1, targets: 0 },
+                     { responsivePriority: 2, targets: -1 }
+                ]
             });
         }
     }) 
@@ -118,7 +107,7 @@ function findByIdApartamento(){
 
             validFeedback.classList.remove("was-validated");
             $("#inputBuscar").val("");
-            $("#tableAptos tbody").remove();
+            $("#table tbody").remove();
             tabla.innerHTML += '<tr><td>' + response.idApartamento +
             '</td><td>' + response.numeroApartamento +
             '</td><td>' + response.torre +
