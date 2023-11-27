@@ -5,8 +5,10 @@ package com.phManager.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.phManager.entity.Propietario;
 import com.phManager.entity.Residente;
 import com.phManager.entity.Usuario;
+import com.phManager.service.PropietarioService;
 import com.phManager.service.ResidenteService;
 import com.phManager.service.UsuarioService;
 import org.slf4j.Logger;
@@ -28,13 +30,15 @@ import java.util.Map;
 public class ProfileController {
     private final UsuarioService usuarioService;
     private final ResidenteService residenteService;
+    private final PropietarioService propietarioService;
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
     private final static ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
     @Autowired
-    public ProfileController(UsuarioService usuarioService, ResidenteService residenteService) {
+    public ProfileController(UsuarioService usuarioService, ResidenteService residenteService, PropietarioService propietarioService) {
         this.usuarioService = usuarioService;
         this.residenteService = residenteService;
+        this.propietarioService = propietarioService;
     }
 
 
@@ -45,7 +49,7 @@ public class ProfileController {
         return "profile";
     }
 
-    @GetMapping("/admin")
+    @GetMapping("/administrador")
     public String admin(Model model, @AuthenticationPrincipal OidcUser oidcUser) {
         model.addAttribute("profile", oidcUser.getClaims());
         model.addAttribute("profileJson", claimsToJson(oidcUser.getClaims()));
@@ -73,6 +77,8 @@ public class ProfileController {
         model.addAttribute("user",residente);
         return "cuotasadministracion";
     }
+
+
     @GetMapping("/residente/parqueadero")
     public String parqueadero(Model model, @AuthenticationPrincipal OidcUser oidcUser) {
         model.addAttribute("profile", oidcUser.getClaims());
@@ -95,7 +101,8 @@ public class ProfileController {
         Usuario user = this.usuarioService.getCrearUsuario(oidcUser.getClaims());
         if(user!=null){
             if(user.getRol().equals("RESIDENTE")){
-                model.addAttribute("user", user);
+                Residente residente =residenteService.residenteByCorreo((String) oidcUser.getClaims().get("email"));
+                model.addAttribute("user",residente);
             }else{
                 return "redirect:/";
             }
@@ -105,6 +112,45 @@ public class ProfileController {
         return "residente";
     }
 
+    @GetMapping("/propietario")
+    public String propietario(Model model, @AuthenticationPrincipal OidcUser oidcUser) {
+        model.addAttribute("profile", oidcUser.getClaims());
+        Usuario user = this.usuarioService.getCrearUsuario(oidcUser.getClaims());
+        if(user!=null){
+            if(user.getRol().equals("PROPIETARIO")){
+                Propietario propietario =propietarioService.propietarioByCorreo((String) oidcUser.getClaims().get("email"));
+                model.addAttribute("user",propietario);
+            }else{
+                return "redirect:/";
+            }
+        }else{
+            return "redirect:/logout";
+        }
+        return "propietario";
+    }
+
+    @GetMapping("/propietario/cuotas")
+    public String propietarioCoutas(Model model, @AuthenticationPrincipal OidcUser oidcUser) {
+        model.addAttribute("profile", oidcUser.getClaims());
+        Propietario propietario =propietarioService.propietarioByCorreo((String) oidcUser.getClaims().get("email"));
+        model.addAttribute("user",propietario);
+        return "couta-propietario";
+    }
+
+    @GetMapping("/propietario/informacion")
+    public String propietarioInformacion(Model model, @AuthenticationPrincipal OidcUser oidcUser) {
+        model.addAttribute("profile", oidcUser.getClaims());
+        Propietario propietario =propietarioService.propietarioByCorreo((String) oidcUser.getClaims().get("email"));
+        model.addAttribute("user",propietario);
+        return "propietario-informacion";
+    }
+    @GetMapping("/propietario/gestion/residentes")
+    public String gestionResidentes(Model model, @AuthenticationPrincipal OidcUser oidcUser) {
+        model.addAttribute("profile", oidcUser.getClaims());
+        Propietario propietario =propietarioService.propietarioByCorreo((String) oidcUser.getClaims().get("email"));
+        model.addAttribute("user",propietario);
+        return "gestion-residentes";
+    }
     private String claimsToJson(Map<String, Object> claims) {
         try {
             return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(claims);

@@ -1,8 +1,11 @@
 package com.phManager.service;
 
 import com.phManager.entity.Propietario;
+import com.phManager.entity.Residente;
 import com.phManager.repository.ApartamentoCrudRepository;
 import com.phManager.repository.PropietarioCrudRepository;
+import jakarta.transaction.Transactional;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,7 +35,16 @@ public class PropietarioService {
         propietario.setApartamento(apartamentoCrudRepository.findById(propietario.getApartamento().getIdApartamento()).get());
         return propietarioCrudRepository.save(propietario);
     }
+    public Propietario propietarioByCorreo(String correo){
+        return propietarioCrudRepository.findByCorreo(correo);
+    }
     public boolean existsPropietario(String cedula){
         return propietarioCrudRepository.existsById(cedula);
     }
+    @Modifying
+    @Transactional
+    public void actualizarTelefono(String cedula, String nuevoTelefono) {
+        propietarioCrudRepository.actualizarTelefono(cedula, nuevoTelefono);
+    }
+
 }

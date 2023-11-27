@@ -1,6 +1,7 @@
 package com.phManager.controller;
 
 import com.phManager.entity.Propietario;
+import com.phManager.entity.Residente;
 import com.phManager.service.PropietarioService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -48,5 +49,11 @@ public class PropietarioController {
     @PutMapping("/update")
     public ResponseEntity<Propietario> updatePropietario(@RequestBody Propietario propietario) {
         return new ResponseEntity<>(propietarioService.updatePropietario(propietario), HttpStatus.OK);
+    }
+
+    @PutMapping("/update/cellphone")
+    public ResponseEntity<Void> updateCelular(@RequestBody Residente residente) {
+        propietarioService.actualizarTelefono(residente.getCedula(), residente.getTelefono());
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
