@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/default}">
+
+<div id="page" layout:fragment="content">
+  <head>
+    <link rel="stylesheet" href="../css/styles/tablas.css">
+  </head>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12  text-center">
+        <p id="title">Propietarios</p>
+      </div>
+      <div class="col-12 mt-4">
+        <table id="table" class="table table-bordered">
+          <thead>
+          <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">Teléfono</th>
+            <th scope="col">Correo</th>
+            <th scope="col">ID Apartamento</th>
+          </tr>
+          </thead>
+          <tbody class="table-group-divider"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/menus/porteria/consultaResidentes.js"></script>
+</div>
+</html>

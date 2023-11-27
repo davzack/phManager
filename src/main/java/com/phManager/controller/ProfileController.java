@@ -129,6 +129,44 @@ public class ProfileController {
         return "propietario";
     }
 
+    @GetMapping("/porteria")
+    public String porteria(Model model, @AuthenticationPrincipal OidcUser oidcUser) {
+        model.addAttribute("profile", oidcUser.getClaims());
+        Usuario user = this.usuarioService.getCrearUsuario(oidcUser.getClaims());
+        if(user!=null){
+            if(user.getRol().equals("PROPIETARIO")){
+                Propietario propietario =propietarioService.propietarioByCorreo((String) oidcUser.getClaims().get("email"));
+                model.addAttribute("user",propietario);
+            }else{
+                return "redirect:/";
+            }
+        }else{
+            return "redirect:/logout";
+        }
+        return "porteria";
+    }
+    @GetMapping("/porteria/consulta-residentes")
+    public String consultaResidentes(Model model, @AuthenticationPrincipal OidcUser oidcUser) {
+        model.addAttribute("profile", oidcUser.getClaims());
+        Propietario propietario =propietarioService.propietarioByCorreo((String) oidcUser.getClaims().get("email"));
+        model.addAttribute("user",propietario);
+        return "porteria-consulta-residentes";
+    }
+    @GetMapping("/porteria/consulta-propietarios")
+    public String consultaPropietarios(Model model, @AuthenticationPrincipal OidcUser oidcUser) {
+        model.addAttribute("profile", oidcUser.getClaims());
+        Propietario propietario =propietarioService.propietarioByCorreo((String) oidcUser.getClaims().get("email"));
+        model.addAttribute("user",propietario);
+        return "porteria-consulta-propietarios";
+    }
+    @GetMapping("/porteria/registro-visitantes")
+    public String registroVisitantes(Model model, @AuthenticationPrincipal OidcUser oidcUser) {
+        model.addAttribute("profile", oidcUser.getClaims());
+        Propietario propietario =propietarioService.propietarioByCorreo((String) oidcUser.getClaims().get("email"));
+        model.addAttribute("user",propietario);
+        return "porteria-registro-visitantes";
+    }
+
     @GetMapping("/propietario/cuotas")
     public String propietarioCoutas(Model model, @AuthenticationPrincipal OidcUser oidcUser) {
         model.addAttribute("profile", oidcUser.getClaims());

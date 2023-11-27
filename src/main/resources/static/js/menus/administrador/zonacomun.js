@@ -144,7 +144,8 @@ function saveZonaComun() {
         type: "POST",
         data: JSON.stringify(data),
         contentType: "application/json",
-        success: function () {
+        success: function (response) {
+            upload(response.idZonaComun)
             validFeedback.classList.remove("was-validated");
             $("#createModal").modal("hide");
             $("#nombreZonaComun").val('');
@@ -156,6 +157,27 @@ function saveZonaComun() {
         error: function (xhr) {
         }
     })
+
+
+}
+function upload(id) {
+    var formData = new FormData(); 
+    formData.append("imagen", $("#imagen")[0].files[0]);
+    $.ajax({
+        url: `${api}/${path}/upload/${id}`,
+        type: "POST",
+        data: JSON.stringify(data),
+        contentType: false, 
+        processData: false, 
+        data: formData, 
+        success: function () {
+            console.log("Imagen subida correctamente");
+        },
+        error: function (xhr) {
+            console.error("Error al subir la imagen:", error);
+        }
+    })
+
 }
 
 function updateZonaComun() {

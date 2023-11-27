@@ -1,0 +1,257 @@
+.dropdown-menu-left{
+    right: 0 !important;
+    left: auto !important;
+}
+#formId input{
+    border: 3px solid black !important;
+
+}
+#createModal, #deleteModal , #updateModal{
+    background-color: rgba(0, 0, 0, 0.6);
+}
+#createModal .modal-header{
+    background-color: #10163A;
+}
+#deleteModal .modal-header{
+    background-color: #10163A;
+}
+.modal-footer{
+    background-color: #dcdcdc !important;
+} 
+#deleteModal .modal-title{
+    font-size: 15px !important;
+    color: white !important; 
+    font-weight: bold !important;
+}
+#createModal .modal-title{
+    font-size: 25px !important;
+    color: white !important;
+    font-weight: bold !important;
+}
+#createModal .modal-content{
+  border-radius: 30px;
+  background-color: #10163A;
+}
+#createModal .modal-body, .modal-footer{
+    background-color: #dcdcdc;
+}
+#updateModal .modal-header{
+    background-color: #10163A; 
+}
+.modal-footer .btn-success{
+  background-color: #7367F0  !important;
+  border-color: #4839EB   !important;
+}
+
+#updateModal .modal-title{
+    font-size: 25px !important;
+    color: white !important;
+    font-weight: bold !important;
+}
+#updateModal .modal-content{
+  border-radius: 30px;
+  box-shadow: 0 0 10px 1px rgba(115, 103, 240, 0.7);
+}
+#updateModal .modal-body, .modal-footer{
+    background-color: #dcdcdc;
+}
+  
+#table {
+    border-color: black !important;
+    width: 100%  !important;
+}
+#title{
+    color: black;
+    font-size: 30px !important;
+    font-weight: bold;
+}
+.table tbody tr td{
+    border-width: 3px !important;
+} 
+.table thead tr th{
+    background: linear-gradient(118deg, #7367F0, rgba(115, 103, 240, 0.7));
+    border-width: 3px !important;
+}
+.odd{
+    background-color: #FFF !important; 
+}
+.even{
+    background-color: #EDEDED  !important;
+}
+#contenido{
+    background-color: #dcdcdc;
+}
+#addObject{
+    background: linear-gradient(118deg, #7367F0, rgba(115, 103, 240, 0.7));
+    border-color: #4839EB !important; 
+    border-width: 3px !important;
+    border-radius: 10px !important; 
+}
+#addObject span{    
+    font-weight: bold !important;
+}
+.main .content{
+    background-color: #CECECE; 
+}
+table {
+    box-shadow: -10px 20px 25px rgba(0, 0, 0, 0.7);
+}
+ 
+#findIdA span{
+    border-color: black;
+    border-width: 3px;
+    background-color: #00C3E0  !important; 
+}
+
+#inputBuscar{
+    border-color: black;
+    border-width: 3px;
+    border-radius: px !important;
+}
+#inputGroupPrepend2{
+    color: black !important; 
+}
+#addObject:hover{
+    box-shadow: 0 0 10px 1px rgba(115, 103, 240, 0.7);
+}
+.eliminar-link {
+  color: #E05E5E ;
+}
+.eliminar-link:hover {
+    color: red !important;
+}
+.editar-link:hover {
+    color: blue;
+  }
+.editar-link {
+  color: #5783DC;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+    }
+    @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+*,
+::after,
+::before {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    background-position: center bottom;
+    background-size: cover;
+    background-color: #E3E3E3;
+}
+
+h3 {
+    font-size: 1.2375rem;
+    color: #FFF;
+}
+
+a {
+    cursor: pointer;
+    text-decoration: none;
+    font-family: 'Poppins', sans-serif;
+}
+
+li {
+    list-style: none;
+}
+
+/* Layout skeleton */
+
+.wrapper {
+    align-items: stretch;
+    display: flex;
+    width: 100%;
+
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    transition: all 0.35s ease-in-out;
+}
+
+hr{
+    box-sizing: content-box;
+    height: 0;
+    overflow: visible; 
+}
+.content {
+    flex: 1;
+    max-width: 100vw;
+    width: 100vw;
+} 
+
+#pagination-holder{
+    margin: 0;
+    white-space: nowrap;
+    text-align: right;
+}
+
+.pagination .page-link{
+    border-radius: 20px !important;
+    margin: 0 3px;
+    border: none;
+    position: relative;
+    display: block;
+    padding: .5rem .75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #313a46;
+    background-color: #fff;
+}
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #4839EB   !important;
+    box-shadow: 0 0 10px 1px rgba(115, 103, 240, 0.7); 
+}
+.paginate_button.next:not(.disabled) {
+    border-radius: 20px !important;
+    box-shadow: 0 0 10px 1px rgba(115, 103, 240, 0.9);  
+} 
+.paginate_button.previous:not(.disabled) {
+    border-radius: 20px !important;
+    box-shadow: 0 0 10px 1px rgba(115, 103, 240, 0.9);  
+} 
+
+#table_filter label .form-control{
+    border-color: #4839EB !important;
+    border-width: 2px;
+    border-radius: 5px !important;
+    background-color: #EDEDED;
+    box-shadow: 0 0 10px 1px rgba(115, 103, 240, 0.7); 
+}
+#table_filter label {
+    color: black;
+    font-weight: bold !important;
+}
+.dataTables_length label select{
+    border-radius: 20px !important;
+    border-color: #4839EB !important; 
+    background-color: #EDEDED; 
+}
+.dataTables_info{
+    font-weight: bold;
+    font-size: 20px !important;  
+}
+.pagination{
+    margin-top: 20px !important;
+}
+
+
+@media (min-width:768px) {
+    .content {
+        width: auto;
+    }
+}

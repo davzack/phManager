@@ -5,7 +5,10 @@ import com.phManager.service.ZonaComunService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.awt.*;
+import java.io.*;
 import java.util.List;
 @RestController
 @RequestMapping("api/zonacomun")
@@ -43,6 +46,19 @@ public class ZonaComunController {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+    @PostMapping("/upload/{id}")
+    public String upload(@PathVariable Long id, @RequestPart("imagen") MultipartFile file) throws IOException {
+        String fileName = file.getOriginalFilename();
+        String path = System.getProperty("user.dir") + "/src/main/resources/static/css/assets/img/" + fileName;
+        String guardarPath="../css/assets/img/"+ fileName;
+        try (BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(path))) {
+            outputStream.write(file.getBytes());
+        }
+        ZonaComun zonaComun=zonaComunService.zonaComunById(id);
+        zonaComun.setFotos(guardarPath);
+        zonaComunService.updateZonaComun(zonaComun);
+        return "Imagen subida correctamente";
     }
 
     @PutMapping("/update")

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/default}">
+
+<div id="page" layout:fragment="content">
+    <head>
+        <link rel="stylesheet" href="../css/styles/tablas.css">
+    </head>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12  text-center"> 
+                <p id="title">Registro Visitas
+            </div>
+            <div class="col-lg-3 col-md-12">
+                <a href="#" id="addObject" class="btn " data-style="zoom-in" data-bs-toggle="modal" data-bs-target="#createModal">
+                    <span><i class="la la-plus"></i> Agregar registro de visita</span>
+                </a>
+            </div>
+   
+
+            <div class="col-12 mt-4">
+                <table id="table" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID Visita</th>
+                            <th scope="col">Nombre Visitante</th>
+                            <th scope="col">N° identificacion</th>
+                            <th scope="col">Fecha visita</th>
+                            <th scope="col">Residente Cedula</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-group-divider"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+ <!-- MODAL OF CREATE -->
+ <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 text-center mx-auto" id="exampleModalLabel">Nuevo registro de visita</h1>
+            </div>
+            <div class="modal-body">
+                <form class="row g-3 needs-validation" id="formCreate" novalidate>
+                    <div class="col-md-6">
+                        <label for="validationCustom02" class="form-label">Nombre Visitante</label>
+                        <input type="text" class="form-control" id="nombreVisitante" required>
+                        <div class="valid-feedback" id="v1">
+                            ¡Se ve bien!
+                        </div>
+                        <div class="invalid-feedback" id="v2">
+                            Por favor, digite un nombre de visitante.
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="validationCustom03" class="form-label">Numero de identificacion</label>
+                        <input type="number" class="form-control" id="identificacionVisitante" required>
+                        <div class="valid-feedback" id="v1">
+                            ¡Se ve bien!
+                        </div>
+                        <div class="invalid-feedback" id="v2">
+                            Por favor, digite un numero de identificacion.
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="validationCustom07" class="form-label">Residente</label>
+                        <select class="form-select" id="residenteCedula" required>
+                            <option selected disabled value="">...</option>
+                        </select>
+                        <div class="valid-feedback" id="v1">
+                            ¡Se ve bien!
+                        </div>
+                        <div class="invalid-feedback" id="v2">
+                            Por favor, seleccione un residente.
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button class="btn btn-success" type="submit" id="enviar" onclick="saveRegistroVisita()">Registrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- MODAL OF UPDATE -->
+<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 text-center mx-auto" id="exampleModalLabel">Actualizar Registro visita</h1>
+            </div>
+            <div class="modal-body">
+                <form class="row g-3 needs-validation" id="formUpdate" novalidate>
+                    <div class="col-md-6">
+                        <label class="form-label">ID</label>
+                        <input type="text" class="form-control" id="updateIdVisita" disabled>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="validationCustom02" class="form-label">Nombre Visitante</label>
+                        <input type="text" class="form-control" id="updateNombreVisitante" required>
+                        <div class="valid-feedback" id="v1">
+                            ¡Se ve bien!
+                        </div>
+                        <div class="invalid-feedback" id="v2">
+                            Por favor, digite un nombdre de visitante.
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="validationCustom03" class="form-label">Numero de identificacion</label>
+                        <input type="number" class="form-control" id="updateIdentificacionVisitante" required>
+                        <div class="valid-feedback" id="v1">
+                            ¡Se ve bien!
+                        </div>
+                        <div class="invalid-feedback" id="v2">
+                            Por favor, digite un numero de identificacion.
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="validationCustom03" class="form-label">Fecha visita </label>
+                        <input type="datetime-local" class="form-control" id="updateFechaVisita" required>
+                        <div class="valid-feedback" id="v1">
+                            ¡Se ve bien!
+                        </div>
+                        <div class="invalid-feedback" id="v2">
+                            Por favor, digite una fecha.
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="validationCustom07" class="form-label">Residente</label>
+                        <select class="form-select" id="updateResidenteCedula" required>
+                            <option selected disabled value="">...</option>
+                        </select>
+                        <div class="valid-feedback" id="v1">
+                            ¡Se ve bien!
+                        </div>
+                        <div class="invalid-feedback" id="v2">
+                            Por favor, seleccione un residente.
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button class="btn btn-success" type="submit" id="actualizar" onclick="updateRegistroVisita()">Actualizar</button>
+            </div>
+        </div>
+    </div>
+</div>            
+
+<!-- Modal OF DELETE-->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-3 text-center mx-auto" id="exampleModalLabel">¿Está seguro de eliminar el registro de visita?</h1>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-danger" id="deleteConfirmRegistroVisita">Eliminar</button>
+            </div>
+        </div>
+    </div> 
+</div>
+    
+    
+<script src="../js/menus/administrador/registrovisita.js"></script>
+</div>
+</html>
