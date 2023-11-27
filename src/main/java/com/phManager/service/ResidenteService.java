@@ -22,6 +22,10 @@ public class ResidenteService {
     public List<Residente> allResidentes(){
         return (List<Residente>) residenteCrudRepository.findAll();
     }
+
+    public List<Residente> allResidentesByApto(Long idApto){
+        return (List<Residente>) residenteCrudRepository.findByApartamentoId(idApto);
+    }
     public Residente residenteById(String cedula){
         return residenteCrudRepository.findById(cedula).get();
     }

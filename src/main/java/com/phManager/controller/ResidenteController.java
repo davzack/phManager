@@ -20,6 +20,10 @@ public class ResidenteController {
     public ResponseEntity<List<Residente>> allResidentes() {
         return new ResponseEntity<>(residenteService.allResidentes(), HttpStatus.OK);
     }
+    @GetMapping("/search/all/{apartamento}")
+    public ResponseEntity<List<Residente>> allResidentesByApto(@PathVariable Long apartamento) {
+        return new ResponseEntity<>(residenteService.allResidentesByApto(apartamento), HttpStatus.OK);
+    }
 
     @GetMapping("/search/{cedula}")
     public ResponseEntity<Residente> residenteById(@PathVariable String cedula) {

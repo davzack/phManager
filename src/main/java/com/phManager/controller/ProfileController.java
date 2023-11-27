@@ -144,7 +144,7 @@ public class ProfileController {
         model.addAttribute("user",propietario);
         return "propietario-informacion";
     }
-    @GetMapping("/propietario/gestion/residentes")
+    @GetMapping("/propietario/gestion-residentes")
     public String gestionResidentes(Model model, @AuthenticationPrincipal OidcUser oidcUser) {
         model.addAttribute("profile", oidcUser.getClaims());
         Propietario propietario =propietarioService.propietarioByCorreo((String) oidcUser.getClaims().get("email"));

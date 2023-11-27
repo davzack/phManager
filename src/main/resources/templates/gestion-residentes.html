@@ -1,10 +1,221 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/default}">
 
-</body>
+<div id="page" layout:fragment="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <input id="propietarioApto" th:value="${user.apartamento.idApartamento}" type="hidden" disabled>
+                        <div class="col-lg-12  text-center"> 
+                            <p id="title">Residentes
+                        </div>
+                        <div class="col-lg-3 col-md-12">
+                            <a href="#" id="addObject" class="btn " data-style="zoom-in" data-bs-toggle="modal" data-bs-target="#createModal">
+                                <span><i class="la la-plus"></i> Agregar Residentes</span>
+                            </a>
+                        </div>               
+                        <div class="col-12 mt-4 " >
+                            <table id="table" class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Cédula</th>
+                                        <th scope="col">Nombre</th>
+                                        <th scope="col">Apellido</th>
+                                        <th scope="col">Teléfono</th>
+                                        <th scope="col">Correo</th>
+                                        <th scope="col">Fecha de Nacimiento</th>
+                                        <th scope="col">Tipo de Residente</th>
+                                        <th scope="col">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-group-divider"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+             <!-- MODAL OF CREATE -->
+             <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5 text-center mx-auto" id="exampleModalLabel">Nuevo Residente</h1>
+                        </div>
+                        <div class="modal-body">
+                            <form class="row g-3 needs-validation" id="formCreate" novalidate>
+                                <div class="col-md-4">
+                                    <label for="validationCustom01" class="form-label">Cédula</label>
+                                    <input type="text" class="form-control" id="cedulaResidente" required>
+                                    <div class="valid-feedback" id="v1">
+                                        ¡Se ve bien!
+                                    </div>
+                                    <div class="invalid-feedback" id="v2">
+                                        Por favor, digite una cédula.
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <label for="validationCustom02" class="form-label">Nombre</label>
+                                    <input type="text" class="form-control" id="nombreResidente" required>
+                                    <div class="valid-feedback" id="v1">
+                                        ¡Se ve bien!
+                                    </div>
+                                    <div class="invalid-feedback" id="v2">
+                                        Por favor, digite un nombre.
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <label for="validationCustom03" class="form-label">Apellido</label>
+                                    <input type="text" class="form-control" id="apellidoResidente" required>
+                                    <div class="valid-feedback" id="v1">
+                                        ¡Se ve bien!
+                                    </div>
+                                    <div class="invalid-feedback" id="v2">
+                                        Por favor, digite un apellido.
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="validationCustom04" class="form-label">Teléfono</label>
+                                    <input type="text" class="form-control" id="telefonoResidente" required minlength="10" maxlength="10" size="10"> 
+                                    <div class="valid-feedback" id="v1">
+                                        ¡Se ve bien!
+                                    </div>
+                                    <div class="invalid-feedback" id="v2">
+                                        Por favor, digite un teléfono.
+                                    </div>
+                                </div>
+                                <div class="col-md-6"> 
+                                    <label for="validationCustom05" class="form-label">Correo</label>
+                                    <input type="email" class="form-control" id="correoResidente" required>
+                                    <div class="valid-feedback" id="v1">
+                                        ¡Se ve bien!
+                                    </div>
+                                    <div class="invalid-feedback" id="v2">
+                                        Por favor, digite un correo válido. 
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="validationCustom06" class="form-label">Fecha de Nacimiento</label>
+                                    <input type="date" class="form-control" id="fechaNacimientoResidente" required>
+                                    <div class="valid-feedback" id="v1">
+                                        ¡Se ve bien!
+                                    </div>
+                                    <div class="invalid-feedback" id="v2">
+                                        Por favor, digite una fecha de nacimiento válida.
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                  <label for="validationCustom07" class="form-label">Tipo Residente</label>
+                                  <select class="form-select" id="tipoResidente" required>
+                                      <option selected disabled value="">...</option>
+                                      <option value="Propietario">Propietario</option>
+                                      <option value="Arrendatario">Arrendatario</option>
+                                      <option value="Residente Parcial">Residente Parcial</option>
+                                  </select>
+                                  <div class="valid-feedback" id="v1">
+                                      ¡Se ve bien!
+                                  </div>
+                                  <div class="invalid-feedback" id="v2">
+                                      Por favor, seleccione el tipo de residente.
+                                  </div>
+                              </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button class="btn btn-success" type="submit" id="enviar" onclick="saveResidente()">Registrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <!-- MODAL OF UPDATE -->
+            <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5 text-center mx-auto" id="exampleModalLabel">Actualizar Residente</h1>
+                        </div>
+                        <div class="modal-body">
+                            <form class="row g-3 needs-validation" id="formUpdate" novalidate>
+                                <div class="col-md-4">
+                                    <label class="form-label">Cédula</label>
+                                    <input type="text" class="form-control" id="updateCedulaResidente" disabled>
+                                </div>
+                                <div class="col-md-8">
+                                    <label for="validationCustom08" class="form-label">Nombre</label>
+                                    <input type="text" class="form-control" id="updateNombreResidente" required>
+                                    <div class="valid-feedback" id="v1">
+                                        ¡Se ve bien!
+                                    </div>
+                                    <div class="invalid-feedback" id="v2">
+                                        Por favor, digite un nombre.
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <label for="validationCustom09" class="form-label">Apellido</label>
+                                    <input type="text" class="form-control" id="updateApellidoResidente" required>
+                                    <div class="valid-feedback" id="v1">
+                                        ¡Se ve bien!
+                                    </div>
+                                    <div class="invalid-feedback" id="v2">
+                                        Por favor, digite un apellido.
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="validationCustom10" class="form-label">Teléfono</label>
+                                    <input type="text" class="form-control" id="updateTelefonoResidente" required>
+                                    <div class="valid-feedback" id="v1">
+                                        ¡Se ve bien!
+                                    </div>
+                                    <div class="invalid-feedback" id="v2">
+                                        Por favor, digite un teléfono.
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="validationCustom11" class="form-label">Correo</label>
+                                    <input type="email" class="form-control" id="updateCorreoResidente" required>
+                                    <div class="valid-feedback" id="v1">
+                                        ¡Se ve bien!
+                                    </div>
+                                    <div class="invalid-feedback" id="v2">
+                                        Por favor, digite un correo válido.
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="validationCustom12" class="form-label">Fecha de Nacimiento</label>
+                                    <input type="date" class="form-control" id="updateFechaNacimientoResidente" required>
+                                    <div class="valid-feedback" id="v1">
+                                        ¡Se ve bien!
+                                    </div>
+                                    <div class="invalid-feedback" id="v2">
+                                        Por favor, digite una fecha de nacimiento válida.
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                  <label for="validationCustom07" class="form-label">Tipo Residente</label>
+                                  <select class="form-select" id="updateTipoResidente" required>
+                                      <option selected disabled value="">...</option>
+                                      <option value="Propietario">Propietario</option>
+                                      <option value="Arrendatario">Arrendatario</option>
+                                      <option value="Residente Parcial">Residente Parcial</option>
+                                  </select>
+                                  <div class="valid-feedback" id="v1">
+                                      ¡Se ve bien!
+                                  </div>
+                                  <div class="invalid-feedback" id="v2">
+                                      Por favor, seleccione el tipo de residente.
+                                  </div>
+                                 </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button class="btn btn-success" type="submit" id="actualizar" onclick="updateResidente()">Actualizar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>            
+            
+                
+        <script src="../js/menus/propietario/gestionResidentes.js"></script>
+</div>
 </html>
