@@ -47,17 +47,21 @@ public class InicioController {
         if (principal != null) {
             Usuario user = this.usuarioService.getCrearUsuario(principal.getClaims());
             if(user!=null){
+                System.out.println(user.getRol());
                 if(user.getRol().equals("ADMIN")){
                     return "redirect:/administrador";
-                } else if (user.getRol().equals("RESIDENTE")) {
+                }else if(user.getRol().equals("RESIDENTE")) {
                     return "redirect:/residente";
-                } else if (user.getRol().equals("PROPIETARIO")) {
+                }else if(user.getRol().equals("PROPIETARIO")) {
+                    return "redirect:/propietario";
+                }else if(user.getRol().equals("SEGURIDAD")) {
+                    return "redirect:/porteria";
+                }else{
                     return "redirect:/logout";
                 }
             }else{
                 return "redirect:/logout";
             }
-            model.addAttribute("profile", principal.getClaims());
         }
         return "redirect:/";
     }

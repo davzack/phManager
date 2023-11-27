@@ -134,7 +134,7 @@ public class ProfileController {
         model.addAttribute("profile", oidcUser.getClaims());
         Usuario user = this.usuarioService.getCrearUsuario(oidcUser.getClaims());
         if(user!=null){
-            if(user.getRol().equals("PROPIETARIO")){
+            if(user.getRol().equals("SEGURIDAD")){
                 Propietario propietario =propietarioService.propietarioByCorreo((String) oidcUser.getClaims().get("email"));
                 model.addAttribute("user",propietario);
             }else{
