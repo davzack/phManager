@@ -5,18 +5,20 @@
     <head>
         <link rel="stylesheet" href="../css/styles/tablas.css">
     </head>
-                <div class="container-fluid">
+                <div class="container-fluid mb-5">
                     <div class="row">
                         <input id="propietarioApto" th:value="${user.apartamento.idApartamento}" type="hidden" disabled>
                         <div class="col-lg-12  text-center"> 
-                            <p id="title">Residentes
+                            <p id="title" >Residentes</p>
+                            <h4 th:text="'Torre: '+${user.apartamento.torre}"></h4>
+                            <h4 th:text="'Apto: '+${user.apartamento.numeroApartamento}"></h4>
                         </div>
                         <div class="col-lg-3 col-md-12">
                             <a href="#" id="addObject" class="btn " data-style="zoom-in" data-bs-toggle="modal" data-bs-target="#createModal">
                                 <span><i class="la la-plus"></i> Agregar Residentes</span>
                             </a>
                         </div>               
-                        <div class="col-12 mt-4 " >
+                        <div class="col-12 mt-4 mb-5" >
                             <table id="table" class="table table-bordered">
                                 <thead>
                                     <tr>

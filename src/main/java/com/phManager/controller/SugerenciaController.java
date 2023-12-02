@@ -21,6 +21,11 @@ public class SugerenciaController {
         return new ResponseEntity<>(sugerenciaService.allSugerencias(), HttpStatus.OK);
     }
 
+    @GetMapping("/search/all/{cedula}")
+    public ResponseEntity<List<Sugerencia>> allSugerenciasByCedula(@PathVariable String cedula) {
+        return new ResponseEntity<>(sugerenciaService.findByCedulaResidente(cedula), HttpStatus.OK);
+    }
+
     @GetMapping("/search/{idSugerencia}")
     public ResponseEntity<Sugerencia> sugerenciaById(@PathVariable Long idSugerencia) {
         if (sugerenciaService.existsSugerencia(idSugerencia)) {

@@ -2,6 +2,9 @@
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/default}">
 
   <div id="page" layout:fragment="content">
+    <head>
+      <link rel="stylesheet" href="../css/styles/tablas.css">
+    </head>
     <div class="row">
       <div class="col text-center">
         <h2>Sugerencias</h2>
@@ -15,13 +18,13 @@
         <p>¿Esta esperando respuesta de su sugerencia? revise el registro aqui.</p>
         <p></p>
         <div class="text-center">
-          <button class="btn btn-success" id="consulta">Consultar</button>
+          <button class="btn btn-warning" id="consulta" onclick="openPageWithHeaders()">Consultar</button>
         </div>
       </div>
 
-      <div class="col-lg-7 col-md-12 mb-5 offset-lg-1 ">
+      <div class="col-lg-7 col-md-12 mb-5 offset-lg-1" id="formularioSugerencia">
         <div class="col-12 text-center">
-          <h4>Enviar sugerencia</h4>
+          <h4 class="mt-5">Enviar sugerencia</h4> 
         </div>
         <form class="row needs-validation" id="formCreate" novalidate>
           <input id="cedulaSugerencia" th:value="${user.cedula}" type="hidden" disabled>
@@ -45,8 +48,13 @@
               Por favor, digite una descripcion.
             </div>
           </div>
-          <button class="btn btn-success mt-5" type="button" id="enviar" onclick="enviarSugerenciaResidente()">Actualizar</button>
+          <div class="col-md-12 text-center">
+            <button class="btn btn-success mt-3" type="button" id="enviar" onclick="enviarSugerenciaResidente()">Actualizar</button>
+          </div>
         </form>
+      </div>
+      <div class="col-lg-12 col-md-12" id="contenido">
+
       </div>
     </div>
     <script src="../js/menus/residente/sugerenciaResidente.js"></script>

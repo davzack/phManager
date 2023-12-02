@@ -1,47 +1,47 @@
-.navbar{
-    background-color: #10163A; 
-}
+@GetMapping("/generar-certificado")
+public String generarCertificado(Model model, HttpServletResponse response, @AuthenticationPrincipal OidcUser oidcUser) {
+    try {
+        model.addAttribute("fecha", LocalDate.now());
+        Residente residente = residenteService.residenteByCorreo((String) oidcUser.getClaims().get("email"));
+        model.addAttribute("user", residente);
 
-.home {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
+        // Obtén el motor de plantillas de Thymeleaf
+        SpringTemplateEngine templateEngine = new SpringTemplateEngine();
+        
+        // Lee la plantilla Thymeleaf del archivo HTML
+        String htmlTemplate = "certificado";
+        ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
+        templateResolver.setTemplateMode(TemplateMode.HTML);
+        templateResolver.setSuffix(".html");
+        templateEngine.setTemplateResolver(templateResolver);
+        
+        // Procesa la plantilla con Thymeleaf
+        Context thymeleafContext = new Context();
+        thymeleafContext.setVariables(model.asMap());
+        String processedHtml = templateEngine.process(htmlTemplate, thymeleafContext);
 
-}
-.card {
-    width: 25% !important;
-    height: 28vh !important;
-    padding: 2%;
-    margin: 1%;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    display: flex;
-    background-color: #CCCCCC  !important;
-    color: black;
-    font-weight: 600;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif  !important;
-    font-size: 0.9em; 
-    box-shadow: 0 0 15px #CCCCCC;
-    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.7);
-} 
-.card:hover{
-    background-color: #10163A !important;
-    fill: #ffff;
-    color: white; 
-    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.9);
-}
-img {
-    vertical-align: middle;
-    border-style: none;
-}
+        // Configura ITextRenderer con la plantilla procesada
+        ITextRenderer renderer = new ITextRenderer();
+        renderer.setDocumentFromString(processedHtml);
+        renderer.layout();
+        
+        // Genera el PDF
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        renderer.createPDF(outputStream);
 
-@media (max-width: 768px) { 
-    .card {
-        width: 90% !important;
-        height: 28vh !important;
+        // Configura la respuesta HTTP
+        response.setHeader("Content-Disposition", "attachment; filename=certificado.pdf");
+        response.setContentType("application/pdf");
+        response.setContentLength(outputStream.size());
+        
+        // Escribe el PDF en el flujo de salida de la respuesta
+        try (ServletOutputStream servletOutputStream = response.getOutputStream()) {
+            outputStream.writeTo(servletOutputStream);
+            servletOutputStream.flush();
+        }
+    } catch (IOException | DocumentException e) {
+        e.printStackTrace();
+        return "error";
     }
+    return "certificado";
 }

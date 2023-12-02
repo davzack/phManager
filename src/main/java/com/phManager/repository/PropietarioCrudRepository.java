@@ -14,4 +14,6 @@ public interface PropietarioCrudRepository extends CrudRepository<Propietario, S
     @Modifying
     @Query("UPDATE Propietario r SET r.telefono = :nuevoTelefono WHERE r.cedula = :cedula")
     void actualizarTelefono(@Param("cedula") String cedula, @Param("nuevoTelefono") String nuevoTelefono);
+    @Query(value = "SELECT COUNT(*) FROM propietarios", nativeQuery = true)
+    int countPropietarios();
 }

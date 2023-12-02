@@ -38,6 +38,12 @@ public class ReservaZonaComunService {
     public boolean existsReservaZonaComun(Long idReservaZonaComun){
         return reservaZonaComunCrudRepository.existsById(idReservaZonaComun);
     }
+    public int countReservasProgramadas(){
+        return reservaZonaComunCrudRepository.countReservasProgramadas();
+    }
+    public int countReservasEnRevision(){
+        return reservaZonaComunCrudRepository.countReservasEnRevision();
+    }
     public ReservaZonaComun updateReservaZonaComun(ReservaZonaComun reservaZonaComun){
         reservaZonaComun.setResidente(residenteCrudRepository.findById(reservaZonaComun.getResidente().getCedula()).get());
         reservaZonaComun.setZonaComun(zonaComunCrudRepository.findById(reservaZonaComun.getZonaComun().getIdZonaComun()).get());

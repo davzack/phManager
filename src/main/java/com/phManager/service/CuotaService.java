@@ -40,4 +40,7 @@ public class CuotaService {
     public boolean existsCuota(Long id){
         return cuotaCrudRepository.existsById(id);
     }
+    public int countCuotasPendientes(){
+        return cuotaCrudRepository.countCuotasPendientes();
+    }
 }

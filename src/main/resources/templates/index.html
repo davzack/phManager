@@ -9,7 +9,6 @@
                 <h1>Conjunto Lima</h1>
                 <p sec:authorize="!isAuthenticated()">Gestiona tus trámites sin salir de casa</p>
                 <p class="p-2" sec:authorize="isAuthenticated()" th:text="'Usted es '+${user.rol}+ ' dentro de la copropiedad. Haga sus tramites aqui'"></p>
-                <button sec:authorize="isAuthenticated()"> Hola</button>
             </div>
         </div>
     </div>

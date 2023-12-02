@@ -42,3 +42,17 @@ function enviarSugerenciaResidente(){
         }
     })
 }
+
+function openPageWithHeaders() {
+  $.ajax({
+    url: `http://localhost:8080/html/sugerenciasConsulta.html`,
+    type: "GET",
+    success: function(response) {
+      $('#contenido').html('');
+      $('#contenido').html(response);
+    },
+    error: function(error) {
+      console.error(error);
+    },
+  });
+}

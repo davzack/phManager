@@ -35,6 +35,9 @@ public class PropietarioService {
         propietario.setApartamento(apartamentoCrudRepository.findById(propietario.getApartamento().getIdApartamento()).get());
         return propietarioCrudRepository.save(propietario);
     }
+    public int countPropietario(){
+        return propietarioCrudRepository.countPropietarios();
+    }
     public Propietario propietarioByCorreo(String correo){
         return propietarioCrudRepository.findByCorreo(correo);
     }

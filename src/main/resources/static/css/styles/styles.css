@@ -26,6 +26,17 @@
     color: white !important; 
     font-weight: bold !important;
 }
+#stats .col{
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.7);
+    margin: 15px;
+    padding: 4px;
+}
+#stats p{
+    color: black;
+    font-weight: 500;
+}
 #createModal .modal-title{
     font-size: 25px !important;
     color: white !important;

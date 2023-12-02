@@ -2,23 +2,33 @@
 $(document).ready(function() {
     let aptoId = $("#apartamentoIDCuota").val();
     let tabla = document.querySelector("#table tbody");
-    console.log(aptoId);
     $.ajax({
         url: `http://localhost:8080/api/cuota/search/all/${aptoId}`,
         type: "GET",
         dataType: "json",
         success: function (response) {
             for (i = 0; i < response.length; i++) {
+                   var claseEstado = '';
+                    if (response[i].estado === 'Pendiente') {
+                        claseEstado = 'estado-pendiente';
+                    } else if (response[i].estado === 'Pagado') {
+                        claseEstado = 'estado-pagado';
+                    }
                 tabla.innerHTML += '<tr><td>' + response[i].idCuota +
                     '</td><td>' + response[i].monto +
                     '</td><td>' + response[i].tipoDeCuota +
-                    '</td><td>' + response[i].estado +
+                    '</td><td class="' + claseEstado + '">' + response[i].estado +
                     '</td></tr>';
             }
             tablaMain =$('#table').DataTable({
+                responsive: true,
                 "language":{
-                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json', 
-                }
+                    url: '../js/datatables/language/esDataTables.json',
+                },
+                columnDefs: [
+                     { responsivePriority: 1, targets: 0 },
+                     { responsivePriority: 2, targets: -1 }
+                ]
             });
         }
     });

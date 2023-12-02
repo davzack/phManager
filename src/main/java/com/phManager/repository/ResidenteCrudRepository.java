@@ -18,4 +18,6 @@ public interface ResidenteCrudRepository extends CrudRepository<Residente, Strin
 
     @Query("SELECT r FROM Residente r WHERE r.apartamento.idApartamento = :apartamentoId")
     List<Residente> findByApartamentoId(@Param("apartamentoId") Long apartamentoId);
+    @Query(value = "SELECT COUNT(*) FROM residentes", nativeQuery = true)
+    int countResidentes();
 }

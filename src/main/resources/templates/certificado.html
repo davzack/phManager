@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:object="${model}">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Certificado de Residencia</title>
+    <style>
+        
+*{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+}
+#titulo{
+    font-weight: bold;
+    text-align: center;
+}
+#bold{
+    font-weight: bold;
+}
+
+    </style>
+</head>
+
+<body>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<p>Funza, <span id="bold" th:text="${fecha}"></span></p>
+<p id="titulo">CERTIFICADO DE RESIDENCIA</p>
+<p>La administracion del conjunto residencial Lima con <span id="bold">NIT 123.234.532-1</span> ubicado en la Calle 12 #34-56 Funza, Cundinamarca.</p>
+<br></br>
+<p id="titulo">CERTIFICA QUE</p>
+<br></br>
+<p><span id="bold" th:text="${user.nombre}"></span> <span id="bold" th:text="${user.apellido}"></span> identificado con cédula de ciudadanía número <span id="bold" th:text="${user.cedula}"></span> y cuyo apartamento es torre <span id="bold" th:text="${user.apartamento.torre}"></span>  apartamento <span id="bold" th:text="${user.apartamento.numeroApartamento}"></span>. Tiene asiento en el conjunto residencial Lima ubicado en Funza, Cundinamarca</p>
+<br></br>
+<br></br>
+<p>A solicitud del interesado para los fines que estime conveniente</p>
+<p id="bold">Firma</p>
+<img src="https://cdn.discordapp.com/attachments/1178810076207784080/1180555248331411578/pngwing.com.png?ex=657dd8c0&amp;is=656b63c0&amp;hm=0613c7a9b5eafefd34a82a2d9cc65ca01ba07769bcef49fd1be20a7794b79e53&amp;" height="70px"></img>
+<p id="bold">Juan David Torres Camacho</p>
+<p>Administrador conjunto lima</p>
+<p>NIT 123.234.532-1</p>
+<p>Cel: 3001231234 </p>
+<p>administracion@conjuntolima.com</p>
+</body>
+</html> 

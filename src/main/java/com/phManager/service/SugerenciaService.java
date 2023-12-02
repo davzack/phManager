@@ -40,4 +40,13 @@ public class SugerenciaService {
     public boolean existsSugerencia(Long idSugerencia){
         return sugerenciaCrudRepository.existsById(idSugerencia);
     }
+    public int countNuevas(){
+        return sugerenciaCrudRepository.countSugerenciasNuevas();
+    }
+    public int countEnRevision(){
+        return sugerenciaCrudRepository.countSugerenciasEnRevision();
+    }
+    public List<Sugerencia> findByCedulaResidente(String cedula){
+        return sugerenciaCrudRepository.findByCedulaResidente(cedula);
+    }
 }

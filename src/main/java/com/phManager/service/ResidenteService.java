@@ -47,6 +47,9 @@ public class ResidenteService {
     public Residente residenteByCorreo(String correo){
         return residenteCrudRepository.findByCorreo(correo);
     }
+    public int countResidentes(){
+        return residenteCrudRepository.countResidentes();
+    }
     @Modifying
     @Transactional
     public void actualizarTelefono(String cedula, String nuevoTelefono) {
