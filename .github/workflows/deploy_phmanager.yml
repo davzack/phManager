@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy WAR app to Azure Web App - phManager
+name: Build and deploy JAR app to Azure Web App - phmanager
 
 on:
   push:
@@ -28,32 +28,26 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: java-app
-          path: '${{ github.workspace }}/target/*.war'
+          path: '${{ github.workspace }}/target/*.jar'
 
   deploy:
     runs-on: ubuntu-latest
     needs: build
     environment:
-      name: 'Production'
+      name: 'production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
-      - name: Get artifact URL
-        id: get-artifact-url
-        run: |
-          echo "artifact_url=$(curl -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/actions/artifacts/${{ github.run_id }}/downloads/java-app)"
-
-      - name: Download artifact from URL
-        id: download-artifact
+      - name: Download artifact from build job
         uses: actions/download-artifact@v3
         with:
-          url: ${{ steps.get-artifact-url.outputs.artifact_url }}
+          name: java-app
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'phManager'
-          slot-name: 'Production'
-          package: '*.war'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_DC8D4F4DFB0F46B38A8AF5BCAE9CBA93 }}
+          app-name: 'phmanager'
+          slot-name: 'production'
+          publish-profile: ${{ secrets.AzureAppService_PublishProfile_1234 }}
+          package: '*.jar'
