@@ -106,7 +106,7 @@ public class ProfileController {
         return "residentesugerencia";
 
     }
-    @GetMapping("/generar-certificado")
+    @GetMapping("/residente/generar-certificado")
     public String generarCertificado(Model model, HttpServletResponse response, @AuthenticationPrincipal OidcUser oidcUser) {
         try {
             TemplateEngine templateEngine = new TemplateEngine();
@@ -120,7 +120,7 @@ public class ProfileController {
             thymeleafContext.setVariable("user", residente);
             String processedHtml = templateEngine.process("certificado.html", thymeleafContext);
             System.out.println("HTML procesado: " + processedHtml);
-            String html = "certificado";
+            String html = "certificado_residencia";
             String outputFileName = "certificado.pdf";
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             ITextRenderer renderer = new ITextRenderer();

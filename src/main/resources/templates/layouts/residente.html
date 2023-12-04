@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" class="h-100">
+<head th:replace="~{fragments/residenteheader :: head}"></head>
+<body class="h-100">
+<div class="container-fluid text-center" id="headerinfo">
+  <span>+57 3001231234</span>
+  <span>administracion@conjuntolima.com</span>
+</div>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+<div layout:fragment="content"></div>
+<div th:replace="~{fragments/footer :: footer}"></div>
+<div th:replace="~{fragments/scripts :: scripts}"></div>
+</body>
+</html>

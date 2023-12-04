@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/default}">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/residente}">
 
 <div id="page" layout:fragment="content">
   <div class="row p-5 mt-5 mb-5">
-    <div class="col-md-12 text-center"><h3>Reservar zonas comunes</h3></div>
+    <div class="col-md-12 text-center mb-5"><h3>Reservar zonas comunes</h3></div>
     <div class="col-lg-12">
       <form class="row  needs-validation" id="formCreate" novalidate>
+        <div id="contenedor"></div>
         <input id="residenteCedulaReservaZonaComun" th:value="${user.cedula}" type="hidden" disabled>
         <div class="col-md-12">
           <label for="validationCustom02" class="form-label">Fecha inicio: </label>
@@ -27,18 +28,6 @@
             Por favor, digite una fecha fin.
           </div>
         </div>
-        <div class="col-md-12">
-          <label for="validationCustom03" class="form-label">Zona comun: </label>
-          <select class="form-select" id="zonaComunIdReservaZonaComun" required>
-            <option selected disabled value="">...</option>
-          </select>
-          <div class="valid-feedback" id="v1">
-            ¡Se ve bien!
-          </div>
-          <div class="invalid-feedback" id="v2">
-            Por favor, seleccione una zona comun.
-          </div>
-        </div>
         <div class="col-md-12 mb-5">
           <label for="validationCustom03" class="form-label">Notas (numero de mesas, sillas u otras especificaciones): </label>
           <input type="text" class="form-control h-100" id="notasReserva" required>
@@ -51,11 +40,6 @@
         </div>
         <button class="btn btn-success mt-5" type="button" id="enviar" onclick="saveReservaZonaComun()">Enviar reserva</button>
       </form>
-    </div>
-    <div id="textoParqueadero" class="col-lg-12 text-center mt-5 mb-5" >
-      <h2 id="textParqueaderoTitulo">¡Atencion!</h2>
-      <p>En este formulario podra realizar las reservas de las zonas comunes, si esta esperando respuesta de una solicitud, revise aqui:</p>
-      <button class="btn btn-warning mb-3" >Consultar reserva</button>
     </div>
   </div>
   <script src="../js/menus/residente/reservaResidente.js"></script>

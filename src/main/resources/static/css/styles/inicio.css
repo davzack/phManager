@@ -55,6 +55,14 @@
       font-weight: bold;
       font-size: 13px;
     }
+    .cardZonas{
+       background-color: #CCCC;
+    }
+    .cardZonaTitle{
+      font-size: 13px;
+      color: black;
+      font-weight: bold;
+    }
     .imagenhome img{
       height: 55vh;
       object-fit: cover;

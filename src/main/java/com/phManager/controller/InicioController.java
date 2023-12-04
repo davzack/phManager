@@ -47,7 +47,6 @@ public class InicioController {
         if (principal != null) {
             Usuario user = this.usuarioService.getCrearUsuario(principal.getClaims());
             if(user!=null){
-                System.out.println(user.getRol());
                 if(user.getRol().equals("ADMIN")){
                     return "redirect:/administrador";
                 }else if(user.getRol().equals("RESIDENTE")) {
