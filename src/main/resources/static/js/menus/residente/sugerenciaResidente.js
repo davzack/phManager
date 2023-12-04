@@ -45,7 +45,7 @@ function enviarSugerenciaResidente(){
 
 function openPageWithHeaders() {
   $.ajax({
-    url: `https://phmanager.azurewebsites.net/sugerenciasConsulta.html`,
+    url: `https://phmanager.azurewebsites.net/html/sugerenciasConsulta.html`,
     type: "GET",
     success: function(response) {
       $('#contenido').html('');
