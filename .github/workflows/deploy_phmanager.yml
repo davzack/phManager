@@ -36,13 +36,19 @@ jobs:
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-    
+
     steps:
-      - name: Download artifact from build job
+      - name: Get artifact URL
+        id: get-artifact-url
+        run: |
+          echo "artifact_url=$(curl -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/actions/artifacts/${{ github.run_id }}/downloads/java-app)"
+
+      - name: Download artifact from URL
+        id: download-artifact
         uses: actions/download-artifact@v3
         with:
-          name: java-app
-      
+          url: ${{ steps.get-artifact-url.outputs.artifact_url }}
+
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
@@ -50,4 +56,4 @@ jobs:
           app-name: 'phManager'
           slot-name: 'Production'
           package: '*.war'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_50E3875EBE0D4470983248905F649E80 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_DC8D4F4DFB0F46B38A8AF5BCAE9CBA93 }}
