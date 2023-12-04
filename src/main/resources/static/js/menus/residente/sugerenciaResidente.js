@@ -31,7 +31,7 @@ function enviarSugerenciaResidente(){
         }
     }
     $.ajax({
-        url: "http://localhost:8080/api/sugerencia/save", 
+        url: "https://phmanager.azurewebsites.net/api/sugerencia/save",
         type: "POST",
         data: JSON.stringify(data),
         contentType: "application/json",
@@ -45,7 +45,7 @@ function enviarSugerenciaResidente(){
 
 function openPageWithHeaders() {
   $.ajax({
-    url: `http://localhost:8080/html/sugerenciasConsulta.html`,
+    url: `https://phmanager.azurewebsites.net/sugerenciasConsulta.html`,
     type: "GET",
     success: function(response) {
       $('#contenido').html('');

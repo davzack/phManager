@@ -1,4 +1,4 @@
-var api="http://localhost:8080/api"
+var api="https://phmanager.azurewebsites.net/api"
 var path="parqueadero"
 $(document).ready(function() {
     let tabla = document.querySelector("#table tbody");

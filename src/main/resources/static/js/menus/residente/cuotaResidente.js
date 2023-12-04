@@ -3,7 +3,7 @@ $(document).ready(function() {
     let aptoId = $("#apartamentoIDCuota").val();
     let tabla = document.querySelector("#table tbody");
     $.ajax({
-        url: `http://localhost:8080/api/cuota/search/all/${aptoId}`,
+        url: `https://phmanager.azurewebsites.net/api/cuota/search/all/${aptoId}`,
         type: "GET",
         dataType: "json",
         success: function (response) {

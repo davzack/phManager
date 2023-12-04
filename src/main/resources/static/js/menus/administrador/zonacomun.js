@@ -1,5 +1,5 @@
 
-var api="http://localhost:8080/api"
+var api="https://phmanager.azurewebsites.net/api"
 var path="zonacomun"
 $(document).ready(function() {
     let tabla = document.querySelector("#table tbody");

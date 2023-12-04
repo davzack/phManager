@@ -27,7 +27,7 @@ function actualizarDatosDeContacto(){
         telefono:celular
     }
     $.ajax({
-        url: "http://localhost:8080/api/residente/update/cellphone", 
+        url: "https://phmanager.azurewebsites.net/api/residente/update/cellphone",
         type: "PUT",
         data: JSON.stringify(data),
         contentType: "application/json",

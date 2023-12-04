@@ -32,7 +32,7 @@ window.addEventListener("resize", () => {
   
 
 function openPageWithHeaders(path, id) {
-    const api = "http://localhost:8080/html";
+    const api = "https://phmanager.azurewebsites.net/html";
     $.ajax({
       url: `${api}/${path}`,
       type: "GET",

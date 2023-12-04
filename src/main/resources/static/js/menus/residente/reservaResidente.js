@@ -37,7 +37,7 @@ function saveReservaZonaComun() {
         }
     }
     $.ajax({
-        url: `http://localhost:8080/api/reservazonacomun/save`,
+        url: `https://phmanager.azurewebsites.net/api/reservazonacomun/save`,
         type: "POST",
         data: JSON.stringify(data),
         contentType: "application/json",
@@ -55,7 +55,7 @@ function saveReservaZonaComun() {
 }
 $(document).ready(function() {
     $.ajax({
-        url: "http://localhost:8080/api/zonacomun/all",
+        url: "https://phmanager.azurewebsites.net/api/zonacomun/all",
         type: "GET",
         dataType: "json",
         success: function(response) {

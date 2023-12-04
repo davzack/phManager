@@ -36,7 +36,7 @@ function saveAsignacionParqueadero() {
         }
     }
     $.ajax({
-        url: `http://localhost:8080/api/asignacionparqueadero/save`,
+        url: `https://phmanager.azurewebsites.net/asignacionparqueadero/save`,
         type: "POST",
         data: JSON.stringify(data),
         contentType: "application/json",
@@ -55,7 +55,7 @@ function saveAsignacionParqueadero() {
 $(document).ready(function() {
     let listIdParqueadero= document.querySelector("#parqueaderoIdAsignacionParqueadero");
     $.ajax({
-        url: `http://localhost:8080/api/parqueadero/allout`,
+        url: `https://phmanager.azurewebsites.net/api/parqueadero/allout`,
         type: "GET",
         dataType: "json",
         success: function(response) {
