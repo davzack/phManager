@@ -1,0 +1,5 @@
+okta:
+  oauth2:
+    issuer: https://phmanager.us.auth0.com/
+    client-id: yBiVGZzsFhewEoQYtmvrvPgqEmKA6ImZ
+    client-secret: DP_UjUAyK3Cx_Oq62bML84K1UJMPnW9VxLUD1uzYA1eelfM94WTl4qpxcUM-TGWX
