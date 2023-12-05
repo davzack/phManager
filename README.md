@@ -37,6 +37,9 @@ password: 123456gG
 email: seguridadlima4@gmail.com
 password: 123456gG
 ```
+- Luego de hacer el ingreso con alguna de las credenciales, puede ingresar al menu en el boton de tramites en linea, que se encuentra en el desplegable de la imagen del correo.
+
+![Indicaciones Tramites](https://cdn.discordapp.com/attachments/1178810076207784080/1181413135446446210/image.png?ex=6580f7b9&is=656e82b9&hm=5fd40132cff6ccfcd743fe13d42f9ef7900de3544eeb13b7a495861dea016f30&)
 
 ## Tecnologías Utilizadas
 
