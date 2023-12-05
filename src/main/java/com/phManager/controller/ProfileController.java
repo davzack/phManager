@@ -228,8 +228,7 @@ public class ProfileController {
         Usuario user = this.usuarioService.getCrearUsuario(oidcUser.getClaims());
         if(user!=null){
             if(user.getRol().equals("SEGURIDAD")){
-                Propietario propietario =propietarioService.propietarioByCorreo((String) oidcUser.getClaims().get("email"));
-                model.addAttribute("user",propietario);
+                model.addAttribute("user",user);
             }else{
                 return "redirect:/";
             }
@@ -244,8 +243,7 @@ public class ProfileController {
         Usuario user = this.usuarioService.getCrearUsuario(oidcUser.getClaims());
         if(user!=null){
             if(user.getRol().equals("SEGURIDAD")){
-                Propietario propietario =propietarioService.propietarioByCorreo((String) oidcUser.getClaims().get("email"));
-                model.addAttribute("user",propietario);
+                model.addAttribute("user",user);
             }else{
                 return "redirect:/";
             }
@@ -260,8 +258,7 @@ public class ProfileController {
         Usuario user = this.usuarioService.getCrearUsuario(oidcUser.getClaims());
         if(user!=null){
             if(user.getRol().equals("SEGURIDAD")){
-                Propietario propietario =propietarioService.propietarioByCorreo((String) oidcUser.getClaims().get("email"));
-                model.addAttribute("user",propietario);
+                model.addAttribute("user",user);
             }else{
                 return "redirect:/";
             }
@@ -276,8 +273,7 @@ public class ProfileController {
         Usuario user = this.usuarioService.getCrearUsuario(oidcUser.getClaims());
         if(user!=null){
             if(user.getRol().equals("SEGURIDAD")){
-                Propietario propietario =propietarioService.propietarioByCorreo((String) oidcUser.getClaims().get("email"));
-                model.addAttribute("user",propietario);
+                model.addAttribute("user",user);
             }else{
                 return "redirect:/";
             }

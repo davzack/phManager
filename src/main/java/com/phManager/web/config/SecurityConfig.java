@@ -30,7 +30,7 @@ public class SecurityConfig  {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST,"/api/propietario/save").authenticated()
                         .requestMatchers("/resources").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/favicon.ico").permitAll()
+                        .requestMatchers("/favicon.ico").permitAll()
                         .requestMatchers(HttpMethod.GET, "/css/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/js/**").permitAll()
                         .requestMatchers("**", "/images/**").permitAll()
